@@ -1,9 +1,9 @@
 "use strict";
 
-const fontUtilities = require("./utilities/font"),
-      clientUtilities = require("./utilities/client");
+const copyFiles = require("./copyFiles"),
+      copyFonts = require("./copyFonts");
 
 module.exports = {
-  fontUtilities,
-  clientUtilities
+  copyFiles,
+  copyFonts
 };

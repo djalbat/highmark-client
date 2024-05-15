@@ -10,9 +10,9 @@ const { concatenatePaths, bottommostNameFromPath } = pathUtilities,
         createDirectory: createDirectoryAsync } = fileSystemUtilities;
 
 function copyFonts(fontDirectoryPath) {
-  const targetDirectoryPath = fontDirectoryPath;  ///
+  createDirectoryAsync(fontDirectoryPath);
 
-  createDirectoryAsync(targetDirectoryPath);
+  const targetDirectoryPath = fontDirectoryPath;  ///
 
   fontDirectoryPath = getFontDirectoryPath(); ///
 
@@ -27,9 +27,7 @@ function copyFonts(fontDirectoryPath) {
   }, recursive);
 }
 
-module.exports = {
-  copyFonts
-};
+module.exports = copyFonts;
 
 function readDirectory(directoryPath, callback, recursive = true) {
   const entryNames = readDirectoryAsync(directoryPath);

@@ -1,31 +1,13 @@
 "use strict";
 
-const { fontUtilities, clientUtilities } = require("./bin/index"), ///
-      { templateUtilities, fileSystemUtilities } = require("necessary"),
-      { computerModernStyle: computerModernStyleCSS } = require("highmark-fonts");
+const { copyFiles } = require("./bin/index"), ///
+      { fileSystemUtilities } = require("necessary");
 
-const { copyFonts } = fontUtilities,
-      { parseFile } = templateUtilities,
-      { readFile, writeFile } = fileSystemUtilities,
-      { getClientHTML, getLoadingCSS, getLoadingHTML, getTemplateFilePath } = clientUtilities;
+const { readFile } = fileSystemUtilities;
 
 const markdownHTML = readFile("./markdown.html"),
-      markdownStylesCSS = readFile("./markdownStyles.css");
+      markdownStylesCSS = readFile("./markdownStyles.css"),
+      targetDirectoryPath = ".",
+      includeFonts = true;
 
-const clientHTML = getClientHTML(),
-      loadingCSS = getLoadingCSS(),
-      loadingHTML = getLoadingHTML(),
-      templateFilePath = getTemplateFilePath(),
-      args = {
-        clientHTML,
-        loadingCSS,
-        loadingHTML,
-        markdownHTML,
-        markdownStylesCSS,
-        computerModernStyleCSS
-      },
-      content = parseFile(templateFilePath, args);
-
-writeFile("./index.html", content);
-
-copyFonts("./font");
+copyFiles(markdownHTML, markdownStylesCSS, targetDirectoryPath, includeFonts);
