@@ -8,8 +8,9 @@ const { getPackagePath } = packageUtilities,
 
 function copyFile(targetDirectoryPath, fileName) {
   const packagePath = getPackagePath(),
+        sourceDirectoryPath = `${packagePath}/node_modules/highmark-client`,
         targetPath = concatenatePaths(targetDirectoryPath, fileName),
-        sourcePath = concatenatePaths(packagePath, fileName);
+        sourcePath = concatenatePaths(sourceDirectoryPath, fileName);
 
   copyFileAsync(sourcePath, targetPath);
 }
