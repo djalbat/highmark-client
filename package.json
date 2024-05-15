@@ -1,7 +1,7 @@
 {
   "name": "highmark-client",
   "author": "James Smith",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-client",
   "description": "Highmark's client.",
@@ -10,22 +10,26 @@
     "url": "https://github.com/djalbat/highmark-client"
   },
   "dependencies": {
+    "highmark-fonts": "^1.0.52",
+    "lively-cli": "^2.0.61",
     "necessary": "^13.6.6"
   },
   "devDependencies": {
     "@swc/core": "^1.5.6",
     "easy": "^17.1.3",
+    "easy-mobile": "^1.0.20",
     "easy-with-style": "^3.0.356",
-    "esbuild": "^0.9.6",
-    "express": "^4.17.1",
+    "esbuild": "^0.9.2",
+    "express": "^4.19.2",
+    "fragmented": "^3.1.7",
     "juxtapose": "^4.0.85",
-    "lively-cli": "^2.0.52",
+    "sufficient": "^2.0.56",
     "watchful-cli": "^1.7.44"
   },
   "scripts": {
     "start": "node ./bin/main.js",
     "clean": "rm -rf ./lib",
-    "watchful": "watchful -m --transpiler=swc --bundler=esbuild --source-directory=./src --lib-directory=./lib --entry-file=example.js --bundle-file=./example.js --wait=100",
+    "watchful": "watchful -m --transpiler=swc --bundler=esbuild --source-directory=./src --lib-directory=./lib --entry-file=client.js --bundle-file=./client.js --wait=100",
     "batch": "npm run watchful batch --",
     "batch-debug": "npm run watchful batch -- --debug",
     "incremental": "npm run watchful incremental --",
@@ -33,7 +37,8 @@
     "build": "npm run clean && npm run batch",
     "build-debug": "npm run clean && npm run batch-debug",
     "watch": "npm run clean && npm run batch && npm run incremental",
-    "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
+    "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug",
+    "pre-pack": "node ./pre-pack.js"
   },
-  "main": "./lib/index.js"
+  "main": "./bin/index.js"
 }
