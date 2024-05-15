@@ -1,14 +1,14 @@
 "use strict";
 
-const { pathUtilities, packageUtilities, fileSystemUtilities } = require("necessary");
+const { pathUtilities, fileSystemUtilities } = require("necessary");
 
-const { getPackagePath } = packageUtilities,
-      { concatenatePaths } = pathUtilities,
+const { getSourceDirectoryPath } = require("../utilities/directory");
+
+const { concatenatePaths } = pathUtilities,
       { copyFile: copyFileAsync, writeFile: writeFileAsync } = fileSystemUtilities;
 
 function copyFile(targetDirectoryPath, fileName) {
-  const packagePath = getPackagePath(),
-        sourceDirectoryPath = `${packagePath}/node_modules/highmark-client`,
+  const sourceDirectoryPath = getSourceDirectoryPath(),
         targetPath = concatenatePaths(targetDirectoryPath, fileName),
         sourcePath = concatenatePaths(sourceDirectoryPath, fileName);
 
