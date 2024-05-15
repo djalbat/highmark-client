@@ -2,7 +2,7 @@
 .npmrc
 .vscode
 .DS_Store
-fonts
+font
 node_modules
 npm-debug.log
 package-lock.json

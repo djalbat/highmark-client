@@ -5,8 +5,8 @@ const { copyFiles } = require("./bin/index"), ///
 
 const { readFile } = fileSystemUtilities;
 
-const markdownHTML = readFile("./markdown.html"),
-      markdownStylesCSS = readFile("./markdownStyles.css"),
+const markdownHTML = readFile("./example/markdown.html"),
+      markdownStylesCSS = readFile("./example/markdownStyles.css"),
       targetDirectoryPath = ".",
       includeFonts = true;
 
