@@ -1,7 +1,6 @@
 "use strict";
 
 const INDEX_FILE_NAME = "index.html",
-      FONT_DIRECTORY_NAME = "font",
       CLIENT_JS_FILE_NAME = "client.js",
       LOADING_CSS_FILE_PATH = "css/loading.css",
       CHECKMARK_SVG_FILE_NAME = "checkmark.svg",
@@ -11,7 +10,6 @@ const INDEX_FILE_NAME = "index.html",
 
 module.exports = {
   INDEX_FILE_NAME,
-  FONT_DIRECTORY_NAME,
   CLIENT_JS_FILE_NAME,
   LOADING_CSS_FILE_PATH,
   CHECKMARK_SVG_FILE_NAME,
