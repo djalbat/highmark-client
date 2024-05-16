@@ -4,8 +4,9 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import CloseOverlayButton from "../button/closeOverlay";
+import HideOverlayButton from "../button/hideOverlay";
 import MobileInstructionsDiv from "../div/instructions/mobile";
+import DesktopInstructionsDiv from "../div/instructions/desktop";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
@@ -14,6 +15,8 @@ import { overlayDivGap, overlayDivBackgroundColour } from "../../styles";
 class InstructionsDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
     this.hideButtons();
+
+    this.showDesktopInstructionsDiv();
   }
 
   mobileInstructionsButtonClickHandler = (event, element) => {
@@ -22,7 +25,7 @@ class InstructionsDiv extends Element {
     this.showMobileInstructionsDiv();
   }
 
-  instructionsCloseButtonClickHandler = (event, element) => {
+  hideOverlayButtonClickHandler = (event, element) => {
     this.hide();
   }
 
@@ -39,10 +42,11 @@ class InstructionsDiv extends Element {
   childElements() {
     return ([
 
-      <CloseOverlayButton onClick={this.instructionsCloseButtonClickHandler} />,
-      <MobileInstructionsDiv/>,
+      <HideOverlayButton onClick={this.hideOverlayButtonClickHandler} />,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
-      <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />
+      <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />,
+      <DesktopInstructionsDiv/>,
+      <MobileInstructionsDiv/>
 
     ]);
   }
