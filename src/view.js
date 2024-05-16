@@ -5,9 +5,9 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 
 import MenuDiv from "./view/div/menu";
+import OverlayDiv from "./view/div/overlay";
 import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
-import InstructionsDiv from "./view/div/instructions";
 
 class View extends Element {
   updateZoom() {
@@ -34,8 +34,8 @@ class View extends Element {
 
     return ([
 
-      <InstructionsDiv/>,
       <PreloaderDiv/>,
+      <OverlayDiv/>,
       <DivisionsDiv divDOMElements={divDOMElements} />,
       <MenuDiv/>
 

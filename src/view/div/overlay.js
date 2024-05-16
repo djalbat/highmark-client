@@ -4,11 +4,11 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import InstructionsCloseButton from "../button/instructions/close";
+import CloseOverlayButton from "../button/closeOverlay";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
-import { instructionsDivGap, instructionsDivBackgroundColour } from "../../styles";
+import { overlayDivGap, overlayDivBackgroundColour } from "../../styles";
 
 class InstructionsDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
@@ -36,7 +36,7 @@ class InstructionsDiv extends Element {
   childElements() {
     return ([
 
-      <InstructionsCloseButton onClick={this.instructionsCloseButtonClickHandler} />,
+      <CloseOverlayButton onClick={this.instructionsCloseButtonClickHandler} />,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
       <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />
 
@@ -50,13 +50,13 @@ class InstructionsDiv extends Element {
   static tagName = "div";
 
   static defaultProperties = {
-    className: "instructions"
+    className: "overlay"
   };
 }
 
 export default withStyle(InstructionsDiv)`
 
-  gap: ${instructionsDivGap};
+  gap: ${overlayDivGap};
   top: 0;
   left: 0;
   width: 100%;
@@ -67,6 +67,6 @@ export default withStyle(InstructionsDiv)`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  background-color: ${instructionsDivBackgroundColour};
+  background-color: ${overlayDivBackgroundColour};
   
 `;
