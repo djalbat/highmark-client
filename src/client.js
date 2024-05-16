@@ -13,12 +13,15 @@ import createMethods from "./createMethods";
 
 import { EMPTY_STRING } from "./constants";
 import { setOrientation } from "./state";
+import { migratePersistentState } from "./localStorage";
 import { DIVS_SELECTOR, LOADING_DIV_SELECTOR } from "./selectors";
 import { getOrientation, onOrientationChange } from "./utilities/orientation";
 
 const { renderStyles } = withStyle;
 
 renderStyles();
+
+migratePersistentState();
 
 const divDOMElements = [ ...document.querySelectorAll(DIVS_SELECTOR) ];  ///
 

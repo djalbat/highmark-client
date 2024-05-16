@@ -1,7 +1,6 @@
 "use strict";
 
 export const svgFill = "#fff";
-export const buttonSize = "64px";
 export const spanColour = "#fff";
 export const menuDivGap = "32px";
 export const borderWidth = "4px";
@@ -9,11 +8,22 @@ export const borderRadius = "8px"
 export const borderColour = "#fff";
 export const checkboxSize = "48px";
 export const spanFontSize = checkboxSize; ///
-export const buttonPadding = "8px";
 export const buttonsDivGap = "32px";
 export const menuDivPadding = "64px";
 export const checkboxDivGap = "32px";
+export const menuButtonSize = "64px";
 export const checkboxesDivGap = "48px";
-export const backgroundColour = "#222";
+export const menuButtonPadding = "8px";
+export const instructionsDivGap = "48px";
+export const menuDivBackgroundColour = "#222";
+export const instructionsButtonColour = "#fff";
 export const checkboxBackgroundColour = "#000";
-export const fontSizeButtonBorderColour = "#fff";
+export const instructionsButtonPadding = "16px";
+export const instructionsButtonFontSize = "24px";
+export const instructionsCloseButtonTop = "24px";
+export const instructionsCloseButtonRight = "24px";
+export const instructionsCloseButtonColour = "#222";
+export const instructionsCloseButtonFontSize = "24px";
+export const instructionsDivBackgroundColour = "#fff";
+export const mobileInstructionsButtonBackgroundColour = "#080";
+export const desktopInstructionsButtonBackgroundColour = "#008";

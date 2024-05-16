@@ -53,43 +53,43 @@ export function setMenuZoom(menuZoom) {
   stateToPersistentState();
 }
 
-export function getOverlayZoom() {
+export function getDivisionsZoom() {
   stateFromPersistentState();
 
   const fullScreen = isFullScreen(),
         orientation = getOrientation();
 
-  let overlayZoom;
+  let divisionsZoom;
 
   if (fullScreen) {
-    ({ fullScreenOverlayZoom: overlayZoom } = state);
+    ({ fullScreenDivisionsZoom: divisionsZoom } = state);
   } else {
-    ({ overlayZoom } = state);
+    ({ divisionsZoom } = state);
   }
 
-  const orientedOverlayZoom = overlayZoom[orientation]; ///
+  const orientedDivisionsZoom = divisionsZoom[orientation]; ///
 
-  overlayZoom = orientedOverlayZoom;  ///
+  divisionsZoom = orientedDivisionsZoom;  ///
 
-  return overlayZoom;
+  return divisionsZoom;
 }
 
-export function setOverlayZoom(overlayZoom) {
+export function setDivisionsZoom(divisionsZoom) {
   stateFromPersistentState();
 
   const fullScreen = isFullScreen(),
         orientation = getOrientation();
 
-  const orientedOverlayZoom = overlayZoom;  ///
+  const orientedDivisionsZoom = divisionsZoom;  ///
 
   if (fullScreen) {
-    ({ fullScreenOverlayZoom: overlayZoom } = state);
+    ({ fullScreenDivisionsZoom: divisionsZoom } = state);
   } else {
-    ({ overlayZoom } = state);
+    ({ divisionsZoom } = state);
   }
 
-  Object.assign(overlayZoom, {
-    [orientation]: orientedOverlayZoom
+  Object.assign(divisionsZoom, {
+    [orientation]: orientedDivisionsZoom
   });
 
   stateToPersistentState();
@@ -132,14 +132,14 @@ export function setColoursInverted(coloursInverted) {
 }
 
 function stateToPersistentState() {
-  const { version, menuZoom, overlayZoom, fullScreenOverlayZoom, nativeGesturesRestored, coloursInverted } = state,
+  const { version, menuZoom, divisionsZoom, coloursInverted, nativeGesturesRestored, fullScreenDivisionsZoom } = state,
         persistentState = {
           version,
           menuZoom,
-          overlayZoom,
-          fullScreenOverlayZoom,
+          divisionsZoom,
+          coloursInverted,
           nativeGesturesRestored,
-          coloursInverted
+          fullScreenDivisionsZoom
         };
 
   setPersistentState(persistentState);

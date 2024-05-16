@@ -1,31 +1,23 @@
 "use strict";
 
 import { STATE_KEY } from "./constants";
-import { createState } from "./state/version_1";
+import { createState } from "./state/version2";
 import { migrateState } from "./migrate";
 
-const state = createState(),
-      defaultState = state; ///
-
 export function getPersistentState() {
-  let persistentState,
-      state;
+  let persistentState;
 
   const key = STATE_KEY,
         value = localStorage.getItem(key);
 
   if (value === null) {
-    state = defaultState; ///
+    persistentState = null;
   } else {
     const jsonString = value,  ///
           json = JSON.parse(jsonString);
 
-    state = json; ///
-
-    state = migrateState(state);
+    persistentState = json; ///
   }
-
-  persistentState = state;  ///
 
   return persistentState;
 }
@@ -37,4 +29,23 @@ export function setPersistentState(persistentState) {
         value = jsonString;  ///
 
   localStorage.setItem(key, value);
+}
+
+export function migratePersistentState() {
+  let state,
+      persistentState;
+
+  persistentState = getPersistentState();
+
+  if (persistentState === null) {
+    state = createState();
+  } else {
+    state = persistentState;  ///
+
+    state = migrateState(state);  ///
+  }
+
+  persistentState = state;  ///
+
+  setPersistentState(persistentState);
 }

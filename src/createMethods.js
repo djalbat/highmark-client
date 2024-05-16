@@ -1,7 +1,7 @@
 "use strict";
 
 import { MENU_ZOOM_RATIO } from "./constants";
-import { getMenuZoom, setMenuZoom, setOverlayZoom, setColoursInverted, setNativeGesturesRestored } from "./state";
+import { getMenuZoom, setMenuZoom, setDivisionsZoom, setColoursInverted, setNativeGesturesRestored } from "./state";
 
 export default function createMethods(scheduler, model, view) {
   function openMenu() {
@@ -32,10 +32,10 @@ export default function createMethods(scheduler, model, view) {
     view.updateMenuZoom();
   }
 
-  function zoomOverlay(overlayZoom) {
-    setOverlayZoom(overlayZoom);
+  function zoomDivisions(divisionsZoom) {
+    setDivisionsZoom(divisionsZoom);
 
-    view.updateOverlayZoom();
+    view.updateDivisionsZoom();
   }
 
   function invertColours() {
@@ -43,7 +43,7 @@ export default function createMethods(scheduler, model, view) {
 
     setColoursInverted(coloursInverted);
 
-    view.updateOverlayColours();
+    view.updateDivisionsColours();
   }
 
   function revertColours() {
@@ -51,7 +51,7 @@ export default function createMethods(scheduler, model, view) {
 
     setColoursInverted(coloursInverted);
 
-    view.updateOverlayColours();
+    view.updateDivisionsColours();
   }
 
   function exitFullScreen() {
@@ -93,7 +93,7 @@ export default function createMethods(scheduler, model, view) {
     closeMenu,
     zoomMenuIn,
     zoomMenuOut,
-    zoomOverlay,
+    zoomDivisions,
     invertColours,
     revertColours,
     exitFullScreen,

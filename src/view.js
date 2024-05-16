@@ -2,22 +2,24 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "./view/element";
+import { Element } from "easy";
+
 import MenuDiv from "./view/div/menu";
-import OverlayDiv from "./view/div/overlay";
+import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
+import InstructionsDiv from "./view/div/instructions";
 
 class View extends Element {
   updateZoom() {
     this.updateMenuZoom();
-    this.updateOverlayZoom();
+    this.updateDivisionsZoom();
   }
 
   didMount() {
     this.show();
 
-    this.updateOverlayColours();
     this.updateNativeGestures();
+    this.updateDivisionsColours();
     this.updateFullScreenCheckboxDiv();
     this.updateInvertColoursCheckboxDiv();
     this.updateNativeGesturesCheckboxDiv();
@@ -32,8 +34,9 @@ class View extends Element {
 
     return ([
 
+      <InstructionsDiv/>,
       <PreloaderDiv/>,
-      <OverlayDiv divDOMElements={divDOMElements} />,
+      <DivisionsDiv divDOMElements={divDOMElements} />,
       <MenuDiv/>
 
     ]);

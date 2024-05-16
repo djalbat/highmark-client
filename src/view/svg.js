@@ -2,7 +2,7 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "./element";
+import { Element } from "easy";
 
 import { svgFill } from "../styles";
 

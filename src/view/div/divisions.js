@@ -2,17 +2,16 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { window } from "easy";
 import { keyCodes } from "necessary";
 import { resetFragment } from "fragmented";
+import { window, Element } from "easy";
 import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile";
 
 import Div from "../div";
-import Element from "../element";
 
 import { elementsFromDOMElements } from "../../utilities/element";
 import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
-import { getOverlayZoom as getZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
+import { getDivisionsZoom as getZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
 import { SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
 const { isFullScreen } = fullScreenUtilities,
@@ -24,11 +23,11 @@ const { isFullScreen } = fullScreenUtilities,
         ARROW_LEFT_KEY_CODE,
         ARROW_RIGHT_KEY_CODE } = keyCodes;
 
-class OverlayDiv extends Element {
+class DivisionsDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {
     controller.updateFullScreen();
 
-    this.updateOverlayZoom();
+    this.updateDivisionsZoom();
   }
 
   singleTapCustomHandler = (event, element, top, left) => {
@@ -65,9 +64,9 @@ class OverlayDiv extends Element {
 
   pinchMoveCustomHandler = (event, element, ratio) => {
     const startZoom = this.getStartZoom(),
-          overlayZoom = startZoom * Math.sqrt(ratio);  ///
+          divisionsZoom = startZoom * Math.sqrt(ratio);  ///
 
-    controller.zoomOverlay(overlayZoom);
+    controller.zoomDivisions(divisionsZoom);
   }
 
   swipeRightCustomHandler = (event, element, top, left, spped) => {
@@ -241,14 +240,14 @@ class OverlayDiv extends Element {
     this.requestFullScreen();
   }
 
-  updateOverlayZoom() {
+  updateDivisionsZoom() {
     const div = this.findDiv(),
           zoom = getZoom();
 
     div.zoom(zoom);
   }
 
-  updateOverlayColours() {
+  updateDivisionsColours() {
     const coloursInverted = areColoursInverted();
 
     coloursInverted ?
@@ -543,18 +542,18 @@ class OverlayDiv extends Element {
           scrollToAnchor = this.scrollToAnchor.bind(this),
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
-          updateOverlayZoom = this.updateOverlayZoom.bind(this),
-          updateOverlayColours = this.updateOverlayColours.bind(this),
-          updateNativeGestures = this.updateNativeGestures.bind(this);
+          updateDivisionsZoom = this.updateDivisionsZoom.bind(this),
+          updateNativeGestures = this.updateNativeGestures.bind(this),
+          updateDivisionsColours = this.updateDivisionsColours.bind(this);
 
     return ({
       showFirstDiv,
       scrollToAnchor,
       exitFullScreen,
       enterFullScreen,
-      updateOverlayZoom,
-      updateOverlayColours,
-      updateNativeGestures
+      updateDivisionsZoom,
+      updateNativeGestures,
+      updateDivisionsColours
     });
   }
 
@@ -571,14 +570,14 @@ class OverlayDiv extends Element {
   ];
 
   static defaultProperties = {
-    className: "overlay"
+    className: "divisions"
   };
 }
 
-Object.assign(OverlayDiv.prototype, touchMixins);
-Object.assign(OverlayDiv.prototype, fullScreenMixins);
+Object.assign(DivisionsDiv.prototype, touchMixins);
+Object.assign(DivisionsDiv.prototype, fullScreenMixins);
 
-export default withStyle(OverlayDiv)`
+export default withStyle(DivisionsDiv)`
   
   width: 100%;
   height: 100%;

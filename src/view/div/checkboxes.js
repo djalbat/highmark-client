@@ -2,7 +2,8 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "../element";
+import { Element } from "easy";
+
 import FullScreenCheckboxDiv from "./checkbox/fullScreen";
 import InvertColoursCheckboxDiv from "./checkbox/invertColours";
 import NativeGesturesCheckboxDiv from "./checkbox/nativeGestures";

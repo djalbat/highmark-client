@@ -2,13 +2,14 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "../element";
+import { Element } from "easy";
+
 import ButtonsDiv from "../div/buttons";
 import CheckboxesDiv from "../div/checkboxes";
 
 import { GRID } from "../../constants";
 import { getMenuZoom as getZoom } from "../../state";
-import { menuDivGap, borderColour, menuDivPadding, backgroundColour } from "../../styles";
+import { menuDivGap, borderColour, menuDivPadding, menuDivBackgroundColour } from "../../styles";
 
 class MenuDiv extends Element {
   show() {
@@ -80,7 +81,7 @@ export default withStyle(MenuDiv)`
   padding: ${menuDivPadding};
   position: fixed;
   border-top: 1px solid ${borderColour};
-  background-color: ${backgroundColour};
+  background-color: ${menuDivBackgroundColour};
   transform-origin: bottom left;
   grid-template-rows: auto;
   grid-template-columns: auto min-content;

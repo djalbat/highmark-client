@@ -1,6 +1,6 @@
 "use strict";
 
-import SVG from "../svg";
+import SVG from "../../svg";
 
 export default class CloseMenuSVG extends SVG {
   childElements() {

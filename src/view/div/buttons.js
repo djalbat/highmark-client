@@ -2,10 +2,11 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "../element";
-import CloseMenuButton from "../button/closeMenu";
-import ZoomMenuInButton from "../button/zoomMenuIn";
-import ZoomMenuOutButton from "../button/zoomMenuOut";
+import { Element } from "easy";
+
+import CloseMenuButton from "../button/menu/close";
+import ZoomInMenuButton from "../button/menu/zoomIn";
+import ZoomOutMenuButton from "../button/menu/zoomOut";
 
 import { buttonsDivGap } from "../../styles";
 
@@ -13,8 +14,8 @@ class ButtonsDiv extends Element {
   childElements() {
     return ([
 
-      <ZoomMenuOutButton/>,
-      <ZoomMenuInButton/>,
+      <ZoomOutMenuButton/>,
+      <ZoomInMenuButton/>,
       <CloseMenuButton/>
 
     ]);

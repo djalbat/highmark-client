@@ -2,7 +2,7 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Element from "./element";
+import { Element } from "easy";
 
 import { spanColour, spanFontSize } from "../styles";
 
