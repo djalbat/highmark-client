@@ -41,8 +41,8 @@ export default withStyle(class extends Checkbox {
   appearance: none;
   
   ::before {
-    width: ${checkboxSize};
-    height: ${checkboxSize};
+    width: 100%;
+    height: 100%;
     border: ${borderWidth} solid ${borderColour};
     content: " ";
     position: absolute;
@@ -53,8 +53,8 @@ export default withStyle(class extends Checkbox {
   ::after {
     top: 0;
     left: 0;
-    width: ${checkboxSize};
-    height: ${checkboxSize};
+    width: 100%;
+    height: 100%;
     content: " ";
     position: absolute;
     background-size: 0;

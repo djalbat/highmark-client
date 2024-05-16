@@ -4,8 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import Span from "../span";
 import Checkbox from "../checkbox";
+import CheckboxSpan from "../span/checkbox";
 
 import { checkboxDivGap } from "../../styles";
 
@@ -16,9 +16,9 @@ class CheckboxDiv extends Element {
     return ([
 
       <Checkbox onChange={this.changeHandler} />,
-      <Span>
+      <CheckboxSpan>
         {message}
-      </Span>
+      </CheckboxSpan>
 
     ]);
   }

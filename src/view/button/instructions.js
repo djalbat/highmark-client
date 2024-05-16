@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { instructionsButtonColour, instructionsButtonPadding, instructionsButtonFontSize } from "../../styles";
+import { instructionsFontFamily, instructionsButtonColour, instructionsButtonPadding, instructionsButtonFontSize } from "../../styles";
 
 class InstructionsButton extends Button {
   static defaultProperties = {
@@ -18,6 +18,7 @@ export default withStyle(InstructionsButton)`
   padding: ${instructionsButtonPadding};
   font-size: ${instructionsButtonFontSize};
   font-weight: bold;
+  font-family: ${instructionsFontFamily};
   
   :hover {
     filter: grayscale(90%);

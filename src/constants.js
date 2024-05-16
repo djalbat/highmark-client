@@ -1,6 +1,7 @@
 "use strict";
 
 export const HASH = "#";
+export const FLEX = "flex";
 export const GRID = "grid";
 export const STATE_KEY = "state";
 export const EMPTY_STRING = "";

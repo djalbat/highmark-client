@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Button } from "easy";
-import { closeOverlayButtonTop, closeOverlayButtonRight, closeOverlayButtonColour, closeOverlayButtonFontSize } from "../../styles";
+import { closeOverlayButtonTop, closeOverlayButtonRight, closeOverlayButtonColour, closeOverlayButtonFontSize, closeOverlayButtonFontFamily } from "../../styles";
 
 class CloseOverlayButton extends Button {
   childElements() {
@@ -25,5 +25,6 @@ export default withStyle(CloseOverlayButton)`
   position: absolute;
   font-size: ${closeOverlayButtonFontSize};
   background: transparent;
+  font-family: ${closeOverlayButtonFontFamily};
 
 `;

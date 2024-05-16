@@ -5,6 +5,7 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 
 import CloseOverlayButton from "../button/closeOverlay";
+import MobileInstructionsDiv from "../div/instructions/mobile";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
@@ -17,6 +18,8 @@ class InstructionsDiv extends Element {
 
   mobileInstructionsButtonClickHandler = (event, element) => {
     this.hideButtons();
+
+    this.showMobileInstructionsDiv();
   }
 
   instructionsCloseButtonClickHandler = (event, element) => {
@@ -37,6 +40,7 @@ class InstructionsDiv extends Element {
     return ([
 
       <CloseOverlayButton onClick={this.instructionsCloseButtonClickHandler} />,
+      <MobileInstructionsDiv/>,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
       <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />
 
