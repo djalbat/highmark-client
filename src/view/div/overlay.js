@@ -10,9 +10,10 @@ import DesktopInstructionsDiv from "../div/instructions/desktop";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
+import { desktop } from "../../breakpoints";
 import { overlayDivGap, overlayDivBackgroundColour } from "../../styles";
 
-class InstructionsDiv extends Element {
+class OverlayDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
     this.hideButtons();
 
@@ -62,7 +63,7 @@ class InstructionsDiv extends Element {
   };
 }
 
-export default withStyle(InstructionsDiv)`
+export default withStyle(OverlayDiv)`
 
   gap: ${overlayDivGap};
   top: 0;
@@ -73,8 +74,15 @@ export default withStyle(InstructionsDiv)`
   z-index: 1;
   position: fixed;
   align-items: center;
-  flex-direction: row;
   justify-content: center;
   background-color: ${overlayDivBackgroundColour};
   
+  flex-direction: column;
+  
+  @media (min-width: ${desktop}) {
+
+    flex-direction: row;
+    
+  }
+
 `;

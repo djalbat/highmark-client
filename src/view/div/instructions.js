@@ -8,7 +8,7 @@ import InstructionParagraph from "../paragraph/instruction";
 import InstructionsCheckboxDiv from "../div/checkbox/instructions";
 
 import { FLEX } from "../../constants";
-import { instructionsDivWidth } from "../../styles";
+import { instructionsDivMaxWidth } from "../../styles";
 
 class InstructionsDiv extends Element {
   show() {
@@ -48,8 +48,8 @@ class InstructionsDiv extends Element {
 
 export default withStyle(InstructionsDiv)`
   
-  width: ${instructionsDivWidth};
   display: flex;
+  max-width: ${instructionsDivMaxWidth};
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;

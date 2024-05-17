@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { instructionsFontSize, instructionsFontFamily, instructionParagraphMargin } from "../../styles";
+import { instructionsFontSize, instructionsFontFamily, instructionParagraphPadding } from "../../styles";
 
 class InstructionParagraph extends Element {
   static tagName = "p";
@@ -16,7 +16,7 @@ class InstructionParagraph extends Element {
 
 export default withStyle(InstructionParagraph)`
   
-  margin: ${instructionParagraphMargin};
+  padding: ${instructionParagraphPadding};
   font-size: ${instructionsFontSize};
   font-family: ${instructionsFontFamily};
   

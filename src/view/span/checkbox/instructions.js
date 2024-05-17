@@ -8,7 +8,7 @@ import { instructionsFontSize, instructionsFontFamily } from "../../../styles";
 
 class InstructionsCheckboxSpan extends Element {
   childElements() {
-    return "Do not show these instructions again";
+    return "Hide these instructions in future";
   }
 
   static tagName = "span";

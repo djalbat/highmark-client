@@ -7,7 +7,7 @@ import { Element } from "easy";
 import InstructionsCheckbox from "../../checkbox/instructions";
 import InstructionsCheckboxSpan from "../../span/checkbox/instructions";
 
-import { instructionsCheckboxDivGap, instructionsCheckboxDivMarginTop, instructionsCheckboxDivPaddingRight } from "../../../styles";
+import { instructionsCheckboxDivGap, instructionsCheckboxDivPadding } from "../../../styles";
 
 class InstructionsCheckboxDiv extends Element {
   childElements() {
@@ -30,10 +30,9 @@ export default withStyle(InstructionsCheckboxDiv)`
 
   gap: ${instructionsCheckboxDivGap};
   display: flex;
-  margin-top: ${instructionsCheckboxDivMarginTop};
+  padding: ${instructionsCheckboxDivPadding};
   align-self: center;
   align-items: center;
-  padding-right: ${instructionsCheckboxDivPaddingRight};
   flex-direction: row;
   justify-content: flex-start;
   
