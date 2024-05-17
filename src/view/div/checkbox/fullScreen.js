@@ -8,9 +8,10 @@ const { isFullScreen } = fullScreenUtilities;
 
 export default class FullScreenCheckboxDiv extends CheckboxDiv {
   changeHandler = (event, element) => {
-    const checkboxChecked = this.isCheckboxChecked();
+    const checkbox = element, ///
+          checked = checkbox.isChecked();
 
-    checkboxChecked ?
+    checked ?
       controller.enterFullScreen() :
         controller.exitFullScreen();
   }

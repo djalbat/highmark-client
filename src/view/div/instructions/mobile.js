@@ -4,10 +4,12 @@ import InstructionsDiv from "../../div/instructions";
 
 export default class MobileInstructionsDiv extends InstructionsDiv {
   parentContext() {
-    const showMobileInstructionsDiv = this.show.bind(this); ///
+    const showMobileInstructionsDiv = this.show.bind(this), ///
+          hideMobileInstructionsDiv = this.hide.bind(this); ///
 
     return ({
-      showMobileInstructionsDiv
+      showMobileInstructionsDiv,
+      hideMobileInstructionsDiv
     });
   }
 

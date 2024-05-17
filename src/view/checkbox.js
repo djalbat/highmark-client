@@ -21,13 +21,11 @@ export default withStyle(class extends Checkbox {
 
   parentContext() {
     const checkCheckbox = this.check.bind(this),  ///
-          uncheckCheckbox = this.uncheck.bind(this),  ///
-          isCheckboxChecked = this.isChecked.bind(this);  ///
+          uncheckCheckbox = this.uncheck.bind(this);  ///
 
     return ({
       checkCheckbox,
-      uncheckCheckbox,
-      isCheckboxChecked
+      uncheckCheckbox
     });
   }
 })`

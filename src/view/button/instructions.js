@@ -26,7 +26,7 @@ export default withStyle(InstructionsButton)`
   justify-content: center;
   
   :hover {
-    filter: grayscale(90%);
+    filter: grayscale(50%);
   }
 
 `;

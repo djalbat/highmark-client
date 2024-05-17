@@ -6,9 +6,10 @@ import { areColoursInverted } from "../../../state";
 
 export default class InvertColoursCheckboxDiv extends CheckboxDiv {
   changeHandler = (event, element) => {
-    const checkboxChecked = this.isCheckboxChecked();
+    const checkbox = element, ///
+          checked = checkbox.isChecked();
 
-    checkboxChecked ?
+    checked ?
       controller.invertColours() :
         controller.revertColours();
   }

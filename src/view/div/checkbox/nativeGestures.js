@@ -6,9 +6,10 @@ import { areNativeGesturesRestored } from "../../../state";
 
 export default class NativeGesturesCheckboxDiv extends CheckboxDiv {
   changeHandler = (event, element) => {
-    const checkboxChecked = this.isCheckboxChecked();
+    const checkbox = element, ///
+          checked = checkbox.isChecked();
 
-    checkboxChecked ?
+    checked ?
       controller.restoreNativeGestures() :
         controller.suppressNativeGestures();
   }

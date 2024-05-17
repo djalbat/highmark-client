@@ -53,6 +53,24 @@ export function setMenuZoom(menuZoom) {
   stateToPersistentState();
 }
 
+export function isOverlayHidden() {
+  stateFromPersistentState();
+
+  const { overlayHidden } = state;
+
+  return overlayHidden;
+}
+
+export function setOverlayHidden(overlayHidden) {
+  stateFromPersistentState();
+
+  Object.assign(state, {
+    overlayHidden
+  });
+
+  stateToPersistentState();
+}
+
 export function getDivisionsZoom() {
   stateFromPersistentState();
 
@@ -132,10 +150,11 @@ export function setColoursInverted(coloursInverted) {
 }
 
 function stateToPersistentState() {
-  const { version, menuZoom, divisionsZoom, coloursInverted, nativeGesturesRestored, fullScreenDivisionsZoom } = state,
+  const { version, menuZoom, overlayHidden, divisionsZoom, coloursInverted, nativeGesturesRestored, fullScreenDivisionsZoom } = state,
         persistentState = {
           version,
           menuZoom,
+          overlayHidden,
           divisionsZoom,
           coloursInverted,
           nativeGesturesRestored,

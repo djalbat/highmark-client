@@ -11,6 +11,7 @@ import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
 import { desktop } from "../../breakpoints";
+import { isOverlayHidden } from "../../state";
 import { overlayDivGap, overlayDivBackgroundColour } from "../../styles";
 
 class OverlayDiv extends Element {
@@ -30,6 +31,13 @@ class OverlayDiv extends Element {
     this.hide();
   }
 
+  backButtonClickCustomHandler = (event, element) => {
+    this.hideDesktopInstructionsDiv();
+    this.hideMobileInstructionsDiv();
+
+    this.showButtons();
+  }
+
   showButtons() {
     this.showMobileInstructionsButton();
     this.showDesktopInstructionsButton();
@@ -46,14 +54,20 @@ class OverlayDiv extends Element {
       <HideOverlayButton onClick={this.hideOverlayButtonClickHandler} />,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
       <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />,
-      <DesktopInstructionsDiv/>,
-      <MobileInstructionsDiv/>
+      <DesktopInstructionsDiv onCustomBackButtonClick={this.backButtonClickCustomHandler} />,
+      <MobileInstructionsDiv onCustomBackButtonClick={this.backButtonClickCustomHandler} />
 
     ]);
   }
 
   initialise() {
     this.assignContext();
+
+    const overlayHidden = isOverlayHidden();
+
+    if (overlayHidden) {
+      this.hide();
+    }
   }
 
   static tagName = "div";

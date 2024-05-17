@@ -11,6 +11,7 @@ export const overlayDivGap = "48px";
 export const menuDivPadding = "64px";
 export const checkboxDivGap = "32px";
 export const menuButtonSize = "64px";
+export const backButtonColour = "#00f";
 export const checkboxesDivGap = "48px";
 export const menuButtonPadding = "8px";
 export const checkboxSpanColour = "#fff";

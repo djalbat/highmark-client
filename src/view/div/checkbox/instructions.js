@@ -7,13 +7,22 @@ import { Element } from "easy";
 import InstructionsCheckbox from "../../checkbox/instructions";
 import InstructionsCheckboxSpan from "../../span/checkbox/instructions";
 
+import { setOverlayHidden } from "../../../state";
 import { instructionsCheckboxDivGap, instructionsCheckboxDivPadding } from "../../../styles";
 
 class InstructionsCheckboxDiv extends Element {
+  instructionsCheckboxChangeHandler = (event, element) => {
+    const instructionsCheckbox = element, ///
+          checked = instructionsCheckbox.isChecked(),
+          overlayHidden = checked;  ///
+
+    setOverlayHidden(overlayHidden);
+  }
+
   childElements() {
     return ([
 
-      <InstructionsCheckbox/>,
+      <InstructionsCheckbox onChange={this.instructionsCheckboxChangeHandler} />,
       <InstructionsCheckboxSpan/>
 
     ]);
