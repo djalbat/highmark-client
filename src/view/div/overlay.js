@@ -12,7 +12,7 @@ import DesktopInstructionsButton from "../button/instructions/desktop";
 
 import { desktop } from "../../breakpoints";
 import { isOverlayHidden } from "../../state";
-import { overlayDivGap, overlayDivBackgroundColour } from "../../styles";
+import { overlayDivGap, instructionsDivPadding, overlayDivBackgroundColour } from "../../styles";
 
 class OverlayDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
@@ -86,6 +86,7 @@ export default withStyle(OverlayDiv)`
   height: 100%;
   display: flex;
   z-index: 1;
+  padding: ${instructionsDivPadding};
   position: fixed;
   align-items: center;
   justify-content: center;

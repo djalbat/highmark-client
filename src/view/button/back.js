@@ -4,7 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { backButtonColour, instructionsFontSize, instructionsFontFamily } from "../../styles";
+import { desktop } from "../../breakpoints";
+import { backButtonColour, instructionsFontFamily, instructionsMobileFontSize, instructionsDesktopFontSize } from "../../styles";
 
 class BackButton extends Button {
   childElements() {
@@ -20,10 +21,17 @@ export default withStyle(BackButton)`
 
   color: ${backButtonColour};
   float: right;
-  font-size: ${instructionsFontSize};
   background: transparent;
   font-family: ${instructionsFontFamily};
   
+  font-size: ${instructionsMobileFontSize};
+  
+  @media (min-width: ${desktop}) {
+
+    font-size: ${instructionsDesktopFontSize};
+    
+  }
+
   :hover {
     filter: grayscale(50%);
   }

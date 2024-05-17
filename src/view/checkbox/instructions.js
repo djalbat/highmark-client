@@ -4,7 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import Checkbox from "../checkbox";
 
-import { instructionsCheckboxSize } from "../../styles";
+import { desktop } from "../../breakpoints";
+import { instructionsCheckboxMobileSize, instructionsCheckboxDesktopSize } from "../../styles";
 
 class InstructionsCheckbox extends Checkbox {
   static defaultProperties = {
@@ -14,8 +15,16 @@ class InstructionsCheckbox extends Checkbox {
 
 export default withStyle(InstructionsCheckbox)`
 
-  width: ${instructionsCheckboxSize}; 
-  height: ${instructionsCheckboxSize}; 
   filter: invert(1);
+
+  width: ${instructionsCheckboxMobileSize}; 
+  height: ${instructionsCheckboxMobileSize};
+  
+  @media (min-width: ${desktop}) {
+
+    width: ${instructionsCheckboxDesktopSize}; 
+    height: ${instructionsCheckboxDesktopSize};
+    
+  }
 
 `;
