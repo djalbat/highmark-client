@@ -2,10 +2,12 @@
 
 const copyHTML = require("./copyHTML"),
       copyFiles = require("./copyFiles"),
-      copyFonts = require("./copyFonts");
+      copyFonts = require("./copyFonts"),
+      constants = require("./constants");
 
 module.exports = {
   copyHTML,
   copyFiles,
-  copyFonts
+  copyFonts,
+  constants
 };
