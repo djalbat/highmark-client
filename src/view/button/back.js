@@ -9,7 +9,7 @@ import { backButtonColour, instructionsFontFamily, instructionsMobileFontSize, i
 
 class BackButton extends Button {
   childElements() {
-    return "...back"
+    return "← back"
   }
 
   static defaultProperties = {
