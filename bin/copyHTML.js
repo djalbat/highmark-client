@@ -5,7 +5,7 @@ const createIndexHTML = require("./createIndexHTML");
 const { writeFile } = require("./utilities/file"),
       { INDEX_HTML_FILE_NAME } = require("./constants");
 
-function copyHTML(markdownHTML, markdownStylesCSS, noClient, targetDirectoryPath) {
+function copyHTML(markdownHTML, markdownStylesCSS, targetDirectoryPath, noClient) {
   const indexHTML = createIndexHTML(markdownHTML, markdownStylesCSS, noClient),
         fileName = INDEX_HTML_FILE_NAME, ///
         content = indexHTML;  ///

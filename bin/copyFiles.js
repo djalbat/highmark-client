@@ -1,9 +1,9 @@
 "use strict";
 
-const createIndexHTML = require("./createIndexHTML");
+const copyHTML = require("./copyHTML");
 
-const { copyFile, writeFile } = require("./utilities/file"),
-      { CLIENT_JS_FILE_NAME, INDEX_HTML_FILE_NAME, CHECKMARK_SVG_FILE_NAME } = require("./constants");
+const { copyFile } = require("./utilities/file"),
+      { CLIENT_JS_FILE_NAME, CHECKMARK_SVG_FILE_NAME } = require("./constants");
 
 function copyFiles(markdownHTML, markdownStylesCSS, targetDirectoryPath) {
   let fileName;
@@ -16,12 +16,9 @@ function copyFiles(markdownHTML, markdownStylesCSS, targetDirectoryPath) {
 
   copyFile(targetDirectoryPath, fileName);
 
-  const indexHTML = createIndexHTML(markdownHTML, markdownStylesCSS),
-        content = indexHTML;  ///
+  const noClient = false;
 
-  fileName = INDEX_HTML_FILE_NAME;
-
-  writeFile(targetDirectoryPath, fileName, content);
+  copyHTML(markdownHTML, markdownStylesCSS, targetDirectoryPath, noClient)
 }
 
 module.exports = copyFiles;
