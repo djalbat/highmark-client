@@ -11,21 +11,29 @@ const { readFile } = fileSystemUtilities,
       { parseFile } = templateUtilities,
       { concatenatePaths } = pathUtilities;
 
-function createIndexHTML(markdownHTML, markdownStylesCSS) {
+function createIndexHTML(markdownHTML, markdownStylesCSS, noClient = false) {
   const sourceDirectoryPath = getSourceDirectoryPath(),
-        clientHTML = createClientHTML(sourceDirectoryPath),
-        loadingCSS = createLoadingCSS(sourceDirectoryPath),
-        loadingHTML = createLoadingHTML(sourceDirectoryPath),
         indexTemplateFilePath = concatenatePaths(sourceDirectoryPath, INDEX_TEMPLATE_FILE_PATH),
         args = {
-          clientHTML,
-          loadingCSS,
-          loadingHTML,
           markdownHTML,
           markdownStylesCSS,
+          liveReloadSnippet,
           computerModernStyleCSS
-        },
-        indexHTML = parseFile(indexTemplateFilePath, args);
+        };
+
+  if (!noClient) {
+    const clientHTML = createClientHTML(sourceDirectoryPath),
+          loadingCSS = createLoadingCSS(sourceDirectoryPath),
+          loadingHTML = createLoadingHTML(sourceDirectoryPath);
+
+    Object.assign(args, {
+      clientHTML,
+      loadingCSS,
+      loadingHTML
+    });
+  }
+
+  const indexHTML = parseFile(indexTemplateFilePath, args);
 
   return indexHTML;
 }
@@ -33,11 +41,8 @@ function createIndexHTML(markdownHTML, markdownStylesCSS) {
 module.exports = createIndexHTML;
 
 function createClientHTML(sourceDirectoryPath) {
-  const templateFilePath = concatenatePaths(sourceDirectoryPath, CLIENT_TEMPLATE_FILE_PATH),
-        args = {
-          liveReloadSnippet
-        },
-        content = parseFile(templateFilePath, args),
+  const filePath = concatenatePaths(sourceDirectoryPath, CLIENT_TEMPLATE_FILE_PATH),
+        content = parseFile(filePath),
         clientHTML = content; ///
 
   return clientHTML;
@@ -52,9 +57,8 @@ function createLoadingCSS(sourceDirectoryPath) {
 }
 
 function createLoadingHTML(sourceDirectoryPath) {
-  const templateFilePath = concatenatePaths(sourceDirectoryPath, LOADING_TEMPLATE_FILE_PATH),
-        args = {},
-        content = parseFile(templateFilePath, args),
+  const filePath = concatenatePaths(sourceDirectoryPath, LOADING_TEMPLATE_FILE_PATH),
+        content = readFile(filePath),
         loadingHTML = content; ///
 
   return loadingHTML;
