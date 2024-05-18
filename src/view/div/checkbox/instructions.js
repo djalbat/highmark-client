@@ -40,7 +40,8 @@ export default withStyle(InstructionsCheckboxDiv)`
   gap: ${instructionsCheckboxDivGap};
   display: flex;
   padding: ${instructionsCheckboxDivPadding};
-  align-self: center;
+  font-size: inherit;
+  align-self: flex-start;
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;

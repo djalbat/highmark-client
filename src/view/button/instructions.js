@@ -4,8 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { desktop } from "../../breakpoints";
-import { instructionsFontFamily, instructionsButtonColour, instructionsButtonPadding, instructionsMobileFontSize, instructionsDesktopFontSize } from "../../styles";
+import { instructionsButtonColour, instructionsButtonPadding } from "../../styles";
 
 class InstructionsButton extends Button {
   static defaultProperties = {
@@ -18,7 +17,8 @@ export default withStyle(InstructionsButton)`
   color: ${instructionsButtonColour};
   padding: ${instructionsButtonPadding};
   display: flex;
-  font-family: ${instructionsFontFamily};
+  font-size: inherit;
+  font-family: inherit;
   font-weight: bold;
   align-items: center;
   flex-direction: row;
@@ -26,14 +26,6 @@ export default withStyle(InstructionsButton)`
   
   :hover {
     filter: grayscale(50%);
-  }
-
-  font-size: ${instructionsMobileFontSize};
-  
-  @media (min-width: ${desktop}) {
-
-    font-size: ${instructionsDesktopFontSize};
-    
   }
 
 `;

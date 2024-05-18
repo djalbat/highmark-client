@@ -4,8 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { desktop } from "../../breakpoints";
-import { instructionsFontFamily, instructionParagraphPadding, instructionsMobileFontSize, instructionsDesktopFontSize } from "../../styles";
+import { instructionParagraphPadding } from "../../styles";
 
 class InstructionParagraph extends Element {
   static tagName = "p";
@@ -18,14 +17,7 @@ class InstructionParagraph extends Element {
 export default withStyle(InstructionParagraph)`
   
   padding: ${instructionParagraphPadding};
-  font-family: ${instructionsFontFamily};
-  
-  font-size: ${instructionsMobileFontSize};
-  
-  @media (min-width: ${desktop}) {
-
-    font-size: ${instructionsDesktopFontSize};
+  font-size: inherit;
+  font-family: inherit;
     
-  }
-  
 `;

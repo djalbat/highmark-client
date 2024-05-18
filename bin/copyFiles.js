@@ -18,7 +18,7 @@ function copyFiles(markdownHTML, markdownStylesCSS, targetDirectoryPath) {
 
   const noClient = false;
 
-  copyHTML(markdownHTML, markdownStylesCSS, targetDirectoryPath, noClient)
+  copyHTML(markdownHTML, markdownStylesCSS, targetDirectoryPath, noClient);
 }
 
 module.exports = copyFiles;

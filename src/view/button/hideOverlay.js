@@ -4,8 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Button } from "easy";
 
-import { desktop } from "../../breakpoints";
-import { hideOverlayButtonTop, hideOverlayButtonRight, hideOverlayButtonColour, hideOverlayButtonFontFamily, hideOverlayButtonMobileFontSize, hideOverlayButtonDesktopFontSize } from "../../styles";
+import { hideOverlayButtonTop, hideOverlayButtonRight, hideOverlayButtonColour } from "../../styles";
 
 class HideOverlayButton extends Button {
   childElements() {
@@ -25,15 +24,8 @@ export default withStyle(HideOverlayButton)`
   cursor: pointer;
   padding: 0;
   position: absolute;
+  font-size: inherit;
   background: transparent;
-  font-family: ${hideOverlayButtonFontFamily};
-
-  font-size: ${hideOverlayButtonMobileFontSize};
-  
-  @media (min-width: ${desktop}) {
-
-    font-size: ${hideOverlayButtonDesktopFontSize};
-    
-  }
+  font-family: inherit;
 
 `;

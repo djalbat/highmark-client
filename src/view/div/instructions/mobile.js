@@ -15,8 +15,7 @@ export default class MobileInstructionsDiv extends InstructionsDiv {
 
   static instructions = [
     "Click near the bottom of the screen to open the menu once these instructions have been hidden.",
-    "Native gestures are mostly overridden once these instructions are hidden. Pinching changes the font size instead of zooming, for example.",
-    "The double tap native gesture cannot be fully overridden and sometimes causes unwanted zooming. When this happens, restore native gestures in order to fix it.",
+    "Native gestures are mostly overridden. Pinching will change the font size instead of zooming, for example. The double tap native gesture cannot be fully overridden, however, and sometimes causes unwanted zooming. When this happens, restore native gestures in order to fix it.",
     "If the unwanted zooming means that you cannot access the menu then you can restore native gestures with another double tap. This can take a little practice."
   ]
 

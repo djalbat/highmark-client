@@ -33,15 +33,14 @@ class InstructionsDiv extends Element {
               {instruction}
             </InstructionParagraph>
 
-          )
+          );
 
     return ([
 
+        <BackButton onClick={this.backButtonClickHandler} />,
+
       ...instructionParagraphs,
 
-        <InstructionParagraph>
-          <BackButton onClick={this.backButtonClickHandler} />
-        </InstructionParagraph>,
         <InstructionsCheckboxDiv/>
 
     ]);
@@ -62,6 +61,7 @@ export default withStyle(InstructionsDiv)`
   
   display: flex;
   max-width: ${instructionsDivMaxWidth};
+  font-size: inherit;
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;

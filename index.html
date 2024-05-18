@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8" />
+
+    <style>
+
+        *,
+        *::after,
+        *::before {
+          border: 0;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        html,
+        html > body {
+          width: 100%;
+          height: 100%;
+        }
+
+        html,
+        html > body {
+          text-size-adjust: none;
+          -ms-text-size-adjust: none;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+        }
+
+    </style>
+
+    <style>
+
+    body > div.view > div.divisions > div {
+        color: black;
+        background-color: white;
+    }
+
+    body > div.view > div.divisions > div h1 {
+        font-size: 32pt;
+        margin: 12pt 0 12pt 0;
+    }
+
+    body > div.view > div.divisions > div h2 {
+        font-size: 24pt;
+        margin: 12pt 0 12pt 0;
+    }
+
+    body > div.view > div.divisions > div h3 {
+        font-size: 16pt;
+        margin: 12pt 0 12pt 0;
+    }
+
+    body > div.view > div.divisions > div table,
+    body > div.view > div.divisions > div p,
+    body > div.view > div.divisions > div ol,
+    body > div.view > div.divisions > div ul,
+    body > div.view > div.divisions > div pre.block,
+    body > div.view > div.divisions > div h4 {
+        font-size: 12pt;
+        line-height: 15pt;
+        margin: 12pt 0 12pt 0;
+    }
+
+    body > div.view > div.divisions > div ol > li,
+    body > div.view > div.divisions > div ul > li {
+        margin: 6pt 0 6pt 0;
+        margin-left: 12pt;
+    }
+
+    body > div.view > div.divisions > div table:first-child,
+    body > div.view > div.divisions > div p:first-child,
+    body > div.view > div.divisions > div ol:first-child,
+    body > div.view > div.divisions > div ul:first-child,
+    body > div.view > div.divisions > div ol > li:first-child,
+    body > div.view > div.divisions > div ul > li:first-child,
+    body > div.view > div.divisions > div pre.block:first-child,
+    body > div.view > div.divisions > div h1:first-child,
+    body > div.view > div.divisions > div h2:first-child,
+    body > div.view > div.divisions > div h3:first-child,
+    body > div.view > div.divisions > div h4:first-child {
+        margin-top: 0;
+    }
+
+    body > div.view > div.divisions > div table:last-child,
+    body > div.view > div.divisions > div p:last-child,
+    body > div.view > div.divisions > div ol:last-child,
+    body > div.view > div.divisions > div ul:last-child,
+    body > div.view > div.divisions > div ol > li:last-child,
+    body > div.view > div.divisions > div ul > li:last-child,
+    body > div.view > div.divisions > div pre.block:last-child,
+    body > div.view > div.divisions > div h1:last-child,
+    body > div.view > div.divisions > div h2:last-child,
+    body > div.view > div.divisions > div h3:last-child,
+    body > div.view > div.divisions > div h4:last-child {
+        margin-bottom: 0;
+    }
+
+    body > div.view > div.divisions > div h1,
+    body > div.view > div.divisions > div h2,
+    body > div.view > div.divisions > div h3,
+    body > div.view > div.divisions > div h4 {
+        font-weight: bold;
+    }
+
+    body > div.view > div.divisions > div pre.block,
+    body > div.view > div.divisions > div pre.inline {
+        color: white;
+        background-color: black;
+    }
+
+    body > div.view > div.divisions > div pre.block {
+        padding: 6pt;
+        overflow-x: scroll;
+    }
+
+    body > div.view > div.divisions > div pre.inline {
+        display: inline-block;
+        padding: 0 3pt 0 3pt;
+        font-size: 12pt;
+        line-height: 15pt;
+    }
+
+    body > div.view > div.divisions > div table {
+        border-collapsed: collapse;
+    }
+
+    body > div.view > div.divisions > div thead {
+        border: 1pt solid black;
+    }
+
+    body > div.view > div.divisions > div td,
+    body > div.view > div.divisions > div th {
+        padding: 12pt;
+    }
+
+    body > div.view > div.divisions > div strong {
+        font-weight: bold;
+    }
+
+    body > div.view > div.divisions > div em {
+        font-style: italic;
+    }
+
+    body > div.view > div.divisions > div em > strong {
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    body > div.view > div.divisions > div ol.footnotes {
+        border-top: 1pt solid black;
+        padding-top: 12pt;
+    }
+
+    body > div.view > div.divisions > div li.footnote {
+        font-size: 9pt;
+        line-height: 12pt;
+        margin-left: 12pt;
+    }
+
+    body > div.view > div.divisions > div li.footnote p {
+        margin: 0;
+        font-size: 9pt;
+        line-height: 12pt;
+    }
+
+    body > div.view > div.divisions > div a.link {
+        font-size: 9pt;
+        line-height: 12pt;
+        margin-left: 3pt;
+        vertical-align: super;
+    }
+
+    body > div.view > div.divisions > div span.error {
+        text-decoration: underline red;
+    }
+
+    </style>
+
+    <style>
+
+        
+    body > div:not(.loading) {
+      display: none;
+    }
+
+    body > div.loading {
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      display: flex;
+      position: fixed;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      background-color: white;
+    }
+
+    div.spinner {
+      width: 80px;
+      height: 80px;
+      display: inline-block;
+      position: relative;
+      background: transparent;
+    }
+
+    div.spinner div {
+      padding: 0;
+      animation: spinner 1.2s linear infinite;
+      transform-origin: 40px 40px;
+    }
+
+    div.spinner div:after {
+      top: 3px;
+      left: 37px;
+      width: 6px;
+      height: 18px;
+      content: " ";
+      display: block;
+      position: absolute;
+      background: #606060;
+    }
+
+    div.spinner div:nth-child(1) { transform: rotate(0deg); animation-delay: -1.1s; }
+    div.spinner div:nth-child(2) { transform: rotate(30deg); animation-delay: -1s; }
+    div.spinner div:nth-child(3) { transform: rotate(60deg); animation-delay: -0.9s; }
+    div.spinner div:nth-child(4) { transform: rotate(90deg); animation-delay: -0.8s; }
+    div.spinner div:nth-child(5) { transform: rotate(120deg); animation-delay: -0.7s; }
+    div.spinner div:nth-child(6) { transform: rotate(150deg); animation-delay: -0.6s; }
+    div.spinner div:nth-child(7) { transform: rotate(180deg); animation-delay: -0.5s; }
+    div.spinner div:nth-child(8) { transform: rotate(210deg); animation-delay: -0.4s; }
+    div.spinner div:nth-child(9) { transform: rotate(240deg); animation-delay: -0.3s; }
+    div.spinner div:nth-child(10) { transform: rotate(270deg); animation-delay: -0.2s; }
+    div.spinner div:nth-child(11) { transform: rotate(300deg); animation-delay: -0.1s; }
+    div.spinner div:nth-child(12) { transform: rotate(330deg); animation-delay: 0s; }
+
+    @keyframes spinner {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+
+    </style>
+
+  </head>
+  <body>
+
+
+    <div class="loading">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    <div class="lorem-ipsum">
+  <h1>
+    <span class="line">
+Lorem Ipsum
+    </span>
+  </h1>
+  <p>
+    <span class="line">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed iaculis tempor nisl quis posuere.
+Vestibulum imperdiet, nibh non molestie volutpat, dui enim euismod nisl, vitae feugiat felis magna ac velit.
+Nunc semper massa dolor, sed tempor tellus gravida sit amet.
+Nullam ut enim mi.
+Nam porttitor ut velit at auctor.
+Aenean tincidunt iaculis maximus.
+Sed tincidunt sapien eu odio malesuada lacinia.
+Etiam diam lectus, posuere eget consequat vitae, placerat ut arcu.
+    </span>
+      <span class="line">
+Maecenas metus metus, consequat tempus nunc id, dignissim aliquam nisl.
+Sed sit amet finibus nunc.
+Duis sagittis turpis eget eleifend facilisis.
+Duis eget nisi condimentum, consequat orci in, tristique augue.
+Pellentesque mattis eros risus, in molestie turpis vestibulum nec.
+Aliquam facilisis luctus est eget malesuada.
+Donec tristique justo eu urna sollicitudin, eget blandit sem sagittis.
+Etiam nec pellentesque sapien.
+Donec in bibendum magna, ac bibendum velit.
+Curabitur sed lacinia tellus.
+Etiam rhoncus nisl sed nisi imperdiet pharetra.
+Donec molestie aliquam sem non rutrum.
+Nullam dictum, libero vitae interdum sollicitudin, quam metus mollis purus, interdum vehicula arcu nulla id enim.
+Donec id sodales libero. Sed ultricies efficitur elit, et tempus mi placerat a. Ut eleifend vehicula libero sed efficitur.
+      </span>
+  </p>
+</div>
+
+
+
+    <script src="client.js"> </script>
+
+  <script>
+
+    var xmlHttpRequest = new XMLHttpRequest();
+
+    xmlHttpRequest.onreadystatechange = function() {
+      if (xmlHttpRequest.readyState == 4) {
+        if (xmlHttpRequest.status == 200) {
+          location.reload();
+        }
+      }
+    };
+
+    xmlHttpRequest.open("GET", "/live-reload");
+
+    xmlHttpRequest.send();
+
+  </script>
+
+  </body>
+</html>

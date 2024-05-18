@@ -4,12 +4,9 @@ import withStyle from "easy-with-style";
 
 import { Element } from "easy";
 
-import { desktop } from "../../../breakpoints";
-import { instructionsFontFamily, instructionsMobileFontSize, instructionsDesktopFontSize } from "../../../styles";
-
 class InstructionsCheckboxSpan extends Element {
   childElements() {
-    return "Hide in future";
+    return "Hide these instructions in future";
   }
 
   static tagName = "span";
@@ -21,14 +18,7 @@ class InstructionsCheckboxSpan extends Element {
 
 export default withStyle(InstructionsCheckboxSpan)`
 
-  font-family: ${instructionsFontFamily};
-  
-  font-size: ${instructionsMobileFontSize};
-  
-  @media (min-width: ${desktop}) {
-
-    font-size: ${instructionsDesktopFontSize};
-    
-  }
+  font-size: inherit;
+  font-family: inherit;
   
 `;
