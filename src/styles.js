@@ -33,6 +33,7 @@ export const overlayDivBackgroundColour = "#fff";
 export const instructionsCheckboxDivGap = "16px";
 export const instructionParagraphMargin = "16px";
 export const instructionParagraphFontSize = "24px";
+export const overlayDivBackgroundFontFamily = "serif";
 export const instructionsCheckboxSpanFontSize = "24px";
 export const mobileInstructionsButtonBackgroundColour = "#080";
 export const desktopInstructionsButtonBackgroundColour = "#008";
