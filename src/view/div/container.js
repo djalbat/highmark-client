@@ -101,6 +101,7 @@ export default withStyle(ContainerDiv)`
   font-family: ${containerDivFontFamily};
   
   font-size: ${containerDivPortraitFontSize};
+  
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:
@@ -120,6 +121,7 @@ export default withStyle(ContainerDiv)`
   @media (orientation: landscape) {
 
     font-size: ${containerDivLandscapeFontSize};
+  
     grid-template-rows: auto auto auto auto;
     grid-template-columns: auto 1fr;
     grid-template-areas:

@@ -4,9 +4,16 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { backButtonColour } from "../../styles";
+import { FLEX } from "../../constants";
+import { backButtonColour, backButtonPadding } from "../../styles";
 
 class BackButton extends Button {
+  show() {
+    const display = FLEX;
+
+    this.display(display);
+  }
+
   childElements() {
     return "← back"
   }
@@ -31,6 +38,7 @@ export default withStyle(BackButton)`
   color: ${backButtonColour};
   width: fit-content;
   cursor: pointer;
+  padding: ${backButtonPadding};
   grid-area: back-button;
   font-size: 1em;
   background: transparent;
@@ -40,5 +48,5 @@ export default withStyle(BackButton)`
   :hover {
     filter: grayscale(50%);
   }
-  
+    
 `;

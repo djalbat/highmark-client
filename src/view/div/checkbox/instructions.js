@@ -9,7 +9,7 @@ import InstructionsCheckboxSpan from "../../span/checkbox/instructions";
 
 import { FLEX } from "../../../constants";
 import { setOverlayHidden } from "../../../state";
-import { instructionsCheckboxDivPortraitGap, instructionsCheckboxDivLandscapeGap } from "../../../styles";
+import { instructionsCheckboxDivGap } from "../../../styles";
 
 class InstructionsCheckboxDiv extends Element {
   instructionsCheckboxChangeHandler = (event, element) => {
@@ -54,20 +54,12 @@ class InstructionsCheckboxDiv extends Element {
 
 export default withStyle(InstructionsCheckboxDiv)`
 
+  gap: ${instructionsCheckboxDivGap};
   display: flex;
   grid-area: instructions-checkbox-div;
-  font-size: 1em;
   align-items: center;
   justify-self: start;
   flex-direction: row;
   justify-content: start;
-  
-  gap: ${instructionsCheckboxDivPortraitGap};
-
-  @media (orientation: landscape) {
-  
-    gap: ${instructionsCheckboxDivLandscapeGap};
-
-  }
   
 `;
