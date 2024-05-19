@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { instructionsButtonColour, instructionsButtonPadding } from "../../styles";
+import { instructionsButtonColour, instructionsButtonPortraitPadding, instructionsButtonLandscapePadding } from "../../styles";
 
 class InstructionsButton extends Button {
   static defaultProperties = {
@@ -16,7 +16,6 @@ export default withStyle(InstructionsButton)`
 
   width: fit-content;
   color: ${instructionsButtonColour};
-  padding: ${instructionsButtonPadding};
   display: flex;
   font-size: 1em;
   font-family: inherit;
@@ -28,6 +27,14 @@ export default withStyle(InstructionsButton)`
   
   :hover {
     filter: grayscale(50%);
+  }
+
+  padding: ${instructionsButtonPortraitPadding};
+  
+  @media (orientation: landscape) {
+
+    padding: ${instructionsButtonLandscapePadding};
+    
   }
 
 `;

@@ -6,7 +6,7 @@ import { Element } from "easy";
 
 class InstructionsCheckboxSpan extends Element {
   childElements() {
-    return "Hide these instructions";
+    return "Hide in future";
   }
 
   static tagName = "span";

@@ -12,13 +12,12 @@ import InstructionsCheckboxDiv from "../div/checkbox/instructions";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
-import { desktop } from "../../breakpoints";
 import { containerDivGap,
          containerDivPadding,
          containerDivMaxWidth,
          containerDivFontFamily,
-         containerDivMobileFontSize,
-         containerDivDesktopFontSize } from "../../styles";
+         containerDivPortraitFontSize,
+         containerDivLandscapeFontSize } from "../../styles";
 
 class ContainerDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
@@ -101,7 +100,7 @@ export default withStyle(ContainerDiv)`
   max-width: ${containerDivMaxWidth};
   font-family: ${containerDivFontFamily};
   
-  font-size: ${containerDivMobileFontSize};
+  font-size: ${containerDivPortraitFontSize};
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:
@@ -118,9 +117,9 @@ export default withStyle(ContainerDiv)`
       
   ;      
   
-  @media (min-width: ${desktop}) {
+  @media (orientation: landscape) {
 
-    font-size: ${containerDivDesktopFontSize};
+    font-size: ${containerDivLandscapeFontSize};
     grid-template-rows: auto auto auto auto;
     grid-template-columns: auto 1fr;
     grid-template-areas:

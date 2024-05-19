@@ -4,8 +4,12 @@ import withStyle from "easy-with-style";  ///
 
 import Checkbox from "../checkbox";
 
-import { desktop } from "../../breakpoints";
-import { instructionsCheckboxMobileSize, instructionsCheckboxDesktopSize } from "../../styles";
+import { instructionsCheckboxPortraitSize,
+         instructionsCheckboxLandscapeSize,
+         instructionsCheckboxPortraitBorderWidth,
+         instructionsCheckboxLandscapeBorderWidth,
+         instructionsCheckboxPortraitBorderRadius,
+         instructionsCheckboxLandscapeBorderRadius } from "../../styles";
 
 class InstructionsCheckbox extends Checkbox {
   static defaultProperties = {
@@ -17,13 +21,23 @@ export default withStyle(InstructionsCheckbox)`
 
   filter: invert(1);
 
-  width: ${instructionsCheckboxMobileSize}; 
-  height: ${instructionsCheckboxMobileSize};
+  width: ${instructionsCheckboxPortraitSize}; 
+  height: ${instructionsCheckboxPortraitSize};
   
-  @media (min-width: ${desktop}) {
+  ::before {
+    border-width: ${instructionsCheckboxPortraitBorderWidth};
+    border-radius: ${instructionsCheckboxPortraitBorderRadius};
+  }
+  
+  @media (orientation: landscape) {
 
-    width: ${instructionsCheckboxDesktopSize}; 
-    height: ${instructionsCheckboxDesktopSize};
+    width: ${instructionsCheckboxLandscapeSize}; 
+    height: ${instructionsCheckboxLandscapeSize};
+    
+    ::before {
+      border-width: ${instructionsCheckboxLandscapeBorderWidth};
+      border-radius: ${instructionsCheckboxLandscapeBorderRadius};
+    }
     
   }
 

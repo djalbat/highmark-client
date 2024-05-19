@@ -18,9 +18,11 @@ class OverlayDiv extends Element {
   }
 
   parentContext() {
-    const hideOverlayDiv = this.hide.bind(this);  ///
+    const showOverlayDiv = this.show.bind(this),  ///
+          hideOverlayDiv = this.hide.bind(this);  ///
 
     return ({
+      showOverlayDiv,
       hideOverlayDiv
     });
   }

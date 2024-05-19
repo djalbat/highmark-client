@@ -63,6 +63,8 @@ getOrientation((orientation) => {
 
   body.mount(view);
 
+  view.show();
+
   const overlayHidden = isOverlayHidden();
 
   if (!overlayHidden) {

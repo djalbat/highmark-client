@@ -15,20 +15,6 @@ class View extends Element {
     this.updateDivisionsZoom();
   }
 
-  didMount() {
-    this.show();
-
-    this.updateNativeGestures();
-    this.updateDivisionsColours();
-    this.updateFullScreenCheckboxDiv();
-    this.updateInvertColoursCheckboxDiv();
-    this.updateNativeGesturesCheckboxDiv();
-  }
-
-  willUnmount() {
-    ///
-  }
-
   childElements() {
     const { divDOMElements } = this.properties;
 
@@ -44,6 +30,12 @@ class View extends Element {
 
   initialise() {
     this.assignContext();
+
+    this.updateNativeGestures();
+    this.updateDivisionsColours();
+    this.updateFullScreenCheckboxDiv();
+    this.updateInvertColoursCheckboxDiv();
+    this.updateNativeGesturesCheckboxDiv();
   }
 
   static tagName = "div";
@@ -61,7 +53,5 @@ export default withStyle(View)`
 
   width: 100%;
   height: 100%;
-  align-items: stretch;
-  flex-direction: column;
     
 `;
