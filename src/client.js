@@ -63,19 +63,9 @@ getOrientation((orientation) => {
 
   body.mount(view);
 
-  view.show();
-
   const overlayHidden = isOverlayHidden();
 
-  if (!overlayHidden) {
-
+  if (overlayHidden) {
+    controller.showDivisions();
   }
-
-  // const anchorId = `${fragment}`;
-  //
-  // (anchorId === EMPTY_STRING) ?
-  //   view.showFirstDiv() :
-  //     view.scrollToAnchor(anchorId);
-  //
-  // view.updateZoom();
 });

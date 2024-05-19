@@ -29,7 +29,7 @@ class ContainerDiv extends Element {
   }
 
   hideOverlayButtonClickHandler = (event, element) => {
-    debugger
+    controller.showDivisions(); ///
   }
 
   backButtonClickHandler = (event, element) => {

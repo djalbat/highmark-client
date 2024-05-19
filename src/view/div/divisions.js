@@ -241,10 +241,13 @@ class DivisionsDiv extends Element {
   }
 
   updateDivisionsZoom() {
-    const div = this.findDiv(),
-          zoom = getZoom();
+    const div = this.findDiv();
 
-    div.zoom(zoom);
+    if (div !== null) {
+      const zoom = getZoom();
+
+      div.zoom(zoom);
+    }
   }
 
   updateDivisionsColours() {
@@ -542,6 +545,7 @@ class DivisionsDiv extends Element {
           scrollToAnchor = this.scrollToAnchor.bind(this),
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
+          showDivisionsDiv = this.show.bind(this), ///
           updateDivisionsZoom = this.updateDivisionsZoom.bind(this),
           updateNativeGestures = this.updateNativeGestures.bind(this),
           updateDivisionsColours = this.updateDivisionsColours.bind(this);
@@ -551,6 +555,7 @@ class DivisionsDiv extends Element {
       scrollToAnchor,
       exitFullScreen,
       enterFullScreen,
+      showDivisionsDiv,
       updateDivisionsZoom,
       updateNativeGestures,
       updateDivisionsColours

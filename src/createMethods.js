@@ -1,6 +1,6 @@
 "use strict";
 
-import { MENU_ZOOM_RATIO } from "./constants";
+import { EMPTY_STRING, MENU_ZOOM_RATIO } from "./constants";
 import { getMenuZoom, setMenuZoom, setDivisionsZoom, setColoursInverted, setNativeGesturesRestored } from "./state";
 
 export default function createMethods(scheduler, model, view) {
@@ -30,6 +30,20 @@ export default function createMethods(scheduler, model, view) {
     setMenuZoom(menuZoom);
 
     view.updateMenuZoom();
+  }
+
+  function showDivisions() {
+    view.hideOverlayDiv();
+
+    view.showDivisionsDiv();
+
+    const anchorId = `${fragment}`;
+
+    (anchorId === EMPTY_STRING) ?
+      view.showFirstDiv() :
+        view.scrollToAnchor(anchorId);
+
+    view.updateZoom();
   }
 
   function zoomDivisions(divisionsZoom) {
@@ -93,6 +107,7 @@ export default function createMethods(scheduler, model, view) {
     closeMenu,
     zoomMenuIn,
     zoomMenuOut,
+    showDivisions,
     zoomDivisions,
     invertColours,
     revertColours,

@@ -29,6 +29,8 @@ class View extends Element {
   }
 
   initialise() {
+    this.show();  ///
+
     this.assignContext();
 
     this.updateNativeGestures();
