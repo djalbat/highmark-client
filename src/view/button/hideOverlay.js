@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Button } from "easy";
 
-import { hideOverlayButtonColour } from "../../styles";
+import { hideOverlayButtonColour, hideOverlayButtonFontSize } from "../../styles";
 
 class HideOverlayButton extends Button {
   childElements() {
@@ -32,7 +32,7 @@ export default withStyle(HideOverlayButton)`
   color: ${hideOverlayButtonColour};
   cursor: pointer;
   padding: 0;
-  font-size: 1.5em;
+  font-size: ${hideOverlayButtonFontSize};
   grid-area: hide-overlay-button;
   background: transparent;
   justify-self: end;

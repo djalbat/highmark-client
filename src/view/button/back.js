@@ -5,7 +5,7 @@ import withStyle from "easy-with-style";  ///
 import Button from "../button";
 
 import { FLEX } from "../../constants";
-import { backButtonColour, backButtonPadding } from "../../styles";
+import { backButtonColour, backButtonPadding, backButtonFontSize } from "../../styles";
 
 class BackButton extends Button {
   show() {
@@ -39,6 +39,7 @@ export default withStyle(BackButton)`
   width: fit-content;
   cursor: pointer;
   padding: ${backButtonPadding};
+  font-size: ${backButtonFontSize};
   grid-area: back-button;
   background: transparent;
   justify-self: end;

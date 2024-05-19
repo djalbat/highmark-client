@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { instructionsButtonColour, instructionsButtonPadding } from "../../styles";
+import { instructionsButtonColour, instructionsButtonPadding, instructionsButtonFontSize } from "../../styles";
 
 class InstructionsButton extends Button {
   static defaultProperties = {
@@ -18,6 +18,7 @@ export default withStyle(InstructionsButton)`
   color: ${instructionsButtonColour};
   display: flex;
   padding: ${instructionsButtonPadding};
+  font-size: ${instructionsButtonFontSize};
   font-weight: bold;
   align-items: center;
   justify-self: center;

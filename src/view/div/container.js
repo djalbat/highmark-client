@@ -12,7 +12,7 @@ import InstructionsCheckboxDiv from "../div/checkbox/instructions";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
-import { containerDivGap, containerDivPadding, containerDivMaxWidth, containerDivFontSize, containerDivFontFamily } from "../../styles";
+import { containerDivGap, containerDivPadding, containerDivMaxWidth } from "../../styles";
 
 class ContainerDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
@@ -92,9 +92,7 @@ export default withStyle(ContainerDiv)`
   margin: auto;  
   display: grid;
   padding: ${containerDivPadding};
-  font-size: ${containerDivFontSize};
   max-width: ${containerDivMaxWidth};
-  font-family: ${containerDivFontFamily};
     
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: auto 1fr;
