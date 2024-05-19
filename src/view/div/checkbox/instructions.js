@@ -7,6 +7,7 @@ import { Element } from "easy";
 import InstructionsCheckbox from "../../checkbox/instructions";
 import InstructionsCheckboxSpan from "../../span/checkbox/instructions";
 
+import { FLEX } from "../../../constants";
 import { setOverlayHidden } from "../../../state";
 import { instructionsCheckboxDivGap } from "../../../styles";
 
@@ -19,6 +20,12 @@ class InstructionsCheckboxDiv extends Element {
     setOverlayHidden(overlayHidden);
   }
 
+  show() {
+    const display = FLEX;
+
+    this.display(display);
+  }
+
   childElements() {
     return ([
 
@@ -26,6 +33,16 @@ class InstructionsCheckboxDiv extends Element {
       <InstructionsCheckboxSpan/>
 
     ]);
+  }
+
+  parentContext() {
+    const showInstructionsCheckboxDiv = this.show.bind(this), ///
+          hideInstructionsCheckboxDiv = this.hide.bind(this); ///
+
+    return ({
+      showInstructionsCheckboxDiv,
+      hideInstructionsCheckboxDiv
+    });
   }
 
   static tagName = "div";

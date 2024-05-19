@@ -13,7 +13,6 @@ import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
 import { desktop } from "../../breakpoints";
-import { BACK_BUTTON_CLICK_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { containerDivGap,
          containerDivPadding,
          containerDivMaxWidth,
@@ -23,51 +22,67 @@ import { containerDivGap,
 
 class ContainerDiv extends Element {
   desktopInstructionsButtonClickHandler = (event, element) => {
-    this.hideButtons();
-
-    this.showDesktopInstructionsDiv();
+    this.desktop();
   }
 
   mobileInstructionsButtonClickHandler = (event, element) => {
-    this.hideButtons();
-
-    this.showMobileInstructionsDiv();
+    this.mobile();
   }
 
-  backButtonClickCustomHandler = (event, element) => {
-    this.hideDesktopInstructionsDiv();
-    this.hideMobileInstructionsDiv();
-
-    this.showButtons();
+  hideOverlayButtonClickHandler = (event, element) => {
+    debugger
   }
 
-  showButtons() {
-    this.showMobileInstructionsButton();
-    this.showDesktopInstructionsButton();
+  backButtonClickHandler = (event, element) => {
+    this.back();
   }
 
-  hideButtons() {
+  desktop() {
+    this.showBackButton();
+    this.showHideOverlayButton();
+    this.showDesktopInstructionsDiv();
+    this.showInstructionsCheckboxDiv();
     this.hideMobileInstructionsButton();
     this.hideDesktopInstructionsButton();
   }
 
-  backButtonClickHandler = (event, element) => {
-    const customEventType = BACK_BUTTON_CLICK_CUSTOM_EVENT_TYPE;
+  mobile() {
+    this.showBackButton();
+    this.showHideOverlayButton();
+    this.showMobileInstructionsDiv();
+    this.showInstructionsCheckboxDiv();
+    this.hideMobileInstructionsButton();
+    this.hideDesktopInstructionsButton();
+  }
 
-    this.callCustomHandlers(customEventType, event, element);
+  back() {
+    this.hideBackButton();
+    this.hideHideOverlayButton();
+    this.hideMobileInstructionsDiv();
+    this.hideDesktopInstructionsDiv();
+    this.hideInstructionsCheckboxDiv();
+    this.showMobileInstructionsButton();
+    this.showDesktopInstructionsButton();
   }
 
   childElements() {
     return ([
 
-      <HideOverlayButton/>,
+      <BackButton onClick={this.backButtonClickHandler} />,
+      <HideOverlayButton onClick={this.hideOverlayButtonClickHandler} />,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
       <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />,
       <MobileInstructionsDiv/>,
-      <InstructionsCheckboxDiv/>,
-      <BackButton/>
+      <DesktopInstructionsDiv/>,
+      <InstructionsCheckboxDiv/>
 
     ]);
+  }
+
+  initialise() {
+    this.assignContext();
+
+    this.back();
   }
 
   static tagName =  "div";

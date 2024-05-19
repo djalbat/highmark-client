@@ -2,7 +2,7 @@
 
 export const svgFill = "#fff";
 export const menuDivGap = "32px";
-export const borderWidth = "4px";
+export const borderWidth = "3px";
 export const borderRadius = "8px"
 export const borderColour = "#fff";
 export const checkboxSize = "48px";

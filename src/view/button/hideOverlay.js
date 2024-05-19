@@ -11,6 +11,16 @@ class HideOverlayButton extends Button {
     return "╳";
   }
 
+  parentContext() {
+    const showHideOverlayButton = this.show.bind(this), ///
+          hideHideOverlayButton = this.hide.bind(this); ///
+
+    return ({
+      showHideOverlayButton,
+      hideHideOverlayButton
+    });
+  }
+
   static defaultProperties = {
     className: "hide-overlay"
   };

@@ -11,6 +11,16 @@ class BackButton extends Button {
     return "← back"
   }
 
+  parentContext() {
+    const showBackButton = this.show.bind(this),  ///
+          hideBackButton = this.hide.bind(this);  ///
+
+    return ({
+      showBackButton,
+      hideBackButton
+    });
+  }
+
   static defaultProperties = {
     className: "back"
   };
