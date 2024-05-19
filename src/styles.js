@@ -1,7 +1,7 @@
 "use strict";
 
 export const svgFill = "#fff";
-export const menuDivGap = "32px";
+export const menuDivGap = "12px";
 export const borderWidth = "3px";
 export const borderRadius = "8px"
 export const borderColour = "#fff";
