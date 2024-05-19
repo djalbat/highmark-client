@@ -33,7 +33,5 @@ class InstructionsDiv extends Element {
 export default withStyle(InstructionsDiv)`
 
   grid-area: instructions-div;
-  font-size: 1em;
-  font-family: inherit;
 
 `;

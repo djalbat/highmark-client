@@ -35,7 +35,6 @@ export default withStyle(HideOverlayButton)`
   font-size: 1.5em;
   grid-area: hide-overlay-button;
   background: transparent;
-  font-family: inherit;
   justify-self: end;
 
 `;

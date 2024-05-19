@@ -18,8 +18,6 @@ export default withStyle(InstructionsButton)`
   color: ${instructionsButtonColour};
   display: flex;
   padding: ${instructionsButtonPadding};
-  font-size: 1em;
-  font-family: inherit;
   font-weight: bold;
   align-items: center;
   justify-self: center;

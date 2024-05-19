@@ -40,9 +40,7 @@ export default withStyle(BackButton)`
   cursor: pointer;
   padding: ${backButtonPadding};
   grid-area: back-button;
-  font-size: 1em;
   background: transparent;
-  font-family: inherit;
   justify-self: end;
 
   :hover {

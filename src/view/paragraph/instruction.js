@@ -17,7 +17,5 @@ class InstructionParagraph extends Element {
 export default withStyle(InstructionParagraph)`
   
   margin: ${instructionParagraphMargin} 0;
-  font-size: 1em;
-  font-family: inherit;
 
 `;

@@ -1,10 +1,8 @@
 "use strict";
 
-import withStyle from "easy-with-style";
-
 import { Element } from "easy";
 
-class InstructionsCheckboxSpan extends Element {
+export default class InstructionsCheckboxSpan extends Element {
   childElements() {
     return "Hide in future";
   }
@@ -15,10 +13,3 @@ class InstructionsCheckboxSpan extends Element {
     className: "instructions"
   };
 }
-
-export default withStyle(InstructionsCheckboxSpan)`
-
-  font-size: 1em;
-  font-family: inherit;
-  
-`;
