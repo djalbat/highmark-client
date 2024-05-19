@@ -6,7 +6,7 @@ import { PORTRAIT_ORIENTATION, LANDSCAPE_ORIENTATION } from "../constants";
 export function createState() {
   const version = VERSION_3,
         menuZoom = {
-          [PORTRAIT_ORIENTATION]: 0.75,
+          [PORTRAIT_ORIENTATION]: 1,
           [LANDSCAPE_ORIENTATION]: 1
         },
         divisionsZoom = {
