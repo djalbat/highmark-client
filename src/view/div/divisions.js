@@ -558,6 +558,8 @@ class DivisionsDiv extends Element {
   }
 
   initialise() {
+    this.hide();
+
     this.assignContext();
 
     this.setInitialState();

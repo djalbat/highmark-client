@@ -37,6 +37,7 @@ export default withStyle(class extends Checkbox {
   outline: none;
   position: relative;
   appearance: none;
+  flex-shrink: 0;
   
   ::before {
     width: 100%;

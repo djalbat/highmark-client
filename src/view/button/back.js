@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import Button from "../button";
 
-import { backButtonColour, backButtonPadding } from "../../styles";
+import { backButtonColour } from "../../styles";
 
 class BackButton extends Button {
   childElements() {
@@ -19,12 +19,13 @@ class BackButton extends Button {
 export default withStyle(BackButton)`
 
   color: ${backButtonColour};
+  width: fit-content;
   cursor: pointer;
-  padding: ${backButtonPadding};
-  font-size: inherit;
-  align-self: flex-end;
+  grid-area: back-button;
+  font-size: 1em;
   background: transparent;
   font-family: inherit;
+  justify-self: end;
 
   :hover {
     filter: grayscale(50%);

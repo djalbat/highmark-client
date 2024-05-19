@@ -14,13 +14,15 @@ class InstructionsButton extends Button {
 
 export default withStyle(InstructionsButton)`
 
+  width: fit-content;
   color: ${instructionsButtonColour};
   padding: ${instructionsButtonPadding};
   display: flex;
-  font-size: inherit;
+  font-size: 1em;
   font-family: inherit;
   font-weight: bold;
   align-items: center;
+  justify-self: center;
   flex-direction: row;
   justify-content: center;
   

@@ -12,8 +12,8 @@ import View from "./view";
 import createMethods from "./createMethods";
 
 import { EMPTY_STRING } from "./constants";
-import { setOrientation } from "./state";
 import { migratePersistentState } from "./localStorage";
+import { setOrientation, isOverlayHidden } from "./state";
 import { DIVS_SELECTOR, LOADING_DIV_SELECTOR } from "./selectors";
 import { getOrientation, onOrientationChange } from "./utilities/orientation";
 
@@ -63,11 +63,17 @@ getOrientation((orientation) => {
 
   body.mount(view);
 
-  const anchorId = `${fragment}`;
+  const overlayHidden = isOverlayHidden();
 
-  (anchorId === EMPTY_STRING) ?
-    view.showFirstDiv() :
-      view.scrollToAnchor(anchorId);
+  if (!overlayHidden) {
 
-  view.updateZoom();
+  }
+
+  // const anchorId = `${fragment}`;
+  //
+  // (anchorId === EMPTY_STRING) ?
+  //   view.showFirstDiv() :
+  //     view.scrollToAnchor(anchorId);
+  //
+  // view.updateZoom();
 });

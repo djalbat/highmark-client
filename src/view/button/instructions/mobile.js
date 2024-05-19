@@ -28,6 +28,7 @@ class MobileInstructionsButton extends InstructionsButton {
 
 export default withStyle(MobileInstructionsButton)`
 
+  grid-area: mobile-instructions-button;
   background-color: ${mobileInstructionsButtonBackgroundColour};
   
 `;

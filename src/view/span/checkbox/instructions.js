@@ -6,7 +6,7 @@ import { Element } from "easy";
 
 class InstructionsCheckboxSpan extends Element {
   childElements() {
-    return "Hide these instructions in future";
+    return "Hide these instructions";
   }
 
   static tagName = "span";
@@ -18,7 +18,7 @@ class InstructionsCheckboxSpan extends Element {
 
 export default withStyle(InstructionsCheckboxSpan)`
 
-  font-size: inherit;
+  font-size: 1em;
   font-family: inherit;
   
 `;

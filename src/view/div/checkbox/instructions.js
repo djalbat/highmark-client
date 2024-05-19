@@ -8,7 +8,7 @@ import InstructionsCheckbox from "../../checkbox/instructions";
 import InstructionsCheckboxSpan from "../../span/checkbox/instructions";
 
 import { setOverlayHidden } from "../../../state";
-import { instructionsCheckboxDivGap, instructionsCheckboxDivPadding } from "../../../styles";
+import { instructionsCheckboxDivGap } from "../../../styles";
 
 class InstructionsCheckboxDiv extends Element {
   instructionsCheckboxChangeHandler = (event, element) => {
@@ -39,11 +39,11 @@ export default withStyle(InstructionsCheckboxDiv)`
 
   gap: ${instructionsCheckboxDivGap};
   display: flex;
-  padding: ${instructionsCheckboxDivPadding};
-  font-size: inherit;
-  align-self: flex-start;
+  grid-area: instructions-checkbox-div;
+  font-size: 1em;
   align-items: center;
+  justify-self: start;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: start;
   
 `;
