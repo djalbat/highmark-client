@@ -6,7 +6,7 @@ import { Element } from "easy";
 
 import ContainerDiv from "../div/container";
 
-import { overlayDivBackgroundColour, overlayDivBackgroundFontFamily } from "../../styles";
+import { overlayDivFontFamily, overlayDivBackgroundColour } from "../../styles";
 
 class OverlayDiv extends Element {
   childElements() {
@@ -40,7 +40,7 @@ export default withStyle(OverlayDiv)`
   height: 100%;
   display: flex;
   overflow: scroll;
-  font-family: ${overlayDivBackgroundFontFamily};
+  font-family: ${overlayDivFontFamily};
   background-color: ${overlayDivBackgroundColour};
 
 `;
