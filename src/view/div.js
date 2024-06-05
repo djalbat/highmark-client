@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { BACKGROUND_COLOUR } from "../constants";
+import { DISPLAY, BACKGROUND_COLOUR } from "../constants";
 
 class Div extends Element {
   getBackgroundColour() {
@@ -28,12 +28,47 @@ class Div extends Element {
     this.css(css);
   }
 
+  show() {
+    const display = this.getDisplay();
+
+    this.display(display);
+  }
+
   didMount() {
+    const name = DISPLAY, ///
+          display = this.css(name);
+
+    this.setDisplay(display);
+
     this.hide();
   }
 
   willUnmount() {
     ///
+  }
+
+  getDisplay() {
+    const { display } = this.getState();
+
+    return display;
+  }
+
+  setDisplay(display) {
+    this.updateState({
+      display
+    });
+  }
+
+  setInitialState() {
+    const display = null;
+
+    this.setState({
+      display
+    });
+  }
+
+  initialise() {
+    this.setInitialState();
   }
 
   static tagName = "div";
