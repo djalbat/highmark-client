@@ -1,12 +1,12 @@
 "use strict";
 
-const copyHTML = require("./copyHTML"),
+const createHTML = require("./createHTML"),
       copyFiles = require("./copyFiles"),
       copyFonts = require("./copyFonts"),
       constants = require("./constants");
 
 module.exports = {
-  copyHTML,
+  createHTML,
   copyFiles,
   copyFonts,
   constants
