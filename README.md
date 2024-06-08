@@ -38,6 +38,10 @@ If you would like to contribute or would simply like to have a look at the code,
 
 ## Example
 
+Before starting you must find an `index.html` file generated to Highmark to serve.
+If you have no alternative then generate one from [The Occam User Manual](https://github.com/djalbat/the-occam-user-manual) using the [Highmark CLI Tool](https://github.com/djalbat/highmark-cli).
+Along the the `index.html` file, The `image` and `font` folders are ignored in this repository so you can copy across the images from the repository and also grabs the fonts from the [Highmark Fonts](https://github.com/djalbat/highmark-fonts) repository.
+
 There is a small development server that can be run from within the project's directory with the following command:
 
     npm start
