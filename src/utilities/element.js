@@ -1,6 +1,7 @@
 "use strict";
 
 import { DIV_SELECTOR } from "../selectors";
+import { EMPTY_STRING } from "../constants";
 
 export function elementsFromDOMElements(domElements, Element) {
   const elements = domElements.map((domElement) => {
@@ -60,6 +61,10 @@ function classNameFromElement(element) {
 }
 
 function addClassNameToDOMElement(domElement, className) {
+  if (className === EMPTY_STRING) {
+    return;
+  }
+
   const { classList } = domElement;
 
   classList.add(className);

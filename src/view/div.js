@@ -2,9 +2,15 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { Element } from "easy";
+import { Element, elementUtilities } from "easy";
 
+import Image from "./image";
+
+import { IMAGE_SELECTOR } from "../selectors";
+import { elementsFromDOMElements } from "../utilities/element";
 import { DISPLAY, BACKGROUND_COLOUR } from "../constants";
+
+const { mountElement, unmountElement } = elementUtilities;
 
 class Div extends Element {
   getBackgroundColour() {
@@ -34,17 +40,56 @@ class Div extends Element {
     this.display(display);
   }
 
+  mountImages() {
+    const images = this.getImages();
+
+    images.forEach((image) => {
+      const element = image;  ///
+
+      mountElement(element);
+    });
+  }
+
+  unmountImages() {
+    const images = this.getImages();
+
+    images.forEach((image) => {
+      const element = image;  ///
+
+      unmountElement(element);
+    });
+  }
+
   didMount() {
     const name = DISPLAY, ///
-          display = this.css(name);
+          display = this.css(name),
+          domElement = this.getDOMElement(),
+          imageDOMElements = [ ...domElement.querySelectorAll(IMAGE_SELECTOR) ],
+          images = elementsFromDOMElements(imageDOMElements, Image);
 
     this.setDisplay(display);
 
+    this.setImages(images);
+
     this.hide();
+
+    this.mountImages();
   }
 
   willUnmount() {
-    ///
+    this.unmountImages();
+  }
+
+  getImages() {
+    const { images } = this.getState();
+
+    return images;
+  }
+
+  setImages(images) {
+    this.updateState({
+      images
+    });
   }
 
   getDisplay() {
@@ -60,9 +105,11 @@ class Div extends Element {
   }
 
   setInitialState() {
-    const display = null;
+    const images = null,
+          display = null;
 
     this.setState({
+      images,
       display
     });
   }
