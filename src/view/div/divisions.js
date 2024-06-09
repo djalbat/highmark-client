@@ -10,6 +10,7 @@ import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile"
 import Div from "../div";
 
 import { elementsFromDOMElements } from "../../utilities/element";
+import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
 import { getDivisionsZoom as getZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
 import { SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
@@ -34,6 +35,11 @@ class DivisionsDiv extends Element {
     const showingDiv = this.findShowingDiv(),
           image = showingDiv.findImageByTopAndLeft(top, left);
 
+    if (image !== null) {
+      this.previewImage(event, element, image);
+
+      return;
+    }
 
     const height = this.getHeight(),
           bottom = height - top;
@@ -168,6 +174,24 @@ class DivisionsDiv extends Element {
     }
   }
 
+  scrollToTop() {
+    const scrollTop = 0;
+
+    this.setScrollTop(scrollTop);
+  }
+
+  stopScrolling() {
+    let interval = this.getInterval();
+
+    if (interval !== null) {
+      clearInterval(interval);
+
+      interval = null;
+
+      this.setInterval(interval);
+    }
+  }
+
   scrollToAnchor(anchorId) {
     let div;
 
@@ -188,22 +212,10 @@ class DivisionsDiv extends Element {
     });
   }
 
-  scrollToTop() {
-    const scrollTop = 0;
+  previewImage(event, element, image) {
+    const customEventType = PREVIEW_IMAGE_CUSTOM_EVENT_TYPE;
 
-    this.setScrollTop(scrollTop);
-  }
-
-  stopScrolling() {
-    let interval = this.getInterval();
-
-    if (interval !== null) {
-      clearInterval(interval);
-
-      interval = null;
-
-      this.setInterval(interval);
-    }
+    this.callCustomHandlers(customEventType, event, element, image);
   }
 
   startScrolling(speed, direction) {

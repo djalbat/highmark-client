@@ -36,5 +36,6 @@ export const instructionParagraphMargin = "16px";
 export const instructionParagraphFontSize = "16px";
 export const overlayDivBackgroundFontFamily = "serif";
 export const instructionsCheckboxSpanFontSize = "16px";
+export const imagePreviewDivDivBackgroundColour = "#fff";
 export const mobileInstructionsButtonBackgroundColour = "#080";
 export const desktopInstructionsButtonBackgroundColour = "#008";

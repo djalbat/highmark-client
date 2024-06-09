@@ -9,6 +9,13 @@ export default class Image extends Element {
     event.preventDefault();
   }
 
+  areBoundsOverlapping(top, left) {
+    const bounds = this.getBounds(),
+          boundsOverlapping = bounds.areOverlappingByTopAndLeft(top, left);
+
+    return boundsOverlapping;
+  }
+
   didMount() {
     this.onEvent(CONTEXTMENU_EVENT_TYPE, this.contextMenuHandler);
   }

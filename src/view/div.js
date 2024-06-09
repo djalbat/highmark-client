@@ -63,10 +63,14 @@ class Div extends Element {
   findImageByTopAndLeft(top, left) {
     const images = this.getImages(),
           image = images.find((image) => {
+            const boundsOverlapping = image.areBoundsOverlapping(top, left);
 
+            if (boundsOverlapping) {
+              return true;
+            }
           }) || null;
 
-    return null;
+    return image;
   }
 
   didMount() {

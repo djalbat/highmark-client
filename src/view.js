@@ -8,6 +8,7 @@ import MenuDiv from "./view/div/menu";
 import OverlayDiv from "./view/div/overlay";
 import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
+import ImagePreviewDiv from "./view/div/imagePreview";
 
 class View extends Element {
   updateZoom() {
@@ -15,14 +16,19 @@ class View extends Element {
     this.updateDivisionsZoom();
   }
 
+  previewImageCustomHandler = (event, element, image) => {
+    this.showImagePreviewDiv(image);
+  }
+
   childElements() {
     const { divDOMElements } = this.properties;
 
     return ([
 
+      <ImagePreviewDiv/>,
       <PreloaderDiv/>,
       <OverlayDiv/>,
-      <DivisionsDiv divDOMElements={divDOMElements} />,
+      <DivisionsDiv divDOMElements={divDOMElements} onCustomPreviewImage={this.previewImageCustomHandler} />,
       <MenuDiv/>
 
     ]);
