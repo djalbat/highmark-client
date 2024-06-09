@@ -1,10 +1,6 @@
 "use strict";
 
-import { fullScreenUtilities } from "easy-mobile";
-
 import { getPersistentState, setPersistentState } from "./localStorage";
-
-const { isFullScreen } = fullScreenUtilities;
 
 const orientation = null,
       state = {
@@ -74,16 +70,11 @@ export function setOverlayHidden(overlayHidden) {
 export function getDivisionsZoom() {
   stateFromPersistentState();
 
-  const fullScreen = isFullScreen(),
-        orientation = getOrientation();
+  const orientation = getOrientation();
 
   let divisionsZoom;
 
-  if (fullScreen) {
-    ({ fullScreenDivisionsZoom: divisionsZoom } = state);
-  } else {
-    ({ divisionsZoom } = state);
-  }
+  ({ divisionsZoom } = state);
 
   const orientedDivisionsZoom = divisionsZoom[orientation]; ///
 
@@ -95,16 +86,10 @@ export function getDivisionsZoom() {
 export function setDivisionsZoom(divisionsZoom) {
   stateFromPersistentState();
 
-  const fullScreen = isFullScreen(),
-        orientation = getOrientation();
+  const orientation = getOrientation(),
+        orientedDivisionsZoom = divisionsZoom;  ///
 
-  const orientedDivisionsZoom = divisionsZoom;  ///
-
-  if (fullScreen) {
-    ({ fullScreenDivisionsZoom: divisionsZoom } = state);
-  } else {
-    ({ divisionsZoom } = state);
-  }
+  ({ divisionsZoom } = state);
 
   Object.assign(divisionsZoom, {
     [orientation]: orientedDivisionsZoom
@@ -150,15 +135,14 @@ export function setColoursInverted(coloursInverted) {
 }
 
 function stateToPersistentState() {
-  const { version, menuZoom, overlayHidden, divisionsZoom, coloursInverted, nativeGesturesRestored, fullScreenDivisionsZoom } = state,
+  const { version, menuZoom, overlayHidden, divisionsZoom, coloursInverted, nativeGesturesRestored } = state,
         persistentState = {
           version,
           menuZoom,
           overlayHidden,
           divisionsZoom,
           coloursInverted,
-          nativeGesturesRestored,
-          fullScreenDivisionsZoom
+          nativeGesturesRestored
         };
 
   setPersistentState(persistentState);
