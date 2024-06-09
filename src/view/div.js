@@ -60,6 +60,15 @@ class Div extends Element {
     });
   }
 
+  findImageByTopAndLeft(top, left) {
+    const images = this.getImages(),
+          image = images.find((image) => {
+
+          }) || null;
+
+    return null;
+  }
+
   didMount() {
     const name = DISPLAY, ///
           display = this.css(name),

@@ -31,6 +31,10 @@ class DivisionsDiv extends Element {
   }
 
   singleTapCustomHandler = (event, element, top, left) => {
+    const showingDiv = this.findShowingDiv(),
+          image = showingDiv.findImageByTopAndLeft(top, left);
+
+
     const height = this.getHeight(),
           bottom = height - top;
 
@@ -413,6 +417,19 @@ class DivisionsDiv extends Element {
 
       done();
     });
+  }
+
+  findShowingDiv() {
+    const divs = this.getDivs(),
+          showingDiv = divs.find((div) => {
+            const divShowing = div.isShowing();
+
+            if (divShowing) {
+              return true;
+            }
+          });
+
+    return showingDiv;
   }
 
   setBackgroundColour(backgroundColour) {
