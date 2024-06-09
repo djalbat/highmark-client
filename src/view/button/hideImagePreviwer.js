@@ -6,27 +6,27 @@ import { Button } from "easy";
 
 import { hideOverlayButtonColour, hideOverlayButtonFontSize } from "../../styles";
 
-class HideOverlayButton extends Button {
+class HideImagePreviewerButton extends Button {
   childElements() {
     return "╳";
   }
 
   parentContext() {
-    const showHideOverlayButton = this.show.bind(this), ///
-          hideHideOverlayButton = this.hide.bind(this); ///
+    const showHideImagePreviewerButton = this.show.bind(this), ///
+          hideHideImagePreviewerButton = this.hide.bind(this); ///
 
     return ({
-      showHideOverlayButton,
-      hideHideOverlayButton
+      showHideImagePreviewerButton,
+      hideHideImagePreviewerButton
     });
   }
 
   static defaultProperties = {
-    className: "hide-overlay"
+    className: "hide-image-previewer"
   };
 }
 
-export default withStyle(HideOverlayButton)`
+export default withStyle(HideImagePreviewerButton)`
 
   width: fit-content;
   color: ${hideOverlayButtonColour};

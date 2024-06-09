@@ -3,22 +3,74 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { arrayUtilities } from "necessary";
 
-import { imagePreviewDivDivBackgroundColour } from "../../styles";
+import AlternateTextSpan from "../span/alternateText";
+import HidePreviewImageDivButton from "../button/close/hidePreviewImageDiv";
+
+import { FLEX } from "../../constants";
+import { IMAGE_SELECTOR, ALTERNATE_TEXT_SPAN_SELECTOR } from "../../selectors";
+import { imagePreviewDivPadding, imagePreviewDivColumnGap, imagePreviewDivDivBackgroundColour } from "../../styles";
+
+const { first } = arrayUtilities;
 
 class ImagePreviewDiv extends Element {
-  childElements() {
-    return "IMAGE PREVIEW";
+  hidePreviewImageDivButtonClickHandler = (event, element) => {
+    this.hide();
+  }
+
+  removeImage() {
+    const imageChildElements = this.getChildElements(IMAGE_SELECTOR),
+          images = imageChildElements,  ///
+          imagesLength = images.length;
+
+    if (imagesLength === 1) {
+      const firstImage = first(images),
+            image = firstImage; ///
+
+      image.remove();
+
+      const alternateSpanElements = this.getChildElements(ALTERNATE_TEXT_SPAN_SELECTOR),
+            alternateSpans = alternateSpanElements, ///
+            firstAlternateSpan = first(alternateSpans),
+            alternateSpan = firstAlternateSpan; ///
+
+      alternateSpan.remove();
+    }
+  }
+
+  addImage(image) {
+    image = image.clone();  ///
+
+    const alternateText = image.getAlternateText();
+
+    this.add(image);
+
+    this.add(
+
+      <AlternateTextSpan>
+        {alternateText}
+      </AlternateTextSpan>
+
+    );
   }
 
   show(image) {
-    ///
+    this.removeImage();
 
-    super.show();
+    this.addImage(image);
+
+    const display = FLEX; ///
+
+    this.display(display);
   }
 
-  initialise() {
-    this.hide();
+  childElements() {
+    return (
+
+      <HidePreviewImageDivButton onClick={this.hidePreviewImageDivButtonClickHandler} />
+
+    );
   }
 
   parentContext() {
@@ -29,10 +81,14 @@ class ImagePreviewDiv extends Element {
     });
   }
 
+  initialise() {
+    this.hide();
+  }
+
   static tagName = "div";
 
   static defaultProperties = {
-    className: "preloader"
+    className: "image-preview"
   };
 }
 
@@ -42,8 +98,14 @@ export default withStyle(ImagePreviewDiv)`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; 
+  z-index: 1;
+  display: flex;
+  padding: ${imagePreviewDivPadding};
   position: fixed;
+  column-gap: ${imagePreviewDivColumnGap};
+  align-items: center;
+  flex-direction: column;
   background-color: ${imagePreviewDivDivBackgroundColour};
+  justify-content: center;
     
 `;

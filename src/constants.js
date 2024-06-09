@@ -1,5 +1,6 @@
 "use strict";
 
+export const ALT = "alt";
 export const HASH = "#";
 export const FLEX = "flex";
 export const GRID = "grid";

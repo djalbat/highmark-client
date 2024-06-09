@@ -5,10 +5,10 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 
 import BackButton from "../button/back";
-import HideOverlayButton from "../button/hideOverlay";
 import MobileInstructionsDiv from "./instructions/mobile";
 import DesktopInstructionsDiv from "./instructions/desktop";
 import InstructionsCheckboxDiv from "../div/checkbox/instructions";
+import ShowDivisionsCloseButton from "../button/close/showDivisions";
 import MobileInstructionsButton from "../button/instructions/mobile";
 import DesktopInstructionsButton from "../button/instructions/desktop";
 
@@ -23,8 +23,8 @@ class ContainerDiv extends Element {
     this.mobile();
   }
 
-  hideOverlayButtonClickHandler = (event, element) => {
-    controller.showDivisions(); ///
+  showDivisionsCloseButtonClickHandler = (event, element) => {
+    controller.showDivisions();
   }
 
   backButtonClickHandler = (event, element) => {
@@ -33,28 +33,28 @@ class ContainerDiv extends Element {
 
   desktop() {
     this.showBackButton();
-    this.showHideOverlayButton();
     this.showDesktopInstructionsDiv();
     this.showInstructionsCheckboxDiv();
+    this.showShowDivisionsCloseButton();
     this.hideMobileInstructionsButton();
     this.hideDesktopInstructionsButton();
   }
 
   mobile() {
     this.showBackButton();
-    this.showHideOverlayButton();
     this.showMobileInstructionsDiv();
     this.showInstructionsCheckboxDiv();
+    this.showShowDivisionsCloseButton();
     this.hideMobileInstructionsButton();
     this.hideDesktopInstructionsButton();
   }
 
   back() {
     this.hideBackButton();
-    this.hideHideOverlayButton();
     this.hideMobileInstructionsDiv();
     this.hideDesktopInstructionsDiv();
     this.hideInstructionsCheckboxDiv();
+    this.hideShowDivisionsCloseButton();
     this.showMobileInstructionsButton();
     this.showDesktopInstructionsButton();
   }
@@ -63,7 +63,7 @@ class ContainerDiv extends Element {
     return ([
 
       <BackButton onClick={this.backButtonClickHandler} />,
-      <HideOverlayButton onClick={this.hideOverlayButtonClickHandler} />,
+      <ShowDivisionsCloseButton onClick={this.showDivisionsCloseButtonClickHandler} />,
       <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
       <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />,
       <MobileInstructionsDiv/>,
