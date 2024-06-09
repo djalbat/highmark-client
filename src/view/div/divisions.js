@@ -32,13 +32,17 @@ class DivisionsDiv extends Element {
   }
 
   singleTapCustomHandler = (event, element, top, left) => {
-    const showingDiv = this.findShowingDiv(),
-          image = showingDiv.findImageByTopAndLeft(top, left);
+    const fullScreen = isFullScreen();
 
-    if (image !== null) {
-      this.previewImage(event, element, image);
+    if (!fullScreen) {
+      const showingDiv = this.findShowingDiv(),
+            image = showingDiv.findImageByTopAndLeft(top, left);
 
-      return;
+      if (image !== null) {
+        this.previewImage(event, element, image);
+
+        return;
+      }
     }
 
     const height = this.getHeight(),
