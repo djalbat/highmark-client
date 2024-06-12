@@ -7,17 +7,10 @@ import { Element } from "easy";
 import ButtonsDiv from "../div/buttons";
 import CheckboxesDiv from "../div/checkboxes";
 
-import { GRID } from "../../constants";
 import { getMenuZoom as getZoom } from "../../state";
-import { menuDivGap, borderColour, menuDivPadding, menuDivBackgroundColour } from "../../styles";
+import { borderColour, menuDivPadding, menuDivBackgroundColour } from "../../styles";
 
 class MenuDiv extends Element {
-  show() {
-    const display = GRID;
-
-    this.display(display);
-  }
-
   openMenu() {
     this.show();
   }
@@ -74,16 +67,13 @@ class MenuDiv extends Element {
 
 export default withStyle(MenuDiv)`
 
-  gap: ${menuDivGap};
   left: 0;
   bottom: 0;
-  display: grid;
+  display: block;
   padding: ${menuDivPadding};
   position: fixed;
   border-top: 1px solid ${borderColour};
   background-color: ${menuDivBackgroundColour};
   transform-origin: bottom left;
-  grid-template-rows: auto;
-  grid-template-columns: auto min-content;
     
 `;

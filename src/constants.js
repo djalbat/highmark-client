@@ -3,7 +3,6 @@
 export const ALT = "alt";
 export const HASH = "#";
 export const FLEX = "flex";
-export const GRID = "grid";
 export const DISPLAY = "display";
 export const STATE_KEY = "state";
 export const EMPTY_STRING = "";

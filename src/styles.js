@@ -1,15 +1,16 @@
 "use strict";
 
 export const svgFill = "#fff";
-export const menuDivGap = "12px";
 export const borderWidth = "2px";
 export const borderRadius = "4px"
 export const borderColour = "#fff";
 export const checkboxSize = "24px";
 export const buttonsDivGap = "12px";
+export const buttonsDivTop = "17px";
 export const menuDivPadding = "24px";
 export const checkboxDivGap = "12px";
 export const menuButtonSize = "24px";
+export const buttonsDivRight = "17px";
 export const containerDivGap = "24px";
 export const backButtonColour = "#00f";
 export const checkboxesDivGap = "24px";
