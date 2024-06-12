@@ -28,7 +28,6 @@ class DesktopInstructionsButton extends InstructionsButton {
 
 export default withStyle(DesktopInstructionsButton)`
 
-  grid-area: desktop-instructions-button;
   background-color: ${desktopInstructionsButtonBackgroundColour};
   
 `;

@@ -22,7 +22,7 @@ class ShowDivisionsCloseButton extends CloseButton {
 
 export default withStyle(ShowDivisionsCloseButton)`
 
-  grid-area: hide-overlay-button;
+  grid-area: show-divisions-close-button;
   justify-self: end;
 
 `;

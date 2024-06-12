@@ -40,7 +40,9 @@ export default withStyle(OverlayDiv)`
   height: 100%;
   display: flex;
   overflow: scroll;
+  align-items: center;
   font-family: ${overlayDivFontFamily};
+  justify-content: center;
   background-color: ${overlayDivBackgroundColour};
 
 `;

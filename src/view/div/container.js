@@ -6,23 +6,14 @@ import { Element } from "easy";
 
 import BackButton from "../button/back";
 import MobileInstructionsDiv from "./instructions/mobile";
+import InstructionsButtonsDiv from "../div/instructionsButtons";
 import DesktopInstructionsDiv from "./instructions/desktop";
 import InstructionsCheckboxDiv from "../div/checkbox/instructions";
 import ShowDivisionsCloseButton from "../button/close/showDivisions";
-import MobileInstructionsButton from "../button/instructions/mobile";
-import DesktopInstructionsButton from "../button/instructions/desktop";
 
-import { containerDivGap, containerDivPadding, containerDivMaxWidth } from "../../styles";
+import { containerDivMargin, containerDivMaxWidth, containerDivPaddingTop } from "../../styles";
 
 class ContainerDiv extends Element {
-  desktopInstructionsButtonClickHandler = (event, element) => {
-    this.desktop();
-  }
-
-  mobileInstructionsButtonClickHandler = (event, element) => {
-    this.mobile();
-  }
-
   showDivisionsCloseButtonClickHandler = (event, element) => {
     controller.showDivisions();
   }
@@ -31,32 +22,37 @@ class ContainerDiv extends Element {
     this.back();
   }
 
+  desktopCustomHandler = (event, element) => {
+    this.desktop();
+  }
+
+  mobileCustomHandler = (event, element) => {
+    this.mobile();
+  }
+
   desktop() {
     this.showBackButton();
     this.showDesktopInstructionsDiv();
+    this.hideInstructionsButtonsDiv();
     this.showInstructionsCheckboxDiv();
     this.showShowDivisionsCloseButton();
-    this.hideMobileInstructionsButton();
-    this.hideDesktopInstructionsButton();
   }
 
   mobile() {
     this.showBackButton();
     this.showMobileInstructionsDiv();
+    this.hideInstructionsButtonsDiv();
     this.showInstructionsCheckboxDiv();
     this.showShowDivisionsCloseButton();
-    this.hideMobileInstructionsButton();
-    this.hideDesktopInstructionsButton();
   }
 
   back() {
     this.hideBackButton();
     this.hideMobileInstructionsDiv();
+    this.showInstructionsButtonsDiv();
     this.hideDesktopInstructionsDiv();
     this.hideInstructionsCheckboxDiv();
     this.hideShowDivisionsCloseButton();
-    this.showMobileInstructionsButton();
-    this.showDesktopInstructionsButton();
   }
 
   childElements() {
@@ -64,8 +60,7 @@ class ContainerDiv extends Element {
 
       <BackButton onClick={this.backButtonClickHandler} />,
       <ShowDivisionsCloseButton onClick={this.showDivisionsCloseButtonClickHandler} />,
-      <MobileInstructionsButton onClick={this.mobileInstructionsButtonClickHandler} />,
-      <DesktopInstructionsButton onClick={this.desktopInstructionsButtonClickHandler} />,
+      <InstructionsButtonsDiv onCustomMobile={this.mobileCustomHandler} onCustomDesktop={this.desktopCustomHandler} />,
       <MobileInstructionsDiv/>,
       <DesktopInstructionsDiv/>,
       <InstructionsCheckboxDiv/>
@@ -88,43 +83,22 @@ class ContainerDiv extends Element {
 
 export default withStyle(ContainerDiv)`
 
-  gap: ${containerDivGap};
-  margin: auto;  
+  margin: ${containerDivMargin};
   display: grid;
-  padding: ${containerDivPadding};
   max-width: ${containerDivMaxWidth};
-    
-  grid-template-rows: auto auto auto auto auto;
+  padding-top: ${containerDivPaddingTop};
+  grid-template-rows: auto auto auto auto;
   grid-template-columns: auto 1fr;
   grid-template-areas:
   
-                   ". hide-overlay-button"
+             ". show-divisions-close-button"
     
-     "mobile-instructions-button mobile-instructions-button" 
+    "instructions-buttons-div instructions-buttons-div" 
               
-    "desktop-instructions-button desktop-instructions-button"
-    
-              "instructions-div instructions-div"
-              
-            "instructions-checkbox-div back-button"
+           "instructions-div instructions-div"
+          
+         "instructions-checkbox-div back-button"
       
   ;      
-  
-  @media (orientation: landscape) {
-
-    grid-template-rows: auto auto auto auto;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-    
-                     ". hide-overlay-button"
-      
-      "mobile-instructions-button desktop-instructions-button"
-        
-                "instructions-div instructions-div"
-
-              "instructions-checkbox-div back-button"
-    ;      
-    
-  }
 
 `;
