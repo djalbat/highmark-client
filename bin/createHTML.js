@@ -2,8 +2,8 @@
 
 const createIndexHTML = require("./createIndexHTML");
 
-function createHTML(markdownHTML, markdownStylesCSS, noClient) {
-  const indexHTML = createIndexHTML(markdownHTML, markdownStylesCSS, noClient),
+function createHTML(markdownHTML, markdownStylesCSS, client) {
+  const indexHTML = createIndexHTML(markdownHTML, markdownStylesCSS, client),
         html = indexHTML; ///
 
   return html;

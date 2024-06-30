@@ -11,7 +11,7 @@ const { readFile } = fileSystemUtilities,
       { parseFile } = templateUtilities,
       { concatenatePaths } = pathUtilities;
 
-function createIndexHTML(markdownHTML, markdownStylesCSS, noClient) {
+function createIndexHTML(markdownHTML, markdownStylesCSS, client) {
   const sourceDirectoryPath = getSourceDirectoryPath(),
         indexTemplateFilePath = concatenatePaths(sourceDirectoryPath, INDEX_TEMPLATE_FILE_PATH),
         args = {
@@ -21,7 +21,7 @@ function createIndexHTML(markdownHTML, markdownStylesCSS, noClient) {
           computerModernStyleCSS
         };
 
-  if (!noClient) {
+  if (client) {
     const clientHTML = createClientHTML(sourceDirectoryPath),
           loadingCSS = createLoadingCSS(sourceDirectoryPath),
           loadingHTML = createLoadingHTML(sourceDirectoryPath);
