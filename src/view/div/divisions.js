@@ -6,9 +6,9 @@ import { Element } from "easy";
 import { resetFragment } from "fragmented";
 import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile";
 
-import Div from "../div";
+import DivisionDiv from "../div/division";
 
-import { DIVS_SELECTOR } from "../../selectors";
+import { DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
@@ -22,10 +22,10 @@ import { EMPTY_STRING,
 
 const { isFullScreen } = fullScreenUtilities;
 
-const divDOMElements = [ ...document.querySelectorAll(DIVS_SELECTOR) ]; ///
+const divisionDivDOMElements = [ ...document.querySelectorAll(DIVISION_DIVS_SELECTOR) ]; ///
 
-divDOMElements.forEach((divDOMElement) => {
-  divDOMElement.remove();
+divisionDivDOMElements.forEach((divisionDivDOMElement) => {
+  divisionDivDOMElement.remove();
 });
 
 class DivisionsDiv extends Element {
@@ -39,8 +39,8 @@ class DivisionsDiv extends Element {
     const fullScreen = isFullScreen();
 
     if (!fullScreen) {
-      const showingDiv = this.findShowingDiv(),
-            image = showingDiv.findImageByTopAndLeft(top, left);
+      const showingDivisionDiv = this.findShowingDivisionDiv(),
+            image = showingDivisionDiv.findImageByTopAndLeft(top, left);
 
       if (image !== null) {
         this.previewImage(event, element, image);
@@ -88,11 +88,11 @@ class DivisionsDiv extends Element {
   }
 
   swipeRightCustomHandler = (event, element, top, left, spped) => {
-    this.showLeftDiv();
+    this.showLeftDivisionDiv();
   }
 
   swipeLeftCustomHandler = (event, element, top, left, spped) => {
-    this.showRightDiv();
+    this.showRightDivisionDiv();
   }
 
   swipeDownCustomHandler = (event, element, top, left, speed) => {
@@ -158,30 +158,29 @@ class DivisionsDiv extends Element {
 
   scrollToAnchor(anchorId) {
     if (anchorId === EMPTY_STRING) {
-      this.showFirstDiv();
+      this.showFirstDivisionDiv();
 
       return;
     }
 
-    let div;
+    let divisionDiv;
 
-    div = findDivByAnchorId(anchorId);
+    divisionDiv = findDivByAnchorId(anchorId);  ///
 
-    if (div === null) {
+    if (divisionDiv === null) {
       return;
     }
 
-    const nextDiv = div;  ///
+    const nextDivisionDiv = divisionDiv;  ///
 
-    div = this.findDiv();
+    divisionDiv = this.findDivisionDiv();
 
-    const previousDiv = div;  ///
+    const previousDivisionDiv = divisionDiv,  ///
+          divisionDivs = this.getDivisionDivs(),
+          nextIndex = divisionDivs.indexOf(nextDivisionDiv),  ///
+          previousIndex = divisionDivs.indexOf(previousDivisionDiv);  ///
 
-    const divs = this.getDivs(),
-          nextIndex = divs.indexOf(nextDiv),  ///
-          previousIndex = divs.indexOf(previousDiv);  ///
-
-    this.showNextDiv(nextIndex, previousIndex, () => {
+    this.showNextDivisionDiv(nextIndex, previousIndex, () => {
       scrollToAnchor(anchorId);
     });
   }
@@ -231,12 +230,12 @@ class DivisionsDiv extends Element {
   }
 
   updateDivisionsZoom() {
-    const div = this.findDiv();
+    const divisionDiv = this.findDivisionDiv();
 
-    if (div !== null) {
+    if (divisionDiv !== null) {
       const zoom = getZoom();
 
-      div.zoom(zoom);
+      divisionDiv.zoom(zoom);
     }
   }
 
@@ -312,11 +311,11 @@ class DivisionsDiv extends Element {
     return nativeGesturesRestored;
   }
 
-  showRightDiv() {
-    const div = this.findDiv(),
-          divs = this.getDivs(),
-          divsLength = divs.length,
-          index = divs.indexOf(div),
+  showRightDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = this.findDivisionDiv(),
+          divsLength = divisionDivs.length,
+          index = divisionDivs.indexOf(divisionDiv),
           nextIndex = index + 1,
           previousIndex = index;  ///
 
@@ -324,13 +323,13 @@ class DivisionsDiv extends Element {
       return;
     }
 
-    this.showNextDiv(nextIndex, previousIndex);
+    this.showNextDivisionDiv(nextIndex, previousIndex);
   }
 
-  showLeftDiv() {
-    const div = this.findDiv(),
-          divs = this.getDivs(),
-          index = divs.indexOf(div),
+  showLeftDivisionDiv() {
+    const divisionDiv = this.findDivisionDiv(),
+          divisionDivs = this.getDivisionDivs(),
+          index = divisionDivs.indexOf(divisionDiv),
           nextIndex = index - 1,
           previousIndex = index;  ///
 
@@ -338,16 +337,16 @@ class DivisionsDiv extends Element {
       return;
     }
 
-    this.showNextDiv(nextIndex, previousIndex);
+    this.showNextDivisionDiv(nextIndex, previousIndex);
   }
 
-  showLastDiv() {
-    const div = this.findDiv(),
-          divs = this.getDivs(),
-          divsLength = divs.length,
-          index = (div === null) ?
+  showLastDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = this.findDivisionDiv(),
+          divsLength = divisionDivs.length,
+          index = (divisionDiv === null) ?
                     -1 :
-                      divs.indexOf(div),
+                      divisionDivs.indexOf(divisionDiv),
           nextIndex = divsLength - 1,
           previousIndex = index;  ///
 
@@ -355,15 +354,15 @@ class DivisionsDiv extends Element {
       return;
     }
 
-    this.showNextDiv(nextIndex, previousIndex);
+    this.showNextDivisionDiv(nextIndex, previousIndex);
   }
 
-  showFirstDiv() {
-    const div = this.findDiv(),
-          divs = this.getDivs(),
-          index = (div === null) ?
+  showFirstDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = this.findDivisionDiv(),
+          index = (divisionDiv === null) ?
                     -1 :
-                      divs.indexOf(div),
+                      divisionDivs.indexOf(divisionDiv),
           nextIndex = 0,
           previousIndex = index;  ///
 
@@ -371,33 +370,33 @@ class DivisionsDiv extends Element {
       return;
     }
 
-    this.showNextDiv(nextIndex, previousIndex);
+    this.showNextDivisionDiv(nextIndex, previousIndex);
   }
 
-  showNextDiv(nextIndex, previousIndex, done = () => {}) {
+  showNextDivisionDiv(nextIndex, previousIndex, done = () => {}) {
     resetFragment();
 
-    const divs = this.getDivs();
+    const divisionDivs = this.getDivisionDivs();
 
     if (previousIndex !== -1) {
-      const previousDiv = divs[previousIndex];
+      const previousDivisionDiv = divisionDivs[previousIndex];
 
-      previousDiv.hide();
+      previousDivisionDiv.hide();
     }
 
     const zoom = getZoom(),
-          nextDiv = divs[nextIndex];
+          nextDivisionDiv = divisionDivs[nextIndex];
 
     this.stopScrolling();
 
     this.scrollToTop();
 
-    nextDiv.zoom(zoom);
+    nextDivisionDiv.zoom(zoom);
 
-    nextDiv.show();
+    nextDivisionDiv.show();
 
     defer(() => {
-      const backgroundColour = nextDiv.getBackgroundColour();
+      const backgroundColour = nextDivisionDiv.getBackgroundColour();
 
       this.setBackgroundColour(backgroundColour);
 
@@ -405,17 +404,17 @@ class DivisionsDiv extends Element {
     });
   }
 
-  findShowingDiv() {
-    const divs = this.getDivs(),
-          showingDiv = divs.find((div) => {
-            const divShowing = div.isShowing();
+  findShowingDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          showingDivisionDiv = divisionDivs.find((divisionDiv) => {
+            const divShowing = divisionDiv.isShowing();
 
             if (divShowing) {
               return true;
             }
-          });
+          }) || null;
 
-    return showingDiv;
+    return showingDivisionDiv;
   }
 
   setBackgroundColour(backgroundColour) {
@@ -427,24 +426,26 @@ class DivisionsDiv extends Element {
     this.css(css);
   }
 
-  findDiv() {
-    const divs = this.getDivs(),
-          div = divs.find((div) => {
-            const showing = div.isShowing();
+  findDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = divisionDivs.find((divisionDiv) => {
+            const showing = divisionDiv.isShowing();
 
             if (showing) {
               return true;
             }
           }) || null;
 
-    return div;
+    return divisionDiv;
   }
 
-  getDivs() {
+  getDivisionDivs() {
     const childElements = this.getChildElements(),
-          divs = childElements; ///
+          divisionDivs = [
+            ...childElements
+          ];
 
-    return divs;
+    return divisionDivs;
   }
 
   getInterval() {
@@ -510,9 +511,9 @@ class DivisionsDiv extends Element {
   }
 
   didMount() {
-    this.onCustomSingleTap(this.singleTapCustomHandler);
-
     this.onCustomFullScreenChange(this.fullScreenChangeCustomHandler);
+
+    this.onCustomSingleTap(this.singleTapCustomHandler);
 
     this.enableFullScreen();
 
@@ -524,42 +525,42 @@ class DivisionsDiv extends Element {
 
     this.disableFullScreen();
 
-    this.offCustomFullScreenChange(this.fullScreenChangeCustomHandler);
-
     this.offCustomSingleTap(this.singleTapCustomHandler);
+
+    this.offCustomFullScreenChange(this.fullScreenChangeCustomHandler);
   }
 
   childElements() {
-    const divs = elementsFromDOMElements(divDOMElements, Div),
+    const divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv),
           childElements = [
-            ...divs
+            ...divisionDivs
           ];
 
     return childElements;
   }
 
   parentContext() {
-    const showLastDiv = this.showLastDiv.bind(this),
-          showLeftDiv = this.showLeftDiv.bind(this),
-          showRightDiv = this.showRightDiv.bind(this),
-          showFirstDiv = this.showFirstDiv.bind(this),
+    const showDivisionsDiv = this.show.bind(this),  ///
           scrollToAnchor = this.scrollToAnchor.bind(this),
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
-          showDivisionsDiv = this.show.bind(this), ///
+          showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
+          showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
+          showRightDivisionDiv = this.showRightDivisionDiv.bind(this),
+          showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
           updateDivisionsZoom = this.updateDivisionsZoom.bind(this),
           updateNativeGestures = this.updateNativeGestures.bind(this),
           updateDivisionsColours = this.updateDivisionsColours.bind(this);
 
     return ({
-      showLastDiv,
-      showLeftDiv,
-      showRightDiv,
-      showFirstDiv,
+      showDivisionsDiv,
       scrollToAnchor,
       exitFullScreen,
       enterFullScreen,
-      showDivisionsDiv,
+      showLastDivisionDiv,
+      showLeftDivisionDiv,
+      showRightDivisionDiv,
+      showFirstDivisionDiv,
       updateDivisionsZoom,
       updateNativeGestures,
       updateDivisionsColours

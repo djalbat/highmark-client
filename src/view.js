@@ -50,27 +50,27 @@ class View extends Element {
       }
 
       case ARROW_UP_KEY_CODE: {
-        this.showFirstDiv();
+        this.showFirstDivisionDiv();
 
         break;
       }
 
       case ARROW_DOWN_KEY_CODE: {
-        this.showLastDiv();
+        this.showLastDivisionDiv();
 
         break;
       }
 
       case ENTER_KEY_CODE:
       case ARROW_RIGHT_KEY_CODE: {
-        this.showRightDiv();
+        this.showRightDivisionDiv();
 
         break;
       }
 
       case BACKSPACE_KEY_CODE:
       case ARROW_LEFT_KEY_CODE: {
-        this.showLeftDiv();
+        this.showLeftDivisionDiv();
 
         break;
       }

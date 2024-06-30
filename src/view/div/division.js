@@ -4,15 +4,15 @@ import withStyle from "easy-with-style";  ///
 
 import { Element, elementUtilities } from "easy";
 
-import Image from "./image";
+import Image from "../image";
 
-import { IMAGE_SELECTOR } from "../selectors";
-import { elementsFromDOMElements } from "../utilities/element";
-import { DISPLAY, BACKGROUND_COLOUR } from "../constants";
+import { IMAGE_SELECTOR } from "../../selectors";
+import { elementsFromDOMElements } from "../../utilities/element";
+import { DISPLAY, BACKGROUND_COLOUR } from "../../constants";
 
 const { mountElement, unmountElement } = elementUtilities;
 
-class Div extends Element {
+class DivisionDiv extends Element {
   getBackgroundColour() {
     const backgroundColour = this.css(BACKGROUND_COLOUR) || null;
 
@@ -134,7 +134,7 @@ class Div extends Element {
   static tagName = "div";
 }
 
-export default withStyle(Div)`
+export default withStyle(DivisionDiv)`
 
   width: 100%;
   transform-origin: top left;
