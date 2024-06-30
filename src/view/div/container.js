@@ -5,16 +5,18 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 
 import BackButton from "../button/back";
+import OverlayCloseButton from "../button/close/overlay";
 import MobileInstructionsDiv from "./instructions/mobile";
 import InstructionsButtonsDiv from "../div/instructionsButtons";
 import DesktopInstructionsDiv from "./instructions/desktop";
 import InstructionsCheckboxDiv from "../div/checkbox/instructions";
-import ShowDivisionsCloseButton from "../button/close/showDivisions";
 
 import { containerDivMargin, containerDivMaxWidth, containerDivPaddingTop } from "../../styles";
 
 class ContainerDiv extends Element {
-  showDivisionsCloseButtonClickHandler = (event, element) => {
+  overlayCloseButtonClickHandler = (event, element) => {
+    controller.hideOverlay();
+
     controller.showDivisions();
   }
 
@@ -32,34 +34,34 @@ class ContainerDiv extends Element {
 
   desktop() {
     this.showBackButton();
+    this.showOverlayCloseButton();
     this.showDesktopInstructionsDiv();
     this.hideInstructionsButtonsDiv();
     this.showInstructionsCheckboxDiv();
-    this.showShowDivisionsCloseButton();
   }
 
   mobile() {
     this.showBackButton();
+    this.showOverlayCloseButton();
     this.showMobileInstructionsDiv();
     this.hideInstructionsButtonsDiv();
     this.showInstructionsCheckboxDiv();
-    this.showShowDivisionsCloseButton();
   }
 
   back() {
     this.hideBackButton();
+    this.hideOverlayCloseButton();
     this.hideMobileInstructionsDiv();
     this.showInstructionsButtonsDiv();
     this.hideDesktopInstructionsDiv();
     this.hideInstructionsCheckboxDiv();
-    this.hideShowDivisionsCloseButton();
   }
 
   childElements() {
     return ([
 
       <BackButton onClick={this.backButtonClickHandler} />,
-      <ShowDivisionsCloseButton onClick={this.showDivisionsCloseButtonClickHandler} />,
+      <OverlayCloseButton onClick={this.overlayCloseButtonClickHandler} />,
       <InstructionsButtonsDiv onCustomMobile={this.mobileCustomHandler} onCustomDesktop={this.desktopCustomHandler} />,
       <MobileInstructionsDiv/>,
       <DesktopInstructionsDiv/>,
@@ -91,8 +93,9 @@ export default withStyle(ContainerDiv)`
   grid-template-columns: auto 1fr;
   grid-template-areas:
   
-             ". show-divisions-close-button"
     
+                ". overlay-close-button"
+             
     "instructions-buttons-div instructions-buttons-div" 
               
            "instructions-div instructions-div"

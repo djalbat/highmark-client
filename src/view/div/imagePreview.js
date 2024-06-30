@@ -6,7 +6,7 @@ import { Element } from "easy";
 import { arrayUtilities } from "necessary";
 
 import AlternateTextSpan from "../span/alternateText";
-import HidePreviewImageDivButton from "../button/close/hidePreviewImageDiv";
+import ImagePreviewCloseButton from "../button/close/imagePreview";
 
 import { FLEX } from "../../constants";
 import { IMAGE_SELECTOR, ALTERNATE_TEXT_SPAN_SELECTOR } from "../../selectors";
@@ -15,7 +15,7 @@ import { imagePreviewDivPadding, imagePreviewDivColumnGap, imagePreviewDivDivBac
 const { first } = arrayUtilities;
 
 class ImagePreviewDiv extends Element {
-  hidePreviewImageDivButtonClickHandler = (event, element) => {
+  imagePreviewCloseButtonClickHandler = (event, element) => {
     this.hide();
   }
 
@@ -68,7 +68,7 @@ class ImagePreviewDiv extends Element {
   childElements() {
     return (
 
-      <HidePreviewImageDivButton onClick={this.hidePreviewImageDivButtonClickHandler} />
+      <ImagePreviewCloseButton onClick={this.imagePreviewCloseButtonClickHandler} />
 
     );
   }

@@ -4,17 +4,16 @@ import "juxtapose";
 
 import withStyle from "easy-with-style";  ///
 
+import { Body } from "easy";
 import { controller } from "sufficient";
-import { Body, Element } from "easy";
 import { onFragmentChange } from "fragmented";
 
 import View from "./view";
+import loadingDiv from "./view/div/loading";
 import createMethods from "./createMethods";
 
-import { EMPTY_STRING } from "./constants";
 import { migratePersistentState } from "./localStorage";
 import { setOrientation, isOverlayHidden } from "./state";
-import { DIVS_SELECTOR, ANCHORS_SELECTOR, LOADING_DIV_SELECTOR } from "./selectors";
 import { getOrientation, onOrientationChange } from "./utilities/orientation";
 
 const { renderStyles } = withStyle;
@@ -23,29 +22,16 @@ renderStyles();
 
 migratePersistentState();
 
-const divDOMElements = [ ...document.querySelectorAll(DIVS_SELECTOR) ],  ///
-      anchorDOMElements = [ ...document.querySelectorAll(ANCHORS_SELECTOR) ]; ///
-
-divDOMElements.forEach((divDOMElement) => {
-  divDOMElement.remove();
-});
-
-anchorDOMElements.forEach((anchorDOMElement) => {
-  anchorDOMElement.remove();
-});
-
 const scheduler = null,
       model = null,
       view =
 
-        <View divDOMElements={divDOMElements} anchorDOMElements={anchorDOMElements} />
+        <View/>
 
-      ;
+      ,
+      body = new Body();
 
 controller.assignMethods(createMethods, scheduler, model, view);
-
-const body = new Body(),
-      loadingDiv = new Element(LOADING_DIV_SELECTOR);
 
 onOrientationChange((orientation) => {
   setOrientation(orientation);
@@ -56,21 +42,21 @@ onOrientationChange((orientation) => {
 onFragmentChange((event, element, fragment) => {
   const anchorId = `${fragment}`;
 
-  (anchorId === EMPTY_STRING) ?
-    view.showFirstDiv() :
-      view.scrollToAnchor(anchorId);
+  view.scrollToAnchor(anchorId);
 });
 
 getOrientation((orientation) => {
-  setOrientation(orientation);
+  const overlayHidden = isOverlayHidden();
 
-  body.mount(view);
+  setOrientation(orientation);
 
   loadingDiv.hide();
 
-  const overlayHidden = isOverlayHidden();
+  body.mount(view);
 
   if (overlayHidden) {
+    controller.hideOverlay();
+
     controller.showDivisions();
   }
 });

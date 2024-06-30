@@ -6,6 +6,7 @@ import { Element } from "easy";
 
 import MenuDiv from "./view/div/menu";
 import OverlayDiv from "./view/div/overlay";
+import AnchorsDiv from "./view/div/anchors";
 import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
 import ImagePreviewDiv from "./view/div/imagePreview";
@@ -21,14 +22,13 @@ class View extends Element {
   }
 
   childElements() {
-    const { divDOMElements } = this.properties;
-
     return ([
 
       <ImagePreviewDiv/>,
       <PreloaderDiv/>,
       <OverlayDiv/>,
-      <DivisionsDiv divDOMElements={divDOMElements} onCustomPreviewImage={this.previewImageCustomHandler} />,
+      <DivisionsDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
+      <AnchorsDiv/>,
       <MenuDiv/>
 
     ]);
@@ -48,9 +48,7 @@ class View extends Element {
 
   static tagName = "div";
 
-  static ignoredProperties = [
-    "divDOMElements"
-  ];
+  static ignoredProperties = [];
 
   static defaultProperties = {
     className: "view"

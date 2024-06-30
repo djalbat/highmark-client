@@ -32,16 +32,16 @@ export default function createMethods(scheduler, model, view) {
     view.updateMenuZoom();
   }
 
-  function showDivisions() {
+  function hideOverlay() {
     view.hideOverlayDiv();
+  }
+
+  function showDivisions() {
+    const anchorId = `${fragment}`;
 
     view.showDivisionsDiv();
 
-    const anchorId = `${fragment}`;
-
-    (anchorId === EMPTY_STRING) ?
-      view.showFirstDiv() :
-        view.scrollToAnchor(anchorId);
+    view.scrollToAnchor(anchorId);
 
     view.updateZoom();
   }
@@ -107,6 +107,7 @@ export default function createMethods(scheduler, model, view) {
     closeMenu,
     zoomMenuIn,
     zoomMenuOut,
+    hideOverlay,
     showDivisions,
     zoomDivisions,
     invertColours,

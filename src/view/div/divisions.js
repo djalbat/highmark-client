@@ -9,11 +9,17 @@ import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile"
 
 import Div from "../div";
 
+import { DIVS_SELECTOR } from "../../selectors";
 import { elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
 import { getDivisionsZoom as getZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
-import { SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
+import { EMPTY_STRING,
+         SCROLL_DELAY,
+         UP_DIRECTION,
+         DECELERATION,
+         DOWN_DIRECTION,
+         OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
 const { isFullScreen } = fullScreenUtilities,
       { ENTER_KEY_CODE,
@@ -23,6 +29,12 @@ const { isFullScreen } = fullScreenUtilities,
         ARROW_DOWN_KEY_CODE,
         ARROW_LEFT_KEY_CODE,
         ARROW_RIGHT_KEY_CODE } = keyCodes;
+
+const divDOMElements = [ ...document.querySelectorAll(DIVS_SELECTOR) ]; ///
+
+divDOMElements.forEach((divDOMElement) => {
+  divDOMElement.remove();
+});
 
 class DivisionsDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {
@@ -197,6 +209,12 @@ class DivisionsDiv extends Element {
   }
 
   scrollToAnchor(anchorId) {
+    if (anchorId === EMPTY_STRING) {
+      this.showFirstDiv();
+
+      return;
+    }
+
     let div;
 
     div = findDivByAnchorId(anchorId);
@@ -568,8 +586,7 @@ class DivisionsDiv extends Element {
   }
 
   childElements() {
-    const { divDOMElements } = this.properties,
-          divs = elementsFromDOMElements(divDOMElements, Div),
+    const divs = elementsFromDOMElements(divDOMElements, Div),
           childElements = [
             ...divs
           ];
@@ -609,9 +626,7 @@ class DivisionsDiv extends Element {
 
   static tagName = "div";
 
-  static ignoredProperties = [
-    "divDOMElements"
-  ];
+  static ignoredProperties = [];
 
   static defaultProperties = {
     className: "divisions"
