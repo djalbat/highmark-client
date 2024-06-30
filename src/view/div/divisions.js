@@ -12,7 +12,7 @@ import { DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
-import { getDivisionsZoom as getZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
+import { getDivisionsZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
 import { EMPTY_STRING,
          SCROLL_DELAY,
          UP_DIRECTION,
@@ -74,8 +74,8 @@ class DivisionsDiv extends Element {
   }
 
   pinchStartCustomHandler = (event, element) => {
-    const zoom = getZoom(),
-          startZoom = zoom; ///
+    const divisionsZoom = getDivisionsZoon(),
+          startZoom = divisionsZoom; ///
 
     this.setStartZoom(startZoom);
   }
@@ -233,7 +233,8 @@ class DivisionsDiv extends Element {
     const divisionDiv = this.findDivisionDiv();
 
     if (divisionDiv !== null) {
-      const zoom = getZoom();
+      const divisionsZoom = getDivisionsZoom(),
+            zoom = divisionsZoom; ///
 
       divisionDiv.zoom(zoom);
     }
@@ -384,8 +385,9 @@ class DivisionsDiv extends Element {
       previousDivisionDiv.hide();
     }
 
-    const zoom = getZoom(),
-          nextDivisionDiv = divisionDivs[nextIndex];
+    const nextDivisionDiv = divisionDivs[nextIndex],
+          divisionsZoom = getDivisionsZoom(),
+          zoom = divisionsZoom; ///
 
     this.stopScrolling();
 

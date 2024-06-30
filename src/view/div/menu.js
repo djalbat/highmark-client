@@ -7,7 +7,7 @@ import { Element } from "easy";
 import ButtonsDiv from "../div/buttons";
 import CheckboxesDiv from "../div/checkboxes";
 
-import { getMenuZoom as getZoom } from "../../state";
+import { getMenuZoom } from "../../state";
 import { borderColour, menuDivPadding, menuDivBackgroundColour } from "../../styles";
 
 class MenuDiv extends Element {
@@ -20,9 +20,9 @@ class MenuDiv extends Element {
   }
 
   updateMenuZoom() {
-    const zoom = getZoom(),
-          width = `${100/zoom}%`,
-          transform = `scale(${zoom})`,
+    const menuZoom = getMenuZoom(),
+          width = `${100/menuZoom}%`,
+          transform = `scale(${menuZoom})`,
           css = {
             width,
             transform
