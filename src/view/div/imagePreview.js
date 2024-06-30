@@ -74,10 +74,14 @@ class ImagePreviewDiv extends Element {
   }
 
   parentContext() {
-    const showImagePreviewDiv = this.show.bind(this); ///
+    const showImagePreviewDiv = this.show.bind(this), ///
+          hideImagePreviewDiv = this.hide.bind(this), ///
+          isImagePreviewDivShowing = this.isShowing.bind(this); ///
 
     return ({
-      showImagePreviewDiv
+      showImagePreviewDiv,
+      hideImagePreviewDiv,
+      isImagePreviewDivShowing
     });
   }
 

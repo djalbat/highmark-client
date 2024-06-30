@@ -2,7 +2,9 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { Element } from "easy";
+import { keyCodes } from "necessary";
+import { Element, window } from "easy";
+import { fullScreenUtilities } from "easy-mobile";
 
 import MenuDiv from "./view/div/menu";
 import OverlayDiv from "./view/div/overlay";
@@ -11,14 +13,81 @@ import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
 import ImagePreviewDiv from "./view/div/imagePreview";
 
+const { isFullScreen } = fullScreenUtilities,
+      { ENTER_KEY_CODE,
+        ESCAPE_KEY_CODE,
+        BACKSPACE_KEY_CODE,
+        ARROW_UP_KEY_CODE,
+        ARROW_DOWN_KEY_CODE,
+        ARROW_LEFT_KEY_CODE,
+        ARROW_RIGHT_KEY_CODE } = keyCodes;
+
 class View extends Element {
+  previewImageCustomHandler = (event, element, image) => {
+    this.showImagePreviewDiv(image);
+  }
+
+  keyDownHandler = (event, element) => {
+    const { keyCode } = event;
+
+    switch (keyCode) {
+      case ESCAPE_KEY_CODE: {
+        const imagePreviewDivShowing = this.isImagePreviewDivShowing();
+
+        if (imagePreviewDivShowing) {
+          this.hideImagePreviewDiv();
+        } else {
+          const fullScreen = isFullScreen();
+
+          if (fullScreen) {
+            controller.exitFullScreen();
+          }
+
+          controller.closeMenu();
+        }
+
+        break;
+      }
+
+      case ARROW_UP_KEY_CODE: {
+        this.showFirstDiv();
+
+        break;
+      }
+
+      case ARROW_DOWN_KEY_CODE: {
+        this.showLastDiv();
+
+        break;
+      }
+
+      case ENTER_KEY_CODE:
+      case ARROW_RIGHT_KEY_CODE: {
+        this.showRightDiv();
+
+        break;
+      }
+
+      case BACKSPACE_KEY_CODE:
+      case ARROW_LEFT_KEY_CODE: {
+        this.showLeftDiv();
+
+        break;
+      }
+    }
+  }
+
   updateZoom() {
     this.updateMenuZoom();
     this.updateDivisionsZoom();
   }
 
-  previewImageCustomHandler = (event, element, image) => {
-    this.showImagePreviewDiv(image);
+  didMount() {
+    window.onKeyDown(this.keyDownHandler);
+  }
+
+  willUnmount() {
+    window.offKeyDown(this.keyDownHandler);
   }
 
   childElements() {

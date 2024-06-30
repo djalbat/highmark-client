@@ -1,6 +1,6 @@
 "use strict";
 
-import { EMPTY_STRING, MENU_ZOOM_RATIO } from "./constants";
+import { MENU_ZOOM_RATIO } from "./constants";
 import { getMenuZoom, setMenuZoom, setDivisionsZoom, setColoursInverted, setNativeGesturesRestored } from "./state";
 
 export default function createMethods(scheduler, model, view) {

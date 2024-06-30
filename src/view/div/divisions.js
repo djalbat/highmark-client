@@ -2,9 +2,8 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { keyCodes } from "necessary";
+import { Element } from "easy";
 import { resetFragment } from "fragmented";
-import { window, Element } from "easy";
 import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile";
 
 import Div from "../div";
@@ -21,14 +20,7 @@ import { EMPTY_STRING,
          DOWN_DIRECTION,
          OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
-const { isFullScreen } = fullScreenUtilities,
-      { ENTER_KEY_CODE,
-        ESCAPE_KEY_CODE,
-        BACKSPACE_KEY_CODE,
-        ARROW_UP_KEY_CODE,
-        ARROW_DOWN_KEY_CODE,
-        ARROW_LEFT_KEY_CODE,
-        ARROW_RIGHT_KEY_CODE } = keyCodes;
+const { isFullScreen } = fullScreenUtilities;
 
 const divDOMElements = [ ...document.querySelectorAll(DIVS_SELECTOR) ]; ///
 
@@ -144,50 +136,6 @@ class DivisionsDiv extends Element {
     const scrollTop = startScrollTop - top;
 
     this.setScrollTop(scrollTop);
-  }
-
-  keyDownHandler = (event, element) => {
-    const { keyCode } = event;
-
-    switch (keyCode) {
-      case ENTER_KEY_CODE:
-      case ARROW_RIGHT_KEY_CODE: {
-        this.showRightDiv();
-
-        break;
-      }
-
-      case BACKSPACE_KEY_CODE:
-      case ARROW_LEFT_KEY_CODE: {
-        this.showLeftDiv();
-
-        break;
-      }
-
-      case ESCAPE_KEY_CODE: {
-        const fullScreen = isFullScreen();
-
-        if (fullScreen) {
-          controller.exitFullScreen();
-        }
-
-        controller.closeMenu();
-
-        break;
-      }
-
-      case ARROW_UP_KEY_CODE: {
-        this.showFirstDiv();
-
-        break;
-      }
-
-      case ARROW_DOWN_KEY_CODE: {
-        this.showLastDiv();
-
-        break;
-      }
-    }
   }
 
   scrollToTop() {
@@ -562,8 +510,6 @@ class DivisionsDiv extends Element {
   }
 
   didMount() {
-    window.onKeyDown(this.keyDownHandler);
-
     this.onCustomSingleTap(this.singleTapCustomHandler);
 
     this.onCustomFullScreenChange(this.fullScreenChangeCustomHandler);
@@ -581,8 +527,6 @@ class DivisionsDiv extends Element {
     this.offCustomFullScreenChange(this.fullScreenChangeCustomHandler);
 
     this.offCustomSingleTap(this.singleTapCustomHandler);
-
-    window.offKeyDown(this.keyDownHandler);
   }
 
   childElements() {
@@ -595,7 +539,10 @@ class DivisionsDiv extends Element {
   }
 
   parentContext() {
-    const showFirstDiv = this.showFirstDiv.bind(this),
+    const showLastDiv = this.showLastDiv.bind(this),
+          showLeftDiv = this.showLeftDiv.bind(this),
+          showRightDiv = this.showRightDiv.bind(this),
+          showFirstDiv = this.showFirstDiv.bind(this),
           scrollToAnchor = this.scrollToAnchor.bind(this),
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
@@ -605,6 +552,9 @@ class DivisionsDiv extends Element {
           updateDivisionsColours = this.updateDivisionsColours.bind(this);
 
     return ({
+      showLastDiv,
+      showLeftDiv,
+      showRightDiv,
       showFirstDiv,
       scrollToAnchor,
       exitFullScreen,
