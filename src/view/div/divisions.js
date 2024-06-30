@@ -201,6 +201,10 @@ class DivisionsDiv extends Element {
 
     div = findDivByAnchorId(anchorId);
 
+    if (div === null) {
+      return;
+    }
+
     const nextDiv = div;  ///
 
     div = this.findDiv();

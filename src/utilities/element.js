@@ -1,7 +1,7 @@
 "use strict";
 
 import { DIV_SELECTOR } from "../selectors";
-import { EMPTY_STRING } from "../constants";
+import { EMPTY_STRING, INDEX_PREPEND } from "../constants";
 
 export function elementsFromDOMElements(domElements, Element) {
   const elements = domElements.map((domElement) => {
@@ -31,11 +31,30 @@ export function elementFromDOMElement(domElement, Element) {
 }
 
 export function findDivByAnchorId(anchorId) {
-  const selector = DIV_SELECTOR,
-        anchorDOMElement = findAnchorDOMElement(anchorId),
-        divDOMElement = anchorDOMElement.closest(selector);
+  let div = null;
 
-  const { __element__: div } = divDOMElement;
+  const anchorDOMElement = findAnchorDOMElement(anchorId);
+
+  if (anchorDOMElement !== null) {
+    let divDOMElement;
+
+    const anchorIdIndexAnchorId = isAnchorIdIndexAnchorId(anchorId);
+
+    if (anchorIdIndexAnchorId) {
+      const nextDOMElement = findNextDOMElement(anchorDOMElement);
+
+      divDOMElement = nextDOMElement; ///
+    } else {
+      const selector = DIV_SELECTOR,
+            ancestorDOMElement = findAncestorDOMElement(anchorDOMElement, selector);
+
+      divDOMElement = ancestorDOMElement; ///
+    }
+
+    if (divDOMElement !== null) {
+      ({ __element__: div = null } = divDOMElement);
+    }
+  }
 
   return div;
 }
@@ -53,11 +72,44 @@ function findAnchorDOMElement(anchorId) {
   return anchorDOMElement;
 }
 
+function findNextDOMElement(domElement) {
+  let nextDOMElement = null;
+
+  const { nextSibling } = domElement;
+
+  if (nextSibling !== null) {
+    const { nodeType } = nextSibling;
+
+    if (nodeType === Node.ELEMENT_NODE) {
+      nextDOMElement = nextSibling; ///
+    } else {
+      domElement = nextSibling; ///
+
+      nextDOMElement = findNextDOMElement(domElement);
+    }
+  }
+
+  return nextDOMElement;
+}
+
 function classNameFromElement(element) {
   const domElement = element.getDOMElement(),
         { className } = domElement;
 
   return className;
+}
+
+function findAncestorDOMElement(domElement, selector) {
+  const ancestorDOMElement = domElement.closest(selector);
+
+  return ancestorDOMElement;
+}
+
+function isAnchorIdIndexAnchorId(anchorId) {
+  const anchorIdIncludesIndexPrepend = anchorId.includes(INDEX_PREPEND),
+        anchorIdIndexAnchorId = anchorIdIncludesIndexPrepend; ///
+
+  return anchorIdIndexAnchorId;
 }
 
 function addClassNameToDOMElement(domElement, className) {

@@ -9,6 +9,7 @@ export const EMPTY_STRING = "";
 export const SCROLL_DELAY = 10;
 export const DECELERATION = 0.0333333;
 export const UP_DIRECTION = +1;
+export const INDEX_PREPEND = "index";
 export const DOWN_DIRECTION = -1;
 export const MENU_ZOOM_RATIO = 1.1;
 export const BACKGROUND_COLOUR = "background-color"; ///
