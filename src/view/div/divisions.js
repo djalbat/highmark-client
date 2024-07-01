@@ -11,8 +11,8 @@ import DivisionDiv from "../div/division";
 import { DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
-import { scrollToAnchor, findDivByAnchorId } from "../../utilities/element";
 import { getDivisionsZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
+import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
 import { EMPTY_STRING,
          SCROLL_DELAY,
          UP_DIRECTION,
@@ -156,35 +156,6 @@ class DivisionsDiv extends Element {
     }
   }
 
-  scrollToAnchor(anchorId) {
-    if (anchorId === EMPTY_STRING) {
-      this.showFirstDivisionDiv();
-
-      return;
-    }
-
-    let divisionDiv;
-
-    divisionDiv = findDivByAnchorId(anchorId);  ///
-
-    if (divisionDiv === null) {
-      return;
-    }
-
-    const nextDivisionDiv = divisionDiv;  ///
-
-    divisionDiv = this.findDivisionDiv();
-
-    const previousDivisionDiv = divisionDiv,  ///
-          divisionDivs = this.getDivisionDivs(),
-          nextIndex = divisionDivs.indexOf(nextDivisionDiv),  ///
-          previousIndex = divisionDivs.indexOf(previousDivisionDiv);  ///
-
-    this.showNextDivisionDiv(nextIndex, previousIndex, () => {
-      scrollToAnchor(anchorId);
-    });
-  }
-
   previewImage(event, element, image) {
     const customEventType = PREVIEW_IMAGE_CUSTOM_EVENT_TYPE;
 
@@ -312,19 +283,24 @@ class DivisionsDiv extends Element {
     return nativeGesturesRestored;
   }
 
-  showRightDivisionDiv() {
-    const divisionDivs = this.getDivisionDivs(),
-          divisionDiv = this.findDivisionDiv(),
-          divsLength = divisionDivs.length,
-          index = divisionDivs.indexOf(divisionDiv),
-          nextIndex = index + 1,
-          previousIndex = index;  ///
+  goToAnchor(anchorId) {
+    if (anchorId === EMPTY_STRING) {
+      this.showFirstDivisionDiv();
 
-    if (nextIndex === divsLength) {
       return;
     }
 
-    this.showNextDivisionDiv(nextIndex, previousIndex);
+    const anchorIdIndexAnchorId = isAnchorIdIndexAnchorId(anchorId);
+
+    if (anchorIdIndexAnchorId) {
+      const indexAnchorId = anchorId; ///
+
+      this.showDivisionDivByIndexAnchorId(indexAnchorId);
+
+      return;
+    }
+
+    this.showDivisionDivByAnchorId(anchorId);
   }
 
   showLeftDivisionDiv() {
@@ -368,6 +344,60 @@ class DivisionsDiv extends Element {
           previousIndex = index;  ///
 
     if (nextIndex === previousIndex) {
+      return;
+    }
+
+    this.showNextDivisionDiv(nextIndex, previousIndex);
+  }
+
+  showRightDivisionDiv() {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = this.findDivisionDiv(),
+          divsLength = divisionDivs.length,
+          index = divisionDivs.indexOf(divisionDiv),
+          nextIndex = index + 1,
+          previousIndex = index;  ///
+
+    if (nextIndex === divsLength) {
+      return;
+    }
+
+    this.showNextDivisionDiv(nextIndex, previousIndex);
+  }
+
+  showDivisionDivByAnchorId(anchorId) {
+    let divisionDiv;
+
+    divisionDiv = findDivisionDivByAnchorId(anchorId);  ///
+
+    if (divisionDiv === null) {
+      return;
+    }
+
+    const nextDivisionDiv = divisionDiv;  ///
+
+    divisionDiv = this.findDivisionDiv();
+
+    const previousDivisionDiv = divisionDiv,  ///
+          divisionDivs = this.getDivisionDivs(),
+          nextIndex = divisionDivs.indexOf(nextDivisionDiv),  ///
+          previousIndex = divisionDivs.indexOf(previousDivisionDiv);  ///
+
+    this.showNextDivisionDiv(nextIndex, previousIndex, () => {
+      scrollToAnchor(anchorId);
+    });
+  }
+
+  showDivisionDivByIndexAnchorId(indexAnchorId) {
+    const divisionDivs = this.getDivisionDivs(),
+          divisionDiv = this.findDivisionDiv(),
+          divsLength = divisionDivs.length,
+          pageNumber = pageNumberFromIndexAnchorId(indexAnchorId),
+          index = divisionDivs.indexOf(divisionDiv),
+          nextIndex = pageNumber - 1,
+          previousIndex = index;  ///
+
+    if (nextIndex === divsLength) {
       return;
     }
 
@@ -543,26 +573,26 @@ class DivisionsDiv extends Element {
 
   parentContext() {
     const showDivisionsDiv = this.show.bind(this),  ///
-          scrollToAnchor = this.scrollToAnchor.bind(this),
+          goToAnchor = this.goToAnchor.bind(this),  ///
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
-          showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
-          showRightDivisionDiv = this.showRightDivisionDiv.bind(this),
+          showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
+          showRightDivisionDiv = this.showRightDivisionDiv.bind(this),
           updateDivisionsZoom = this.updateDivisionsZoom.bind(this),
           updateNativeGestures = this.updateNativeGestures.bind(this),
           updateDivisionsColours = this.updateDivisionsColours.bind(this);
 
     return ({
       showDivisionsDiv,
-      scrollToAnchor,
+      goToAnchor,
       exitFullScreen,
       enterFullScreen,
-      showLastDivisionDiv,
       showLeftDivisionDiv,
-      showRightDivisionDiv,
+      showLastDivisionDiv,
       showFirstDivisionDiv,
+      showRightDivisionDiv,
       updateDivisionsZoom,
       updateNativeGestures,
       updateDivisionsColours

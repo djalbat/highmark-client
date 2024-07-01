@@ -42,7 +42,7 @@ onOrientationChange((orientation) => {
 onFragmentChange((event, element, fragment) => {
   const anchorId = `${fragment}`;
 
-  view.scrollToAnchor(anchorId);
+  view.goToAnchor(anchorId);
 });
 
 getOrientation((orientation) => {

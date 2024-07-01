@@ -6,9 +6,10 @@ import { keyCodes } from "necessary";
 import { Element, window } from "easy";
 import { fullScreenUtilities } from "easy-mobile";
 
+import "./view/anchors";
+
 import MenuDiv from "./view/div/menu";
 import OverlayDiv from "./view/div/overlay";
-import AnchorsDiv from "./view/div/anchors";
 import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
 import ImagePreviewDiv from "./view/div/imagePreview";
@@ -97,7 +98,6 @@ class View extends Element {
       <PreloaderDiv/>,
       <OverlayDiv/>,
       <DivisionsDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
-      <AnchorsDiv/>,
       <MenuDiv/>
 
     ]);

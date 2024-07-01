@@ -41,7 +41,7 @@ export default function createMethods(scheduler, model, view) {
 
     view.showDivisionsDiv();
 
-    view.scrollToAnchor(anchorId);
+    view.goToAnchor(anchorId);
 
     view.updateZoom();
   }
