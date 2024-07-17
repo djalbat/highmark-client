@@ -99,16 +99,16 @@ class DivisionDiv extends Element {
     return images;
   }
 
-  setImages(images) {
-    this.updateState({
-      images
-    });
-  }
-
   getDisplay() {
     const { display } = this.getState();
 
     return display;
+  }
+
+  setImages(images) {
+    this.updateState({
+      images
+    });
   }
 
   setDisplay(display) {

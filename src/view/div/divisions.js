@@ -486,22 +486,10 @@ class DivisionsDiv extends Element {
     return interval;
   }
 
-  setInterval(interval) {
-    this.updateState({
-      interval
-    });
-  }
-
   getStartZoom() {
     const { startZoom } = this.getState();
 
     return startZoom;
-  }
-
-  setStartZoom(startZoom) {
-    this.updateState({
-      startZoom
-    });
   }
 
   getStartScrollTop() {
@@ -510,16 +498,28 @@ class DivisionsDiv extends Element {
     return startScrollTop;
   }
 
-  setStartScrollTop(startScrollTop) {
-    this.updateState({
-      startScrollTop
-    });
-  }
-
   areNativeGesturesEnabled() {
     const { nativeGesturesEnabled } = this.getState();
 
     return nativeGesturesEnabled;
+  }
+
+  setInterval(interval) {
+    this.updateState({
+      interval
+    });
+  }
+
+  setStartZoom(startZoom) {
+    this.updateState({
+      startZoom
+    });
+  }
+
+  setStartScrollTop(startScrollTop) {
+    this.updateState({
+      startScrollTop
+    });
   }
 
   setNativeGesturesEnabled(nativeGesturesEnabled) {
