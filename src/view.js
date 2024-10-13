@@ -4,7 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import { keyCodes } from "necessary";
 import { Element, window } from "easy";
-import { fullScreenUtilities } from "easy-mobile";
 
 import "./view/anchors";
 
@@ -14,8 +13,7 @@ import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
 import ImagePreviewDiv from "./view/div/imagePreview";
 
-const { isFullScreen } = fullScreenUtilities,
-      { ENTER_KEY_CODE,
+const { ENTER_KEY_CODE,
         ESCAPE_KEY_CODE,
         BACKSPACE_KEY_CODE,
         ARROW_UP_KEY_CODE,
@@ -38,7 +36,7 @@ class View extends Element {
         if (imagePreviewDivShowing) {
           this.hideImagePreviewDiv();
         } else {
-          const fullScreen = isFullScreen();
+          const fullScreen = this.isFullScreen();
 
           if (fullScreen) {
             controller.exitFullScreen();

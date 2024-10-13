@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 import { resetFragment } from "fragmented";
-import { touchMixins, fullScreenMixins, fullScreenUtilities } from "easy-mobile";
+import { touchMixins, fullScreenMixins } from "easy-mobile";
 
 import DivisionDiv from "../div/division";
 
@@ -20,8 +20,6 @@ import { EMPTY_STRING,
          DOWN_DIRECTION,
          OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
-const { isFullScreen } = fullScreenUtilities;
-
 const divisionDivDOMElements = [ ...document.querySelectorAll(DIVISION_DIVS_SELECTOR) ]; ///
 
 divisionDivDOMElements.forEach((divisionDivDOMElement) => {
@@ -36,7 +34,7 @@ class DivisionsDiv extends Element {
   }
 
   singleTapCustomHandler = (event, element, top, left) => {
-    const fullScreen = isFullScreen();
+    const fullScreen = this.isFullScreen();
 
     if (!fullScreen) {
       const showingDivisionDiv = this.findShowingDivisionDiv(),
@@ -58,7 +56,7 @@ class DivisionsDiv extends Element {
   }
 
   doubleTapCustomHandler = (event, element, top, left) => {
-    const fullScreen = isFullScreen();
+    const fullScreen = this.isFullScreen();
 
     if (fullScreen) {
       controller.exitFullScreen();

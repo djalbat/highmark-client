@@ -1,10 +1,6 @@
 "use strict";
 
-import { fullScreenUtilities } from "easy-mobile";
-
 import CheckboxDiv from "../../div/checkbox";
-
-const { isFullScreen } = fullScreenUtilities;
 
 export default class FullScreenCheckboxDiv extends CheckboxDiv {
   changeHandler = (event, element) => {
@@ -17,7 +13,7 @@ export default class FullScreenCheckboxDiv extends CheckboxDiv {
   }
 
   update() {
-    const fullScreen = isFullScreen();
+    const fullScreen = this.isFullScreen();
 
     fullScreen ?
       this.checkCheckbox() :
