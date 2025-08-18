@@ -1,7 +1,7 @@
 {
   "name": "highmark-client",
   "author": "James Smith",
-  "version": "1.0.86",
+  "version": "1.0.87",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-client",
   "description": "Highmark's bundled client for viewing HTML.",
@@ -10,7 +10,7 @@
     "url": "https://github.com/djalbat/highmark-client"
   },
   "dependencies": {
-    "highmark-fonts": "^2.0.6",
+    "highmark-fonts": "^2.0.13",
     "lively-cli": "^2.0.65",
     "necessary": "^14.3.2"
   },
