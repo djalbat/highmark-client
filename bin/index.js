@@ -1,9 +1,7 @@
 "use strict";
 
-const copyFiles = require("./copyFiles"),
-      constants = require("./constants");
+const copyFiles = require("./copyFiles");
 
 module.exports = {
-  copyFiles,
-  constants
+  copyFiles
 };
