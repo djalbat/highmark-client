@@ -1,7 +1,7 @@
 {
   "name": "highmark-client",
   "author": "James Smith",
-  "version": "1.0.112",
+  "version": "1.0.113",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-client",
   "description": "Highmark's bundled client for viewing HTML.",
@@ -9,24 +9,19 @@
     "type": "git",
     "url": "https://github.com/djalbat/highmark-client"
   },
-  "dependencies": {
-    "necessary": "^15.0.6"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@swc/core": "1.13.20",
     "esbuild": "0.11.14",
     "easy": "^23.1.6",
     "easy-mobile": "^1.1.106",
     "easy-with-style": "^3.0.524",
-    "express": "^4.19.2",
-    "fragmented": "^3.1.13",
     "juxtapose": "^4.0.121",
-    "lively-cli": "^2.0.77",
+    "necessary": "^15.0.6",
     "sufficient": "^2.0.72",
     "watchful-cli": "^1.7.63"
   },
   "scripts": {
-    "start": "node ./bin/main.js",
     "clean": "rm -rf ./lib",
     "watchful": "watchful -m --transpiler=swc --bundler=esbuild --source-directory=./src --lib-directory=./lib --entry-file=client.js --bundle-file=./client.js --wait=100",
     "batch": "npm run watchful batch --",
@@ -38,5 +33,5 @@
     "watch": "npm run clean && npm run batch && npm run incremental",
     "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
   },
-  "main": "./bin/index.js"
+  "main": "./lib/index.js"
 }

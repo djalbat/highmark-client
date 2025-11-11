@@ -1,5 +1,6 @@
+"use strict";
 
-    body > div:not(.loading) {
+const loadingCSS = `    body > div:not(.loading) {
       display: none;
     }
 
@@ -56,4 +57,6 @@
     @keyframes spinner {
       0% { opacity: 1; }
       100% { opacity: 0; }
-    }
+    }`;
+
+export default loadingCSS;

@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+"use strict";
+
+const indexHTML = `<!DOCTYPE html>
 <html>
   <head>
     <title>Highmark Client</title>
@@ -45,35 +47,32 @@
 
     <style>
 
-        ${computerModernStyleCSS}
+        {fontCSS}
 
     </style>
 
     <style>
 
-        ${markdownStylesCSS}
+        {loadingCSS}
 
     </style>
 
     <style>
 
-        ${loadingCSS}
+        {markdownCSS}
 
     </style>
 
   </head>
   <body>
 
-${loadingHTML}
-
-${markdownHTML}
-
-${clientHTML}
-
-${liveReloadSnippet}
+{markdownHTML}
 
   </body>
-</html>
+</html>`;
+
+export default indexHTML;
+
 
 
 
