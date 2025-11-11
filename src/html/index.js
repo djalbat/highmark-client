@@ -59,14 +59,14 @@ const indexHTML = `<!DOCTYPE html>
 
     <style>
 
-        {markdownCSS}
+        {highmarkCSS}
 
     </style>
 
   </head>
   <body>
 
-{markdownHTML}
+{highmarkHTML}
 
   </body>
 </html>`;
