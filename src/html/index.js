@@ -34,7 +34,6 @@ const indexHTML = `<!DOCTYPE html>
         }
 
     </style>
-
     <style>
 
       html,
@@ -44,22 +43,19 @@ const indexHTML = `<!DOCTYPE html>
       }
 
     </style>
-
     <style>
 
-        {fontCSS}
+{fontCSS}
 
     </style>
-
     <style>
 
-        {loadingCSS}
+{loadingCSS}
 
     </style>
-
     <style>
 
-        {highmarkCSS}
+{highmarkCSS}
 
     </style>
 
