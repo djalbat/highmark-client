@@ -1,44 +1,28 @@
 "use strict";
 
-import { pathUtilities, packageUtilities } from "necessary";
+import { packageUtilities } from "necessary";
 
-const { getPackagePath } = packageUtilities,
-      { concatenatePaths } = pathUtilities;
+const { getPackagePath } = packageUtilities;
 
 import { CLIENT_JS_FILE_NAME, CHECKMARK_SVG_FILE_NAME } from "../constants";
 
-export function getClientJSFilePath() {
-  const fileName = CLIENT_JS_FILE_NAME,
-        filePath = getFilePath(fileName),
-        clientJSFilePath = filePath;  ///
+export function getFileNames() {
+  const fileNames = [
+    CLIENT_JS_FILE_NAME,
+    CHECKMARK_SVG_FILE_NAME
+  ];
 
-  return clientJSFilePath;
+  return fileNames;
 }
 
-export function getCheckmarkSVGFilepath() {
-  const fileName = CHECKMARK_SVG_FILE_NAME,
-        filePath = getFilePath(fileName),
-        checkmarkSVTFilePath = filePath;  ///
-
-  return checkmarkSVTFilePath;
-}
-
-export default {
-  getClientJSFilePath,
-  getCheckmarkSVGFilepath
-};
-
-function getFilePath(fileName) {
-  const sourceDirectoryPath = getSourceDirectoryPath(),
-        filePath = concatenatePaths(sourceDirectoryPath, fileName);
-
-  return filePath;
-}
-
-function getSourceDirectoryPath() {
+export function getSourceDirectoryPath() {
   const packagePath = getPackagePath(),
         sourceDirectoryPath = `${packagePath}/node_modules/highmark-client`;
 
   return sourceDirectoryPath;
 }
 
+export default {
+  getFileNames,
+  getSourceDirectoryPath
+};
