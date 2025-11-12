@@ -64,31 +64,9 @@ const indexHTML = `<!DOCTYPE html>
 
 {highmarkHTML}
 
+{clientHTML}
+
   </body>
 </html>`;
 
 export default indexHTML;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
