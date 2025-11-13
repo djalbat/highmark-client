@@ -1,6 +1,6 @@
 "use strict";
 
-const loadingHTML = `<div class="loading">
+const loadingDivHTML = `<div class="loading">
     <div class="spinner">
         <div></div>
         <div></div>
@@ -17,4 +17,4 @@ const loadingHTML = `<div class="loading">
     </div>
 </div>`;
 
-export default loadingHTML;
+export default loadingDivHTML;
