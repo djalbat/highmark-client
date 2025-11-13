@@ -66,6 +66,8 @@ const indexHTML = `<!DOCTYPE html>
 
 {clientHTML}
 
+{liveReloadHTML}
+
   </body>
 </html>`;
 
