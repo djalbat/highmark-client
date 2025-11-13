@@ -61,6 +61,8 @@ const indexHTML = `<!DOCTYPE html>
 
   </head>
   <body>
+  
+{loadingHTML}
 
 {highmarkHTML}
 
