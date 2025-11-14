@@ -15,6 +15,12 @@ export function getFileNames() {
   return fileNames;
 }
 
+export function getClientJSFileName() {
+  const clientJSFileName = CLIENT_JS_FILE_NAME;
+
+  return clientJSFileName;
+}
+
 export function getSourceDirectoryPath() {
   const packagePath = getPackagePath(),
         sourceDirectoryPath = `${packagePath}/node_modules/highmark-client`;
@@ -24,5 +30,6 @@ export function getSourceDirectoryPath() {
 
 export default {
   getFileNames,
+  getClientJSFileName,
   getSourceDirectoryPath
 };
