@@ -8,9 +8,8 @@ import { Element, window } from "easy";
 import "./view/anchors";
 
 import MenuDiv from "./view/div/menu";
-import OverlayDiv from "./view/div/overlay";
-import DivisionsDiv from "./view/div/divisions";
 import PreloaderDiv from "./view/div/preloader";
+import DivisionsDiv from "./view/div/divisions";
 import ImagePreviewDiv from "./view/div/imagePreview";
 
 const { ENTER_KEY_CODE,
@@ -94,7 +93,6 @@ class View extends Element {
 
       <ImagePreviewDiv/>,
       <PreloaderDiv/>,
-      <OverlayDiv/>,
       <DivisionsDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
       <MenuDiv/>
 

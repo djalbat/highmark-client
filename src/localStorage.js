@@ -1,7 +1,7 @@
 "use strict";
 
 import { STATE_KEY } from "./constants";
-import { createState } from "./state/version4";
+import { createState } from "./state/version3";
 import { migrateState } from "./migrate";
 
 export function getPersistentState() {

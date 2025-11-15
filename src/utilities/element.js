@@ -2,14 +2,14 @@
 
 import { EMPTY_STRING } from "../constants";
 
-export function elementsFromDOMElements(domElements, Element) {
-  const elements = domElements.map((domElement) => {
-    const element = elementFromDOMElement(domElement, Element);
+export function removeDOMElements(selector) {
+  const domElements = [ ...document.querySelectorAll(selector) ]; ///
 
-    return element;
+  domElements.forEach((domElements) => {
+    domElements.remove();
   });
 
-  return elements;
+  return domElements;
 }
 
 export function elementFromDOMElement(domElement, Element) {
@@ -27,6 +27,16 @@ export function elementFromDOMElement(domElement, Element) {
   domElement.__element__ = element; ///
 
   return element;
+}
+
+export function elementsFromDOMElements(domElements, Element) {
+  const elements = domElements.map((domElement) => {
+    const element = elementFromDOMElement(domElement, Element);
+
+    return element;
+  });
+
+  return elements;
 }
 
 function addClassNameToDOMElement(domElement, className) {

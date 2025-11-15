@@ -9,22 +9,14 @@ import { touchMixins, fullScreenMixins } from "easy-mobile";
 import DivisionDiv from "../div/division";
 
 import { DIVISION_DIVS_SELECTOR } from "../../selectors";
-import { elementsFromDOMElements } from "../../utilities/element";
+import { removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
 import { getDivisionsZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
-import { EMPTY_STRING,
-         SCROLL_DELAY,
-         UP_DIRECTION,
-         DECELERATION,
-         DOWN_DIRECTION,
-         OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
+import { EMPTY_STRING, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
-const divisionDivDOMElements = [ ...document.querySelectorAll(DIVISION_DIVS_SELECTOR) ]; ///
-
-divisionDivDOMElements.forEach((divisionDivDOMElement) => {
-  divisionDivDOMElement.remove();
-});
+const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
+      divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
 
 class DivisionsDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {
@@ -72,7 +64,7 @@ class DivisionsDiv extends Element {
   }
 
   pinchStartCustomHandler = (event, element) => {
-    const divisionsZoom = getDivisionsZoon(),
+    const divisionsZoom = getDivisionsZoom(),
           startZoom = divisionsZoom; ///
 
     this.setStartZoom(startZoom);
@@ -548,6 +540,8 @@ class DivisionsDiv extends Element {
     this.enableFullScreen();
 
     this.enableTouch();
+
+    this.showFirstDivisionDiv();
   }
 
   willUnmount() {
@@ -561,17 +555,13 @@ class DivisionsDiv extends Element {
   }
 
   childElements() {
-    const divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv),
-          childElements = [
-            ...divisionDivs
-          ];
+    const childElements = divisionDivs; ///
 
     return childElements;
   }
 
   parentContext() {
-    const showDivisionsDiv = this.show.bind(this),  ///
-          goToAnchor = this.goToAnchor.bind(this),  ///
+    const goToAnchor = this.goToAnchor.bind(this),  ///
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
@@ -583,7 +573,6 @@ class DivisionsDiv extends Element {
           updateDivisionsColours = this.updateDivisionsColours.bind(this);
 
     return ({
-      showDivisionsDiv,
       goToAnchor,
       exitFullScreen,
       enterFullScreen,
@@ -598,8 +587,6 @@ class DivisionsDiv extends Element {
   }
 
   initialise() {
-    this.hide();
-
     this.assignContext();
 
     this.setInitialState();

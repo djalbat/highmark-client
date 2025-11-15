@@ -3,7 +3,7 @@
 const indexHTML = `<!DOCTYPE html>
 <html>
   <head>
-    <title>Highmark Client</title>
+    <title>Highmark</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="preload" href="font/STIXTwoMath-Regular.woff2" as="font" type="font/woff2" crossorigin >

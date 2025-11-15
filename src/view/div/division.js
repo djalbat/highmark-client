@@ -136,7 +136,6 @@ class DivisionDiv extends Element {
 
 export default withStyle(DivisionDiv)`
 
-  width: 100%;
   transform-origin: top left;
   
 `;

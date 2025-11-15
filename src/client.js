@@ -12,8 +12,8 @@ import View from "./view";
 import loadingDiv from "./view/div/loading";
 import createMethods from "./createMethods";
 
+import { setOrientation } from "./state";
 import { migratePersistentState } from "./localStorage";
-import { setOrientation, isOverlayHidden } from "./state";
 import { getOrientation, onOrientationChange } from "./utilities/orientation";
 
 const { renderStyles } = withStyle;
@@ -46,17 +46,9 @@ onFragmentChange((event, element, fragment) => {
 });
 
 getOrientation((orientation) => {
-  const overlayHidden = isOverlayHidden();
-
   setOrientation(orientation);
 
   loadingDiv.hide();
 
   body.mount(view);
-
-  if (overlayHidden) {
-    controller.hideOverlay();
-
-    controller.showDivisions();
-  }
 });
