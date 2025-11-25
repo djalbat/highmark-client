@@ -2,11 +2,19 @@
 
 import { EMPTY_STRING } from "../constants";
 
+export function removeDOMElement(selector) {
+  const domElement = document.querySelector(selector);
+
+  domElement.remove();
+
+  return domElement;
+}
+
 export function removeDOMElements(selector) {
   const domElements = [ ...document.querySelectorAll(selector) ]; ///
 
-  domElements.forEach((domElements) => {
-    domElements.remove();
+  domElements.forEach((domElement) => {
+    domElement.remove();
   });
 
   return domElements;

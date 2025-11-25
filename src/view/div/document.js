@@ -8,15 +8,17 @@ import { touchMixins, fullScreenMixins } from "easy-mobile";
 
 import DivisionDiv from "../div/division";
 
-import { DIVISION_DIVS_SELECTOR } from "../../selectors";
-import { removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
 import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
+import { DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
+import { removeDOMElement, removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
 import { getDivisionsZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
 import { EMPTY_STRING, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
+
+removeDOMElement(DOCUMENT_DIV_SELECTOR);
 
 class DocumentDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {

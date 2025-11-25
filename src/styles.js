@@ -10,6 +10,7 @@ export const buttonsDivTop = "17px";
 export const menuDivPadding = "24px";
 export const checkboxDivGap = "12px";
 export const menuButtonSize = "24px";
+export const checkboxPadding = "2px";
 export const buttonsDivRight = "17px";
 export const checkboxesDivGap = "24px";
 export const closeButtonColour = "#222";
