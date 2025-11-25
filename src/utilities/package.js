@@ -4,15 +4,10 @@ import { packageUtilities } from "necessary";
 
 const { getPackagePath } = packageUtilities;
 
-import { CLIENT_JS_FILE_NAME, CHECKMARK_SVG_FILE_NAME } from "../constants";
+import { CLIENT_FILE_NAME } from "../constants";
 
-export function getFileNames() {
-  const fileNames = [
-    CLIENT_JS_FILE_NAME,
-    CHECKMARK_SVG_FILE_NAME
-  ];
-
-  return fileNames;
+export function getClientFileName() {
+  return CLIENT_FILE_NAME;
 }
 
 export function getSourceDirectoryPath() {
@@ -23,6 +18,6 @@ export function getSourceDirectoryPath() {
 }
 
 export default {
-  getFileNames,
+  getClientFileName,
   getSourceDirectoryPath
 };

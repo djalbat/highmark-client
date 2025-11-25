@@ -2,21 +2,34 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { Checkbox } from "easy";
+import { Element } from "easy";
+
+import CheckmarkSVG from "./svg/checkmark";
 
 import { borderWidth, borderRadius, borderColour, checkboxSize, checkboxBackgroundColour } from "../styles";
 
-export default withStyle(class extends Checkbox {
+class Checkbox extends Element {
   check() {
-    const checked = true;
-
-    super.check(checked);
+    this.showCheckmarkSVG();
   }
 
   uncheck() {
-    const checked = false;
+    this.hideCheckmarkSVG();
+  }
 
-    super.check(checked);
+  isChecked() {
+    const checkmarkSVGShowing = this.isCheckmarkSVGShowing(),
+          checked = checkmarkSVGShowing;  ///
+
+    return checked;
+  }
+
+  childElements() {
+    return (
+
+      <CheckmarkSVG/>
+
+    )
   }
 
   parentContext() {
@@ -28,7 +41,13 @@ export default withStyle(class extends Checkbox {
       uncheckCheckbox
     });
   }
-})`
+
+  initialise() {
+    this.assignContext();
+  }
+}
+
+export default withStyle(Checkbox)`
 
   width: ${checkboxSize};
   height: ${checkboxSize};

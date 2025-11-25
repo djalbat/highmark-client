@@ -1,8 +1,8 @@
 "use strict";
 
-import SVG from "../../svg";
+import MenuSVG from "../../svg/menu";
 
-export default class CloseMenuSVG extends SVG {
+export default class CloseMenuSVG extends MenuSVG {
   childElements() {
     return (
 
@@ -14,6 +14,6 @@ export default class CloseMenuSVG extends SVG {
   }
 
   static defaultProperties = {
-    className: "close-menu"
+    className: "close"
   };
 }

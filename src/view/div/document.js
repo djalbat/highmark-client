@@ -18,7 +18,7 @@ import { EMPTY_STRING, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION,
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
 
-class DivisionsDiv extends Element {
+class DocumentDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {
     controller.updateFullScreen();
 
@@ -597,14 +597,14 @@ class DivisionsDiv extends Element {
   static ignoredProperties = [];
 
   static defaultProperties = {
-    className: "divisions"
+    className: "document"
   };
 }
 
-Object.assign(DivisionsDiv.prototype, touchMixins);
-Object.assign(DivisionsDiv.prototype, fullScreenMixins);
+Object.assign(DocumentDiv.prototype, touchMixins);
+Object.assign(DocumentDiv.prototype, fullScreenMixins);
 
-export default withStyle(DivisionsDiv)`
+export default withStyle(DocumentDiv)`
   
   width: 100%;
   height: 100%;

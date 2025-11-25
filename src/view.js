@@ -8,8 +8,7 @@ import { Element, window } from "easy";
 import "./view/anchors";
 
 import MenuDiv from "./view/div/menu";
-import PreloaderDiv from "./view/div/preloader";
-import DivisionsDiv from "./view/div/divisions";
+import DocumentDiv from "./view/div/document";
 import ImagePreviewDiv from "./view/div/imagePreview";
 
 const { ENTER_KEY_CODE,
@@ -92,8 +91,7 @@ class View extends Element {
     return ([
 
       <ImagePreviewDiv/>,
-      <PreloaderDiv/>,
-      <DivisionsDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
+      <DocumentDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
       <MenuDiv/>
 
     ]);

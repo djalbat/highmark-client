@@ -1,8 +1,8 @@
 "use strict";
 
-import SVG from "../../svg";
+import MenuSVG from "../../svg/menu";
 
-export default class ZoomOutMenuSVG extends SVG {
+export default class ZoomOutMenuSVG extends MenuSVG {
   childElements() {
     return (
 
@@ -14,6 +14,6 @@ export default class ZoomOutMenuSVG extends SVG {
   }
 
   static defaultProperties = {
-    className: "zoom-out-menu"
+    className: "zoom-out"
   };
 }
