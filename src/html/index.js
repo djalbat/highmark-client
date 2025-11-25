@@ -50,7 +50,7 @@ const indexHTML = `<!DOCTYPE html>
     </style>
     <style>
 
-{notLoadingDivCSS}
+{documentDivCSS}
 
     </style>
     <style>
