@@ -69,7 +69,11 @@ const indexHTML = `<!DOCTYPE html>
   
 {loadingDivHTML}
 
+  <div class="document">
+
 {highmarkHTML}
+
+  </div>
 
 {clientHTML}
 
