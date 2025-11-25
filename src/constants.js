@@ -18,3 +18,4 @@ export const PORTRAIT_ORIENTATION = "portrait";
 export const LANDSCAPE_ORIENTATION = "landscape";
 export const OPEN_MENU_TAP_AREA_HEIGHT = 128;
 export const ORIENTATION_PORTRAIT_QUERY = "(orientation: portrait)";
+export const CLIENT_CSS_SELECTORS_STRING = "div.view > div.document > div";
