@@ -1,6 +1,6 @@
 "use strict";
 
-const documentCSS = `body > div:document {
+const documentCSS = `body > div.document {
   display: none;
 }`;
 
