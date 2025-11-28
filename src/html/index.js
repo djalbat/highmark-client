@@ -5,7 +5,8 @@ const indexHTML = `<!DOCTYPE html>
   <head>
     <title>Highmark</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.1, user-scalable=yes">
+
     <link rel="preload" href="font/STIXTwoMath-Regular.woff2" as="font" type="font/woff2" crossorigin >
     <link rel="preload" href="font/STIXTwoText-Regular.woff2" as="font" type="font/woff2" crossorigin >
     <link rel="preload" href="font/STIXTwoText-Bold.woff2" as="font" type="font/woff2" crossorigin >
