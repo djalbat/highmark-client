@@ -50,12 +50,12 @@ const indexHTML = `<!DOCTYPE html>
     </style>
     <style>
 
-{documentDivCSS}
+{documentCSS}
 
     </style>
     <style>
 
-{loadingDivCSS}
+{loadingCSS}
 
     </style>
     <style>
@@ -67,7 +67,7 @@ const indexHTML = `<!DOCTYPE html>
   </head>
   <body>
   
-{loadingDivHTML}
+{loadingHTML}
 
   <div class="document">
 
