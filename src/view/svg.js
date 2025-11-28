@@ -6,11 +6,11 @@ import { Element } from "easy";
 
 import { svgFill } from "../styles";
 
-class FontSizeSVG extends Element {
+class SVG extends Element {
   static tagName = "svg";
 }
 
-export default withStyle(FontSizeSVG)`
+export default withStyle(SVG)`
 
   fill: ${svgFill};
   stroke: none;

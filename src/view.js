@@ -7,9 +7,7 @@ import { Element, window } from "easy";
 
 import "./view/anchors";
 
-import MenuDiv from "./view/div/menu";
 import DocumentDiv from "./view/div/document";
-import ImagePreviewDiv from "./view/div/imagePreview";
 
 const { ENTER_KEY_CODE,
         ESCAPE_KEY_CODE,
@@ -20,28 +18,18 @@ const { ENTER_KEY_CODE,
         ARROW_RIGHT_KEY_CODE } = keyCodes;
 
 class View extends Element {
-  previewImageCustomHandler = (event, element, image) => {
-    this.showImagePreviewDiv(image);
-  }
-
   keyDownHandler = (event, element) => {
     const { keyCode } = event;
 
     switch (keyCode) {
       case ESCAPE_KEY_CODE: {
-        const imagePreviewDivShowing = this.isImagePreviewDivShowing();
+        const fullScreen = this.isFullScreen();
 
-        if (imagePreviewDivShowing) {
-          this.hideImagePreviewDiv();
-        } else {
-          const fullScreen = this.isFullScreen();
-
-          if (fullScreen) {
-            controller.exitFullScreen();
-          }
-
-          controller.closeMenu();
+        if (fullScreen) {
+          controller.exitFullScreen();
         }
+
+        controller.closeMenu();
 
         break;
       }
@@ -74,11 +62,6 @@ class View extends Element {
     }
   }
 
-  updateZoom() {
-    this.updateMenuZoom();
-    this.updateDivisionsZoom();
-  }
-
   didMount() {
     window.onKeyDown(this.keyDownHandler);
   }
@@ -90,9 +73,7 @@ class View extends Element {
   childElements() {
     return ([
 
-      <ImagePreviewDiv/>,
-      <DocumentDiv onCustomPreviewImage={this.previewImageCustomHandler} />,
-      <MenuDiv/>
+      <DocumentDiv/>
 
     ]);
   }
@@ -102,11 +83,7 @@ class View extends Element {
 
     this.assignContext();
 
-    this.updateNativeGestures();
-    this.updateDivisionsColours();
     this.updateFullScreenCheckboxDiv();
-    this.updateInvertColoursCheckboxDiv();
-    this.updateNativeGesturesCheckboxDiv();
   }
 
   static tagName = "div";

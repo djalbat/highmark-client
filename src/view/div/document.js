@@ -8,12 +8,11 @@ import { touchMixins, fullScreenMixins } from "easy-mobile";
 
 import DivisionDiv from "../div/division";
 
-import { PREVIEW_IMAGE_CUSTOM_EVENT_TYPE } from "../../customEventTypes";
+import { getZoom } from "../../state";
 import { DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { removeDOMElement, removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
-import { getDivisionsZoom, areColoursInverted, areNativeGesturesRestored } from "../../state";
+import { EMPTY_STRING, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION } from "../../constants";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
-import { EMPTY_STRING, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION, OPEN_MENU_TAP_AREA_HEIGHT } from "../../constants";
 
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
@@ -24,29 +23,11 @@ class DocumentDiv extends Element {
   fullScreenChangeCustomHandler = (event, element) => {
     controller.updateFullScreen();
 
-    this.updateDivisionsZoom();
+    this.updateZoom();
   }
 
   singleTapCustomHandler = (event, element, top, left) => {
-    const fullScreen = this.isFullScreen();
-
-    if (!fullScreen) {
-      const showingDivisionDiv = this.findShowingDivisionDiv(),
-            image = showingDivisionDiv.findImageByTopAndLeft(top, left);
-
-      if (image !== null) {
-        this.previewImage(event, element, image);
-
-        return;
-      }
-    }
-
-    const height = this.getHeight(),
-          bottom = height - top;
-
-    if (bottom < OPEN_MENU_TAP_AREA_HEIGHT) {
-      controller.openMenu();
-    }
+    ///
   }
 
   doubleTapCustomHandler = (event, element, top, left) => {
@@ -57,26 +38,20 @@ class DocumentDiv extends Element {
 
       return;
     }
-
-    const nativeGesturesRestored = areNativeGesturesRestored();
-
-    nativeGesturesRestored ?
-      controller.suppressNativeGestures() :
-        controller.restoreNativeGestures();
   }
 
   pinchStartCustomHandler = (event, element) => {
-    const divisionsZoom = getDivisionsZoom(),
-          startZoom = divisionsZoom; ///
+    const zoom = getZoom(),
+          startZoom = zoom; ///
 
     this.setStartZoom(startZoom);
   }
 
   pinchMoveCustomHandler = (event, element, ratio) => {
     const startZoom = this.getStartZoom(),
-          divisionsZoom = startZoom * Math.sqrt(ratio);  ///
+          zoom = startZoom * Math.sqrt(ratio);  ///
 
-    controller.zoomDivisions(divisionsZoom);
+    controller.zoom(zoom);
   }
 
   swipeRightCustomHandler = (event, element, top, left, spped) => {
@@ -148,12 +123,6 @@ class DocumentDiv extends Element {
     }
   }
 
-  previewImage(event, element, image) {
-    const customEventType = PREVIEW_IMAGE_CUSTOM_EVENT_TYPE;
-
-    this.callCustomHandlers(customEventType, event, element, image);
-  }
-
   startScrolling(speed, direction) {
     let scrollTop = this.getScrollTop();
 
@@ -192,44 +161,18 @@ class DocumentDiv extends Element {
     this.requestFullScreen();
   }
 
-  updateDivisionsZoom() {
+  updateZoom() {
     const divisionDiv = this.findDivisionDiv();
 
     if (divisionDiv !== null) {
-      const divisionsZoom = getDivisionsZoom(),
-            zoom = divisionsZoom; ///
+      const zoom = getZoom(),
+            zoom = zoom; ///
 
       divisionDiv.zoom(zoom);
     }
   }
 
-  updateDivisionsColours() {
-    const coloursInverted = areColoursInverted();
-
-    coloursInverted ?
-      this.addClass("inverted-colours") :
-        this.removeClass("inverted-colours");
-  }
-
-  updateNativeGestures() {
-    const nativeGesturesRestored = areNativeGesturesRestored();
-
-    nativeGesturesRestored ?
-      this.addClass("native-gestures") :
-        this.removeClass("native-gestures");
-
-    nativeGesturesRestored ?
-      this.disableCustomGestures() :
-        this.enableCustomGestures();
-  }
-
   enableCustomGestures() {
-    let nativeGesturedEnabled = this.areNativeGesturesEnabled();
-
-    if (nativeGesturedEnabled) {
-      return;
-    }
-
     this.onCustomDragUp(this.dragUpCustomHandler);
     this.onCustomDragDown(this.dragDownCustomHandler);
     this.onCustomDragStart(this.dragStartCustomHandler);
@@ -240,19 +183,9 @@ class DocumentDiv extends Element {
     this.onCustomPinchMove(this.pinchMoveCustomHandler);
     this.onCustomPinchStart(this.pinchStartCustomHandler);
     this.onCustomDoubleTap(this.doubleTapCustomHandler);
-
-    nativeGesturedEnabled = true;
-
-    this.setNativeGesturesEnabled(nativeGesturedEnabled);
   }
 
   disableCustomGestures() {
-    let nativeGesturedEnabled = this.areNativeGesturesEnabled();
-
-    if (!nativeGesturedEnabled) {
-      return;
-    }
-
     this.offCustomDragUp(this.dragUpCustomHandler);
     this.offCustomDragDown(this.dragDownCustomHandler);
     this.offCustomDragStart(this.dragStartCustomHandler);
@@ -263,16 +196,6 @@ class DocumentDiv extends Element {
     this.offCustomPinchMove(this.pinchMoveCustomHandler);
     this.offCustomPinchStart(this.pinchStartCustomHandler);
     this.offCustomDoubleTap(this.doubleTapCustomHandler);
-
-    nativeGesturedEnabled = false;
-
-    this.setNativeGesturesEnabled(nativeGesturedEnabled);
-  }
-
-  areNativeGesturesRestored() {
-    const nativeGesturesRestored = this.hasClass("native-gestures");
-
-    return nativeGesturesRestored;
   }
 
   goToAnchor(anchorId) {
@@ -375,9 +298,9 @@ class DocumentDiv extends Element {
           nextIndex = divisionDivs.indexOf(nextDivisionDiv),  ///
           previousIndex = divisionDivs.indexOf(previousDivisionDiv);  ///
 
-    this.showNextDivisionDiv(nextIndex, previousIndex, () => {
-      scrollToAnchor(anchorId);
-    });
+    this.showNextDivisionDiv(nextIndex, previousIndex);
+
+    scrollToAnchor(anchorId);
   }
 
   showDivisionDivByIndexAnchorId(indexAnchorId) {
@@ -396,7 +319,7 @@ class DocumentDiv extends Element {
     this.showNextDivisionDiv(nextIndex, previousIndex);
   }
 
-  showNextDivisionDiv(nextIndex, previousIndex, done = () => {}) {
+  showNextDivisionDiv(nextIndex, previousIndex) {
     resetFragment();
 
     const divisionDivs = this.getDivisionDivs();
@@ -408,8 +331,7 @@ class DocumentDiv extends Element {
     }
 
     const nextDivisionDiv = divisionDivs[nextIndex],
-          divisionsZoom = getDivisionsZoom(),
-          zoom = divisionsZoom; ///
+          zoom = getZoom();
 
     this.stopScrolling();
 
@@ -418,14 +340,6 @@ class DocumentDiv extends Element {
     nextDivisionDiv.zoom(zoom);
 
     nextDivisionDiv.show();
-
-    defer(() => {
-      const backgroundColour = nextDivisionDiv.getBackgroundColour();
-
-      this.setBackgroundColour(backgroundColour);
-
-      done();
-    });
   }
 
   findShowingDivisionDiv() {
@@ -439,15 +353,6 @@ class DocumentDiv extends Element {
           }) || null;
 
     return showingDivisionDiv;
-  }
-
-  setBackgroundColour(backgroundColour) {
-    const backgroundColor = backgroundColour, ///
-          css = {
-            backgroundColor
-          };
-
-    this.css(css);
   }
 
   findDivisionDiv() {
@@ -490,12 +395,6 @@ class DocumentDiv extends Element {
     return startScrollTop;
   }
 
-  areNativeGesturesEnabled() {
-    const { nativeGesturesEnabled } = this.getState();
-
-    return nativeGesturesEnabled;
-  }
-
   setInterval(interval) {
     this.updateState({
       interval
@@ -514,23 +413,15 @@ class DocumentDiv extends Element {
     });
   }
 
-  setNativeGesturesEnabled(nativeGesturesEnabled) {
-    this.updateState({
-      nativeGesturesEnabled
-    });
-  }
-
   setInitialState() {
     const interval = null,
           startZoom = null,
-          startScrollTop = null,
-          nativeGesturesEnabled = false;
+          startScrollTop = null;
 
     this.setState({
       interval,
       startZoom,
-      startScrollTop,
-      nativeGesturesEnabled
+      startScrollTop
     });
   }
 
@@ -564,27 +455,23 @@ class DocumentDiv extends Element {
 
   parentContext() {
     const goToAnchor = this.goToAnchor.bind(this),  ///
+          updateZoom = this.updateZoom.bind(this),
           exitFullScreen = this.exitFullScreen.bind(this),
           enterFullScreen = this.enterFullScreen.bind(this),
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
           showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
-          showRightDivisionDiv = this.showRightDivisionDiv.bind(this),
-          updateDivisionsZoom = this.updateDivisionsZoom.bind(this),
-          updateNativeGestures = this.updateNativeGestures.bind(this),
-          updateDivisionsColours = this.updateDivisionsColours.bind(this);
+          showRightDivisionDiv = this.showRightDivisionDiv.bind(this);
 
     return ({
       goToAnchor,
+      updateZoom,
       exitFullScreen,
       enterFullScreen,
       showLeftDivisionDiv,
       showLastDivisionDiv,
       showFirstDivisionDiv,
-      showRightDivisionDiv,
-      updateDivisionsZoom,
-      updateNativeGestures,
-      updateDivisionsColours
+      showRightDivisionDiv
     });
   }
 
@@ -613,16 +500,7 @@ export default withStyle(DocumentDiv)`
 
   overflow: hidden;
   touch-action: none;
-    
-  .native-gestures {
-    overflow: scroll;
-    touch-action: auto;
-  }
   
-  .inverted-colours {
-    filter: invert(1);
-  }
-    
 `;
 
 function defer(func) {

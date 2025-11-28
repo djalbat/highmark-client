@@ -19,111 +19,42 @@ export function setOrientation(orientation) {
   });
 }
 
-export function getMenuZoom() {
-  stateFromPersistentState();
-
-  let menuZoom;
-
-  ({ menuZoom } = state);
-
-  const { orientation } = state,
-        orientedMenuZoom = menuZoom[orientation]; ///
-
-  menuZoom = orientedMenuZoom;  ///
-
-  return menuZoom;
-}
-
-export function setMenuZoom(menuZoom) {
-  stateFromPersistentState();
-
-  const { orientation } = state,
-        orientedMenuZoom = menuZoom;  ///
-
-  ({ menuZoom } = state);
-
-  Object.assign(menuZoom, {
-    [orientation]: orientedMenuZoom
-  });
-
-  stateToPersistentState();
-}
-
-export function getDivisionsZoom() {
+export function getZoom() {
   stateFromPersistentState();
 
   const orientation = getOrientation();
 
-  let divisionsZoom;
+  let zoom;
 
-  ({ divisionsZoom } = state);
+  ({ zoom } = state);
 
-  const orientedDivisionsZoom = divisionsZoom[orientation]; ///
+  const orientedZoom = zoom[orientation]; ///
 
-  divisionsZoom = orientedDivisionsZoom;  ///
+  zoom = orientedZoom;  ///
 
-  return divisionsZoom;
+  return zoom;
 }
 
-export function setDivisionsZoom(divisionsZoom) {
+export function setZoom(zoom) {
   stateFromPersistentState();
 
   const orientation = getOrientation(),
-        orientedDivisionsZoom = divisionsZoom;  ///
+        orientedZoom = zoom;  ///
 
-  ({ divisionsZoom } = state);
+  ({ zoom } = state);
 
-  Object.assign(divisionsZoom, {
-    [orientation]: orientedDivisionsZoom
-  });
-
-  stateToPersistentState();
-}
-
-export function areNativeGesturesRestored() {
-  stateFromPersistentState();
-
-  const { nativeGesturesRestored } = state;
-
-  return nativeGesturesRestored;
-}
-
-export function setNativeGesturesRestored(nativeGesturesRestored) {
-  stateFromPersistentState();
-
-  Object.assign(state, {
-    nativeGesturesRestored
-  });
-
-  stateToPersistentState();
-}
-
-export function areColoursInverted() {
-  stateFromPersistentState();
-
-  const { coloursInverted } = state;
-
-  return coloursInverted;
-}
-
-export function setColoursInverted(coloursInverted) {
-  stateFromPersistentState();
-
-  Object.assign(state, {
-    coloursInverted
+  Object.assign(zoom, {
+    [orientation]: orientedZoom
   });
 
   stateToPersistentState();
 }
 
 function stateToPersistentState() {
-  const { version, menuZoom, divisionsZoom, coloursInverted, nativeGesturesRestored } = state,
+  const { version, zoom } = state,
         persistentState = {
           version,
-          menuZoom,
-          divisionsZoom,
-          coloursInverted,
-          nativeGesturesRestored
+          zoom
         };
 
   setPersistentState(persistentState);

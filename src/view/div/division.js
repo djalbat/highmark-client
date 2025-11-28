@@ -2,23 +2,11 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { Element, elementUtilities } from "easy";
+import { Element } from "easy";
 
-import Image from "../image";
-
-import { IMAGE_SELECTOR } from "../../selectors";
-import { elementsFromDOMElements } from "../../utilities/element";
-import { DISPLAY, BACKGROUND_COLOUR } from "../../constants";
-
-const { mountElement, unmountElement } = elementUtilities;
+import { DISPLAY } from "../../constants";
 
 class DivisionDiv extends Element {
-  getBackgroundColour() {
-    const backgroundColour = this.css(BACKGROUND_COLOUR) || null;
-
-    return backgroundColour;
-  }
-
   zoom(zoom) {
     const zoomRatio = 100 / zoom,
           width = `${zoomRatio}%`,
@@ -40,75 +28,23 @@ class DivisionDiv extends Element {
     this.display(display);
   }
 
-  mountImages() {
-    const images = this.getImages();
-
-    images.forEach((image) => {
-      const element = image;  ///
-
-      mountElement(element);
-    });
-  }
-
-  unmountImages() {
-    const images = this.getImages();
-
-    images.forEach((image) => {
-      const element = image;  ///
-
-      unmountElement(element);
-    });
-  }
-
-  findImageByTopAndLeft(top, left) {
-    const images = this.getImages(),
-          image = images.find((image) => {
-            const boundsOverlapping = image.areBoundsOverlapping(top, left);
-
-            if (boundsOverlapping) {
-              return true;
-            }
-          }) || null;
-
-    return image;
-  }
-
   didMount() {
     const name = DISPLAY, ///
-          display = this.css(name),
-          domElement = this.getDOMElement(),
-          imageDOMElements = [ ...domElement.querySelectorAll(IMAGE_SELECTOR) ],
-          images = elementsFromDOMElements(imageDOMElements, Image);
+          display = this.css(name);
 
     this.setDisplay(display);
 
-    this.setImages(images);
-
     this.hide();
-
-    this.mountImages();
   }
 
   willUnmount() {
-    this.unmountImages();
-  }
-
-  getImages() {
-    const { images } = this.getState();
-
-    return images;
+    ///
   }
 
   getDisplay() {
     const { display } = this.getState();
 
     return display;
-  }
-
-  setImages(images) {
-    this.updateState({
-      images
-    });
   }
 
   setDisplay(display) {
@@ -118,11 +54,9 @@ class DivisionDiv extends Element {
   }
 
   setInitialState() {
-    const images = null,
-          display = null;
+    const display = null;
 
     this.setState({
-      images,
       display
     });
   }
