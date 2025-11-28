@@ -1,6 +1,6 @@
 "use strict";
 
-const loadingDivCSS = `body > div.loading {
+const loadingCSS = `body > div.loading {
   width: 100vw;
   height: 100vh;
   z-index: 1;
@@ -55,4 +55,4 @@ div.spinner div:nth-child(12) { transform: rotate(330deg); animation-delay: 0s; 
   100% { opacity: 0; }
 }`;
 
-export default loadingDivCSS;
+export default loadingCSS;
