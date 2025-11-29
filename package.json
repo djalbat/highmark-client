@@ -17,6 +17,7 @@
     "esbuild": "0.11.14",
     "juxtapose": "^4.0.125",
     "necessary": "^15.0.6",
+    "occam-styles": "^5.0.387",
     "sufficient": "^2.0.72",
     "watchful-cli": "^1.7.63"
   },

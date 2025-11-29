@@ -4,8 +4,13 @@ import withStyle from "easy-with-style";  ///
 
 import { keyCodes } from "necessary";
 import { Element, window } from "easy";
+import { scrollbarMixin, previewPaneScheme } from "occam-styles";
 
 import DocumentDiv from "./view/div/document";
+
+import { getZoom } from "./state";
+
+const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgroundColour, scrollbarCornerBackgroundColour } = previewPaneScheme;
 
 const { ENTER_KEY_CODE,
         ESCAPE_KEY_CODE,
@@ -58,20 +63,71 @@ class View extends Element {
     }
   }
 
+  resizeHandler = (event, element) => {
+    const noNudge = true;
+
+    this.zoom(noNudge);
+  }
+
+  zoom(noNudge = false) {
+    const zoom = getZoom(),
+          innerWidth = this.getInnerWidth(),
+          innerHeight = this.getInnerHeight(),
+          documentScale = zoom, ///
+          previewPaneInnerWidth = innerWidth, ///
+          previewPaneInnerHeight = innerHeight; ///
+
+    this.scaleDocumentDiv(documentScale, previewPaneInnerWidth, previewPaneInnerHeight);
+
+    if (noNudge) {
+      return;
+    }
+
+    this.nudge();
+  }
+
+  nudge() {
+    let scrollTop = this.getScrollTop();
+
+    const scrollLeft = this.getScrollLeft(),
+          innerHeight = this.getInnerHeight(),
+          scrollHeight = this.getScrollHeight(),
+          maximumScrollTop = scrollHeight - innerHeight,
+          delta = (scrollTop < maximumScrollTop) ?
+                    +1 :
+                      -1;
+
+    scrollTop += delta;
+
+    this.scrollTo(scrollTop, scrollLeft);
+
+    requestAnimationFrame(() => {
+      scrollTop -= delta;
+
+      this.scrollTo(scrollTop, scrollLeft);
+    });
+  }
+
   didMount() {
+    this.onResize(this.resizeHandler, this);
+
     window.onKeyDown(this.keyDownHandler);
   }
 
   willUnmount() {
+    this.offResize(this.resizeHandler, this);
+
     window.offKeyDown(this.keyDownHandler);
   }
 
   childElements() {
-    return ([
+    const resizeHandler = this.resizeHandler.bind(this);
 
-      <DocumentDiv/>
+    return (
 
-    ]);
+      <DocumentDiv resizeHandler={resizeHandler} />
+
+    );
   }
 
   initialise() {
@@ -91,7 +147,29 @@ export default withStyle(View)`
 
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  display: flex;
+  overflow: scroll;
+  position: absolute;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+
   touch-action: none;
+
+  background-color: ${backgroundColour};
+  
+  ${scrollbarMixin}
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: ${scrollbarThumbBackgroundColour};
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: ${scrollbarTrackBackgroundColour};
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: ${scrollbarCornerBackgroundColour};
+  }
     
 `;

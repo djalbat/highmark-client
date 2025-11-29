@@ -10,7 +10,7 @@ import DivisionDiv from "../div/division";
 import { removeDOMElement, removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
 import { ANCHOR_HREF_SELECTOR, DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
-import { HASH, HREF, EMPTY_STRING, BLANK_TARGET, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION } from "../../constants";
+import { HASH, HREF, EMPTY_STRING, TRANSFORM, BLANK_TARGET, TRANSFORM_ORIGIN, TOP_LEFT_TRANSFORM_ORIGIN, SCROLL_DELAY, UP_DIRECTION, DECELERATION, DOWN_DIRECTION } from "../../constants";
 
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
@@ -32,6 +32,8 @@ class DocumentDiv extends Element {
       return;
     }
 
+    event.preventDefault();
+
     const hrefStartsWithHash = href.startsWith(HASH),
           linkExternal = !hrefStartsWithHash;
 
@@ -43,11 +45,29 @@ class DocumentDiv extends Element {
       return;
     }
 
-    event.preventDefault();
-
     const anchorId = href.substring(1); ///
 
     this.goToAnchor(anchorId);
+  }
+
+  scale(documentScale, previewPaneInnerWidth, previewPaneInnerHeight) {
+    const scale = documentScale,  ///
+          width = this.getWidth(),
+          height = this.getHeight(),
+          scaledWidth = width * scale,
+          scaledHeight = height * scale,
+          translateX = (scaledWidth < previewPaneInnerWidth) ?
+                         (previewPaneInnerWidth - scaledWidth) / 2 :
+                           0,
+          translateY = (scaledHeight < previewPaneInnerHeight) ?
+                         (previewPaneInnerHeight - scaledHeight) / 2 :
+                           0,
+          transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+          transformOrigin = TOP_LEFT_TRANSFORM_ORIGIN;
+
+    this.style(TRANSFORM, transform);
+
+    this.style(TRANSFORM_ORIGIN, transformOrigin);
   }
 
   goToAnchor(anchorId) {
@@ -137,13 +157,9 @@ class DocumentDiv extends Element {
 
     const nextDivisionDiv = divisionDivs[nextIndex];
 
-    // const zoom = getZoom();
-    //
     // this.stopScrolling();
     //
     // this.scrollToTop();
-    //
-    // nextDivisionDiv.zoom(zoom);
 
     nextDivisionDiv.show();
   }
@@ -245,7 +261,8 @@ class DocumentDiv extends Element {
     //       exitFullScreen = this.exitFullScreen.bind(this),
     //       enterFullScreen = this.enterFullScreen.bind(this);
 
-    const showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
+    const scaleDocumentDiv = this.scale.bind(this), ///
+          showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
           showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
           showRightDivisionDiv = this.showRightDivisionDiv.bind(this);
@@ -255,6 +272,7 @@ class DocumentDiv extends Element {
       // updateZoom,
       // exitFullScreen,
       // enterFullScreen,
+      scaleDocumentDiv,
       showLeftDivisionDiv,
       showLastDivisionDiv,
       showFirstDivisionDiv,
@@ -282,8 +300,16 @@ Object.assign(DocumentDiv.prototype, fullScreenMixins);
 
 export default withStyle(DocumentDiv)`
   
-  width: 100%;
-  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  
+  .presentation {
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+  }
   
 `;
 

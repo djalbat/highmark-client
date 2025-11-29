@@ -1,27 +1,10 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import { Element } from "easy";
 
 import { DISPLAY } from "../../constants";
 
-class DivisionDiv extends Element {
-  zoom(zoom) {
-    const zoomRatio = 100 / zoom,
-          width = `${zoomRatio}%`,
-          minHeight = `${zoomRatio}%`,
-          transform = `scale(${zoom})`;
-
-    const css = {
-      width,
-      minHeight,
-      transform
-    };
-
-    this.css(css);
-  }
-
+export default class DivisionDiv extends Element {
   show() {
     const display = this.getDisplay();
 
@@ -67,9 +50,3 @@ class DivisionDiv extends Element {
 
   static tagName = "div";
 }
-
-export default withStyle(DivisionDiv)`
-
-  transform-origin: top left;
-  
-`;
