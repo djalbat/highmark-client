@@ -18,13 +18,18 @@ export function createState() {
 }
 
 export function migrateToVersion4(json) {
-  const version = VERSION_4;
+  const version = VERSION_4,
+        zoom = {
+          [PORTRAIT_ORIENTATION]: 1,
+          [LANDSCAPE_ORIENTATION]: 1
+        };
 
   json = Object.assign({}, json, {
-    version
+    version,
+    zoom
   });
 
-  return json.menuZoom
+  delete json.menuZoom
   delete json.divisionsZoom;
   delete json.coloursInverted;
   delete json.nativeGesturesRestored;

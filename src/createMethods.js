@@ -17,14 +17,9 @@ export default function createMethods(scheduler, model, view) {
     view.enterFullScreen();
   }
 
-  function updateFullScreen() {
-    view.updateFullScreenCheckboxDiv();
-  }
-
   return ({
     zoom,
     exitFullScreen,
-    enterFullScreen,
-    updateFullScreen
+    enterFullScreen
   });
 }

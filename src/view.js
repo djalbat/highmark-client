@@ -5,14 +5,12 @@ import withStyle from "easy-with-style";  ///
 import { keyCodes } from "necessary";
 import { Element, window } from "easy";
 
-import "./view/anchors";
-
 import DocumentDiv from "./view/div/document";
 
 const { ENTER_KEY_CODE,
         ESCAPE_KEY_CODE,
-        BACKSPACE_KEY_CODE,
         ARROW_UP_KEY_CODE,
+        BACKSPACE_KEY_CODE,
         ARROW_DOWN_KEY_CODE,
         ARROW_LEFT_KEY_CODE,
         ARROW_RIGHT_KEY_CODE } = keyCodes;
@@ -28,8 +26,6 @@ class View extends Element {
         if (fullScreen) {
           controller.exitFullScreen();
         }
-
-        controller.closeMenu();
 
         break;
       }
@@ -79,11 +75,7 @@ class View extends Element {
   }
 
   initialise() {
-    this.show();  ///
-
     this.assignContext();
-
-    this.updateFullScreenCheckboxDiv();
   }
 
   static tagName = "div";
@@ -99,5 +91,7 @@ export default withStyle(View)`
 
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  touch-action: none;
     
 `;

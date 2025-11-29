@@ -6,7 +6,6 @@ import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
 import { controller } from "sufficient";
-import { onFragmentChange } from "fragmented";
 
 import View from "./view";
 import loadingDiv from "./view/div/loading";
@@ -37,12 +36,6 @@ onOrientationChange((orientation) => {
   setOrientation(orientation);
 
   view.updateZoom();
-});
-
-onFragmentChange((event, element, fragment) => {
-  const anchorId = `${fragment}`;
-
-  view.goToAnchor(anchorId);
 });
 
 getOrientation((orientation) => {

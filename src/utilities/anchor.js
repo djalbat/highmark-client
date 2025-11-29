@@ -14,8 +14,8 @@ export function scrollToAnchor(anchorId) {
 }
 
 export function isAnchorIdIndexAnchorId(anchorId) {
-  const anchorIdIncludesIndexPrepend = anchorId.includes(INDEX_PREPEND),
-        anchorIdIndexAnchorId = anchorIdIncludesIndexPrepend; ///
+  const anchorIdStartsWithIndexPrepend = anchorId.startsWith(INDEX_PREPEND),
+        anchorIdIndexAnchorId = anchorIdStartsWithIndexPrepend; ///
 
   return anchorIdIndexAnchorId;
 }
