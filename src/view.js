@@ -42,16 +42,12 @@ class View extends Element {
     const scrollSpeed = speed,  ///
           direction = DOWN_DIRECTION;
 
-    console.log(speed, direction);
-
     this.startScrolling(scrollSpeed, direction);
   }
 
   swipeUpCustomHandler = (event, element, top, left, speed) => {
     const scrollSpeed = speed,  ///
           direction = UP_DIRECTION;
-
-    console.log(speed, direction);
 
     this.startScrolling(scrollSpeed, direction);
   }
