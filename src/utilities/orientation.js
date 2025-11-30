@@ -6,29 +6,30 @@ import { PORTRAIT_ORIENTATION, LANDSCAPE_ORIENTATION, ORIENTATION_PORTRAIT_QUERY
 
 const { CHANGE_EVENT_TYPE } = eventTypes;
 
-var mediaQueryList = matchMedia(ORIENTATION_PORTRAIT_QUERY);
+const mediaQueryList = matchMedia(ORIENTATION_PORTRAIT_QUERY);
 
-export function getOrientation(callback) {
-  const orientation = orientationFromMediaQueryList(mediaQueryList);
+export function getOrientation() {
+  const { matches } = mediaQueryList,
+        orientation = orientationFromMatches(matches);
 
-  callback(orientation);
+  return orientation;
 }
 
 export function onOrientationChange(handler) {
   const eventType = CHANGE_EVENT_TYPE;
 
-  mediaQueryList.addEventListener(eventType, (mediaQueryList) => {
-    const orientation = orientationFromMediaQueryList(mediaQueryList);
+  mediaQueryList.addEventListener(eventType, (event) => {
+    const { matches } = event,
+          orientation = orientationFromMatches(matches);
 
     handler(orientation);
   });
 }
 
-function orientationFromMediaQueryList(mediaQueryList) {
-  const { matches = false } = mediaQueryList,
-        orientation = matches ?
-          PORTRAIT_ORIENTATION :
-            LANDSCAPE_ORIENTATION;
+function orientationFromMatches(matches) {
+  const orientation = matches ?
+                        PORTRAIT_ORIENTATION :
+                          LANDSCAPE_ORIENTATION;
 
   return orientation;
 }

@@ -35,13 +35,15 @@ controller.assignMethods(createMethods, scheduler, model, view);
 onOrientationChange((orientation) => {
   setOrientation(orientation);
 
-  view.updateZoom();
+  view.zoom();
 });
 
-getOrientation((orientation) => {
-  setOrientation(orientation);
+const orientation = getOrientation();
 
-  loadingDiv.hide();
+setOrientation(orientation);
 
-  body.mount(view);
-});
+loadingDiv.hide();
+
+body.mount(view);
+
+view.zoom();
