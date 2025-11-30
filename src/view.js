@@ -25,17 +25,13 @@ class View extends Element {
   swipeRightCustomHandler = (event, element, top, left, spped) => {
     this.showLeftDivisionDiv();
 
-    this.stopScrolling();
-
-    this.scrollToTop();
+    this.resetScrolling();
   }
 
   swipeLeftCustomHandler = (event, element, top, left, spped) => {
     this.showRightDivisionDiv();
 
-    this.stopScrolling();
-
-    this.scrollToTop();
+    this.resetScrolling();
   }
 
   swipeDownCustomHandler = (event, element, top, left, speed) => {
@@ -64,14 +60,67 @@ class View extends Element {
   }
 
   dragUpCustomHandler = (event, element, top, left) => {
-    const startScrollLeft = this.getStartScrollLeft(),
-          startScrollTop = this.getStartScrollTop(),
-          scrollLeft = startScrollLeft - left,
-          scrollTop = startScrollTop - top;
+    const startScrollTop = this.getStartScrollTop();
+
+    if (startScrollTop === null) {
+      return;
+    }
+
+    const scrollTop = startScrollTop - top;
 
     this.setScrollTop(scrollTop);
 
+    const startScrollLeft = null;
+
+    this.setStartScrollLeft(startScrollLeft);
+  }
+
+  dragLeftCustomHandler = (event, element, top, left) => {
+    const startScrollLeft = this.getStartScrollLeft();
+
+    if (startScrollLeft === null) {
+      return;
+    }
+
+    const scrollLeft = startScrollLeft - left;
+
     this.setScrollLeft(scrollLeft);
+
+    const startScrollTop = null;
+
+    this.setStartScrollTop(startScrollTop);
+  }
+
+  dragDownCustomHandler = (event, element, top, left) => {
+    const startScrollTop = this.getStartScrollTop();
+
+    if (startScrollTop === null) {
+      return;
+    }
+
+    const scrollTop = startScrollTop - top;
+
+    this.setScrollTop(scrollTop);
+
+    const startScrollLeft = null;
+
+    this.setStartScrollLeft(startScrollLeft);
+  }
+
+  dragRightCustomHandler = (event, element, top, left) => {
+    const startScrollLeft = this.getStartScrollLeft();
+
+    if (startScrollLeft === null) {
+      return;
+    }
+
+    const scrollLeft = startScrollLeft - left;
+
+    this.setScrollLeft(scrollLeft);
+
+    const startScrollTop = null;
+
+    this.setStartScrollTop(startScrollTop);
   }
 
   keyDownHandler = (event, element) => {
@@ -91,9 +140,7 @@ class View extends Element {
       case ARROW_UP_KEY_CODE: {
         this.showFirstDivisionDiv();
 
-        this.stopScrolling();
-
-        this.scrollToTop();
+        this.resetScrolling();
 
         break;
       }
@@ -101,9 +148,7 @@ class View extends Element {
       case ARROW_DOWN_KEY_CODE: {
         this.showLastDivisionDiv();
 
-        this.stopScrolling();
-
-        this.scrollToTop();
+        this.resetScrolling();
 
         break;
       }
@@ -112,9 +157,7 @@ class View extends Element {
       case ARROW_RIGHT_KEY_CODE: {
         this.showRightDivisionDiv();
 
-        this.stopScrolling();
-
-        this.scrollToTop();
+        this.resetScrolling();
 
         break;
       }
@@ -123,9 +166,7 @@ class View extends Element {
       case ARROW_LEFT_KEY_CODE: {
         this.showLeftDivisionDiv();
 
-        this.stopScrolling();
-
-        this.scrollToTop();
+        this.resetScrolling();
 
         break;
       }
@@ -183,6 +224,12 @@ class View extends Element {
     this.setScrollTop(scrollTop);
   }
 
+  scrollToLeft() {
+    const scrollLeft = 0;
+
+    this.setScrollLeft(scrollLeft);
+  }
+
   stopScrolling() {
     let animationFrame = this.getAnimationFrame();
 
@@ -229,8 +276,17 @@ class View extends Element {
     this.setAnimationFrame(animationFrame);
   }
 
+  resetScrolling() {
+    this.scrollToTop();
+    this.scrollToLeft();
+    this.stopScrolling();
+  }
+
   enableGestures() {
     this.onCustomDragUp(this.dragUpCustomHandler);
+    this.onCustomDragLeft(this.dragLeftCustomHandler);
+    this.onCustomDragDown(this.dragDownCustomHandler);
+    this.onCustomDragRight(this.dragRightCustomHandler);
     this.onCustomDragStart(this.dragStartCustomHandler);
     this.onCustomSwipeUp(this.swipeUpCustomHandler);
     this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
@@ -240,6 +296,9 @@ class View extends Element {
 
   disableGestures() {
     this.offCustomDragUp(this.dragUpCustomHandler);
+    this.offCustomDragLeft(this.dragLeftCustomHandler);
+    this.offCustomDragDown(this.dragDownCustomHandler);
+    this.offCustomDragRight(this.dragRightCustomHandler);
     this.offCustomDragStart(this.dragStartCustomHandler);
     this.offCustomSwipeUp(this.swipeUpCustomHandler);
     this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
