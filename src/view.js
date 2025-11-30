@@ -160,16 +160,20 @@ export default withStyle(View)`
   
   ${scrollbarMixin}
   
-  ::-webkit-scrollbar-thumb {
-    background-color: ${scrollbarThumbBackgroundColour};
-  }
+  @media (pointer: fine) {
+    ::-webkit-scrollbar-thumb {
+      background-color: ${scrollbarThumbBackgroundColour};
+    }
+    
+    ::-webkit-scrollbar-track {
+      background-color: ${scrollbarTrackBackgroundColour};
+    }
   
-  ::-webkit-scrollbar-track {
-    background-color: ${scrollbarTrackBackgroundColour};
-  }
-
-  ::-webkit-scrollbar-corner {
-    background-color: ${scrollbarCornerBackgroundColour};
+    ::-webkit-scrollbar-corner {
+      background-color: ${scrollbarCornerBackgroundColour};
+    }
+  
+    scrollbar-color: ${scrollbarThumbBackgroundColour} ${scrollbarTrackBackgroundColour};
   }
     
 `;
