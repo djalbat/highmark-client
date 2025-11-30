@@ -63,7 +63,7 @@ class View extends Element {
     this.setStartScrollLeft(startScrollLeft);
   }
 
-  dragCustomHandler = (event, element, top, left) => {
+  dragUpCustomHandler = (event, element, top, left) => {
     const startScrollLeft = this.getStartScrollLeft(),
           startScrollTop = this.getStartScrollTop(),
           scrollLeft = startScrollLeft - left,
@@ -230,21 +230,21 @@ class View extends Element {
   }
 
   enableGestures() {
+    this.onCustomDragUp(this.dragUpCustomHandler);
+    this.onCustomDragStart(this.dragStartCustomHandler);
     this.onCustomSwipeUp(this.swipeUpCustomHandler);
     this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.onCustomSwipeDown(this.swipeDownCustomHandler);
     this.onCustomSwipeRight(this.swipeRightCustomHandler);
-    this.onCustomDrag(this.dragCustomHandler);
-    this.onCustomDragStart(this.dragStartCustomHandler);
   }
 
   disableGestures() {
+    this.offCustomDragUp(this.dragUpCustomHandler);
+    this.offCustomDragStart(this.dragStartCustomHandler);
     this.offCustomSwipeUp(this.swipeUpCustomHandler);
     this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.offCustomSwipeDown(this.swipeDownCustomHandler);
     this.offCustomSwipeRight(this.swipeRightCustomHandler);
-    this.offCustomDrag(this.dragCustomHandler);
-    this.offCustomDragStart(this.dragStartCustomHandler);
   }
 
   getAnimationFrame() {
