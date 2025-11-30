@@ -63,28 +63,15 @@ class View extends Element {
     this.setStartScrollLeft(startScrollLeft);
   }
 
-  dragDownCustomHandler = (event, element, top, left) => {
-    const startScrollTop = this.getStartScrollTop();
-
-    if (startScrollTop === null) {
-      return;
-    }
-
-    const scrollTop = startScrollTop - top;
+  dragCustomHandler = (event, element, top, left) => {
+    const startScrollLeft = this.getStartScrollLeft(),
+          startScrollTop = this.getStartScrollTop(),
+          scrollLeft = startScrollLeft - left,
+          scrollTop = startScrollTop - top;
 
     this.setScrollTop(scrollTop);
-  }
 
-  dragUpCustomHandler = (event, element, top, left) => {
-    const startScrollTop = this.getStartScrollTop();
-
-    if (startScrollTop === null) {
-      return;
-    }
-
-    const scrollTop = startScrollTop - top;
-
-    this.setScrollTop(scrollTop);
+    this.setScrollLeft(scrollLeft);
   }
 
   keyDownHandler = (event, element) => {
@@ -247,8 +234,7 @@ class View extends Element {
     this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.onCustomSwipeDown(this.swipeDownCustomHandler);
     this.onCustomSwipeRight(this.swipeRightCustomHandler);
-    this.onCustomDragUp(this.dragUpCustomHandler);
-    this.onCustomDragDown(this.dragDownCustomHandler);
+    this.onCustomDrag(this.dragCustomHandler);
     this.onCustomDragStart(this.dragStartCustomHandler);
   }
 
@@ -257,8 +243,7 @@ class View extends Element {
     this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.offCustomSwipeDown(this.swipeDownCustomHandler);
     this.offCustomSwipeRight(this.swipeRightCustomHandler);
-    this.offCustomDragUp(this.dragUpCustomHandler);
-    this.offCustomDragDown(this.dragDownCustomHandler);
+    this.offCustomDrag(this.dragCustomHandler);
     this.offCustomDragStart(this.dragStartCustomHandler);
   }
 
@@ -450,7 +435,7 @@ export default withStyle(View)`
 //
 // disableGestures() {
 //   this.offCustomDragUp(this.dragUpCustomHandler);
-//   this.offCustomDragDown(this.dragDownCustomHandler);
+//   this.offCustomDrag(this.dragCustomHandler);
 //   this.offCustomDragStart(this.dragStartCustomHandler);
 //   this.offCustomSwipeUp(this.swipeUpCustomHandler);
 //   this.offCustomSwipeDown(this.swipeDownCustomHandler);
