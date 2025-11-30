@@ -52,6 +52,41 @@ class View extends Element {
     this.startScrolling(scrollSpeed, direction);
   }
 
+  dragStartCustomHandler = (event, element, top, left) => {
+    const scrollTop = this.getScrollTop(),
+          scrollLeft = this.getScrollLeft(),
+          startScrollTop = scrollTop, ///
+          startScrollLeft = scrollLeft; ///
+
+    this.setStartScrollTop(startScrollTop);
+
+    this.setStartScrollLeft(startScrollLeft);
+  }
+
+  dragDownCustomHandler = (event, element, top, left) => {
+    const startScrollTop = this.getStartScrollTop();
+
+    if (startScrollTop === null) {
+      return;
+    }
+
+    const scrollTop = startScrollTop - top;
+
+    this.setScrollTop(scrollTop);
+  }
+
+  dragUpCustomHandler = (event, element, top, left) => {
+    const startScrollTop = this.getStartScrollTop();
+
+    if (startScrollTop === null) {
+      return;
+    }
+
+    const scrollTop = startScrollTop - top;
+
+    this.setScrollTop(scrollTop);
+  }
+
   keyDownHandler = (event, element) => {
     const { keyCode } = event;
 
@@ -208,17 +243,23 @@ class View extends Element {
   }
 
   enableGestures() {
-    this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
-    this.onCustomSwipeRight(this.swipeRightCustomHandler);
     this.onCustomSwipeUp(this.swipeUpCustomHandler);
+    this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.onCustomSwipeDown(this.swipeDownCustomHandler);
+    this.onCustomSwipeRight(this.swipeRightCustomHandler);
+    this.onCustomDragUp(this.dragUpCustomHandler);
+    this.onCustomDragDown(this.dragDownCustomHandler);
+    this.onCustomDragStart(this.dragStartCustomHandler);
   }
 
   disableGestures() {
-    this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
-    this.offCustomSwipeRight(this.swipeRightCustomHandler);
     this.offCustomSwipeUp(this.swipeUpCustomHandler);
+    this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.offCustomSwipeDown(this.swipeDownCustomHandler);
+    this.offCustomSwipeRight(this.swipeRightCustomHandler);
+    this.offCustomDragUp(this.dragUpCustomHandler);
+    this.offCustomDragDown(this.dragDownCustomHandler);
+    this.offCustomDragStart(this.dragStartCustomHandler);
   }
 
   getAnimationFrame() {
@@ -227,17 +268,45 @@ class View extends Element {
     return animationFrame;
   }
 
+  getStartScrollTop() {
+    const { startScrollTop } = this.getState();
+
+    return startScrollTop;
+  }
+
+  getStartScrollLeft() {
+    const { startScrollLeft } = this.getState();
+
+    return startScrollLeft;
+  }
+
   setAnimationFrame(animationFrame) {
     this.updateState({
       animationFrame
     });
   }
 
+  setStartScrollTop(startScrollTop) {
+    this.updateState({
+      startScrollTop
+    });
+  }
+
+  setStartScrollLeft(startScrollLeft) {
+    this.updateState({
+      startScrollLeft
+    });
+  }
+
   setInitialState() {
-    const animationFrame = null;
+    const animationFrame = null,
+          startScrollTop = null,
+          startScrollLeft = null;
 
     this.setState({
-      animationFrame
+      animationFrame,
+      startScrollTop,
+      startScrollLeft
     });
   }
 
@@ -321,24 +390,6 @@ export default withStyle(View)`
     
 `;
 
-// getStartScrollTop() {
-//   const { startScrollTop } = this.getState();
-//
-//   return startScrollTop;
-// }
-//
-// setStartScrollTop(startScrollTop) {
-//   this.updateState({
-//     startScrollTop
-//   });
-// }
-//
-// ,
-// startScrollTop = null
-//
-//   ,
-//   startScrollTop
-//
 // this.onCustomFullScreenChange(this.fullScreenChangeCustomHandler);
 //
 // this.onCustomSingleTap(this.singleTapCustomHandler);
@@ -383,45 +434,11 @@ export default withStyle(View)`
 //   controller.zoom(zoom);
 // }
 //
-// dragStartCustomHandler = (event, element, top, left) => {
-//   const scrollTop = this.getScrollTop(),
-//         startScrollTop = scrollTop; ///
-//
-//   this.setStartScrollTop(startScrollTop);
-// }
-//
-// dragDownCustomHandler = (event, element, top, left) => {
-//   const startScrollTop = this.getStartScrollTop();
-//
-//   if (startScrollTop === null) {
-//     return;
-//   }
-//
-//   const scrollTop = startScrollTop - top;
-//
-//   this.setScrollTop(scrollTop);
-// }
-//
-// dragUpCustomHandler = (event, element, top, left) => {
-//   const startScrollTop = this.getStartScrollTop();
-//
-//   if (startScrollTop === null) {
-//     return;
-//   }
-//
-//   const scrollTop = startScrollTop - top;
-//
-//   this.setScrollTop(scrollTop);
-// }
-//
 // enterFullScreen() {
 //   this.requestFullScreen();
 // }
 //
 // enableGestures() {
-//   this.onCustomDragUp(this.dragUpCustomHandler);
-//   this.onCustomDragDown(this.dragDownCustomHandler);
-//   this.onCustomDragStart(this.dragStartCustomHandler);
 //   this.onCustomSwipeUp(this.swipeUpCustomHandler);
 //   this.onCustomSwipeDown(this.swipeDownCustomHandler);
 //   this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
