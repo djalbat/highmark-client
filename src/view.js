@@ -57,9 +57,14 @@ class View extends Element {
   }
 
   swipeRightCustomHandler = (event, element, top, left, speed) => {
-    const scrollLeft = this.getScrollLeft();
+    this.stopScrolling();
 
-    if (scrollLeft <= 1) {
+    const scrollHorizontally = this.canScrollHorizontally(),
+          scrollLeft = this.getScrollLeft(),
+          scrolledLeft = scrollLeft <= 1,
+          noScrollLeft = !scrollHorizontally;
+
+    if (scrolledLeft || noScrollLeft) {
       this.showLeftDivisionDiv();
 
       this.resetScrolling();
@@ -74,10 +79,15 @@ class View extends Element {
   }
 
   swipeLeftCustomHandler = (event, element, top, left, speed) => {
-    const scrollLeft = this.getScrollLeft(),
-          maximumScrollLeft = this.getMaximumScrollLeft();
+    this.stopScrolling();
 
-    if (scrollLeft >= maximumScrollLeft - 1) {
+    const scrollHorizontally = this.canScrollHorizontally(),
+          maximumScrollLeft = this.getMaximumScrollLeft(),
+          scrollLeft = this.getScrollLeft(),
+          scrolledRight = scrollLeft >= maximumScrollLeft - 1,
+          noScrollRight = !scrollHorizontally;
+
+    if (scrolledRight || noScrollRight) {
       this.showRightDivisionDiv();
 
       this.resetScrolling();
@@ -92,6 +102,14 @@ class View extends Element {
   }
 
   swipeDownCustomHandler = (event, element, top, left, speed) => {
+    this.stopScrolling();
+
+    const scrollVertically = this.canScrollVertically();
+
+    if (!scrollVertically) {
+      return;
+    }
+
     const scrollSpeed = speed,  ///
           direction = DOWN_DIRECTION;
 
@@ -99,6 +117,14 @@ class View extends Element {
   }
 
   swipeUpCustomHandler = (event, element, top, left, speed) => {
+    this.stopScrolling();
+
+    const scrollVertically = this.canScrollVertically();
+
+    if (!scrollVertically) {
+      return;
+    }
+
     const scrollSpeed = speed,  ///
           direction = UP_DIRECTION;
 
@@ -106,10 +132,25 @@ class View extends Element {
   }
 
   dragStartCustomHandler = (event, element, top, left) => {
-    const scrollTop = this.getScrollTop(),
-          scrollLeft = this.getScrollLeft(),
-          startScrollTop = scrollTop, ///
-          startScrollLeft = scrollLeft; ///
+    this.stopScrolling();
+
+    let startScrollTop = null,
+        startScrollLeft = null;
+
+    const scrollVertically = this.canScrollVertically(),
+          scrollHorizontally = this.canScrollHorizontally();
+
+    if (scrollVertically) {
+      const scrollTop = this.getScrollTop();
+
+      startScrollTop = scrollTop; ///
+    }
+
+    if (scrollHorizontally) {
+      const scrollLeft = this.getScrollLeft();
+
+      startScrollLeft = scrollLeft; ///
+    }
 
     this.setStartScrollTop(startScrollTop);
 
@@ -386,6 +427,26 @@ class View extends Element {
           maximumScrollLeft = Math.max(0, scrollWidth - innerWidth);
 
     return maximumScrollLeft;
+  }
+
+  canScrollVertically() {
+    const zoom = getZoom(),
+          innerHeight = this.getInnerHeight(),
+          documentDivHeight = this.getDocumentDivHeight(),
+          scaledDocumentDivHeight = documentDivHeight * zoom,
+          scrollVertically = scaledDocumentDivHeight > innerHeight;
+
+    return scrollVertically;
+  }
+
+  canScrollHorizontally() {
+    const zoom = getZoom(),
+          innerWidth = this.getInnerWidth(),
+          documentDivWidth = this.getDocumentDivWidth(),
+          scaledDocumentDivWidth = documentDivWidth * zoom,
+          scrollHorizontally = scaledDocumentDivWidth > innerWidth;
+
+    return scrollHorizontally;;
   }
 
   enableGestures() {

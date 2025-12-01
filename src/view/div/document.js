@@ -236,6 +236,8 @@ class DocumentDiv extends Element {
 
   parentContext() {
     const scaleDocumentDiv = this.scale.bind(this), ///
+          getDocumentDivWidth = this.getWidth.bind(this), ///
+          getDocumentDivHeight = this.getHeight.bind(this), ///
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
           showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
@@ -243,6 +245,8 @@ class DocumentDiv extends Element {
 
     return ({
       scaleDocumentDiv,
+      getDocumentDivWidth,
+      getDocumentDivHeight,
       showLeftDivisionDiv,
       showLastDivisionDiv,
       showFirstDivisionDiv,
