@@ -10,7 +10,7 @@ import { scrollbarMixin, previewPaneScheme } from "occam-styles";
 import DocumentDiv from "./view/div/document";
 
 import { getZoom } from "./state";
-import { UP_DIRECTION, DOWN_DIRECTION, SCROLL_TOP_DELTA, SCROLL_SPEED_DELTA } from "./constants";
+import { UP_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, RIGHT_DIRECTION, SCROLL_TOP_DELTA, SCROLL_SPEED_DELTA } from "./constants";
 
 const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgroundColour, scrollbarCornerBackgroundColour } = previewPaneScheme,
       { ENTER_KEY_CODE,
@@ -22,16 +22,39 @@ const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgrou
         ARROW_RIGHT_KEY_CODE } = keyCodes;
 
 class View extends Element {
-  swipeRightCustomHandler = (event, element, top, left, spped) => {
-    this.showLeftDivisionDiv();
+  swipeRightCustomHandler = (event, element, top, left, speed) => {
+    const scrollLeft = this.getScrollLeft();
 
-    this.resetScrolling();
+    if (scrollLeft <= 1) {
+      this.showLeftDivisionDiv();
+
+      this.resetScrolling();
+
+      return;
+    }
+
+    const scrollSpeed = speed,  ///
+          direction = RIGHT_DIRECTION;
+
+    this.startScrolling(scrollSpeed, direction);
   }
 
-  swipeLeftCustomHandler = (event, element, top, left, spped) => {
-    this.showRightDivisionDiv();
+  swipeLeftCustomHandler = (event, element, top, left, speed) => {
+    const scrollLeft = this.getScrollLeft(),
+          maximumScrollLeft = this.getMaximumScrollLeft();
 
-    this.resetScrolling();
+    if (scrollLeft >= maximumScrollLeft - 1) {
+      this.showRightDivisionDiv();
+
+      this.resetScrolling();
+
+      return;
+    }
+
+    const scrollSpeed = speed,  ///
+          direction = LEFT_DIRECTION;
+
+    this.startScrolling(scrollSpeed, direction);
   }
 
   swipeDownCustomHandler = (event, element, top, left, speed) => {
@@ -245,12 +268,16 @@ class View extends Element {
   startScrolling(scrollSpeed, direction) {
     this.stopScrolling();
 
-    let then = performance.now();
+    let now = performance.now(),
+        then;
+
+    then = now;  ///
 
     const step = (now) => {
-      const timeDelta = now - then;
+      const timeDelta = now - then,
+            scrollSpeedDelta = SCROLL_SPEED_DELTA * timeDelta;
 
-      scrollSpeed = scrollSpeed - SCROLL_SPEED_DELTA * timeDelta;
+      scrollSpeed = scrollSpeed - scrollSpeedDelta;
 
       if (scrollSpeed < 0) {
         this.stopScrolling();
@@ -258,13 +285,42 @@ class View extends Element {
         return;
       }
 
-      let scrollTop = this.getScrollTop();
+      const scrollDelta = scrollSpeed * SCROLL_TOP_DELTA * timeDelta;
 
-      scrollTop = scrollTop + direction * scrollSpeed * SCROLL_TOP_DELTA * timeDelta;
+      let scrollTop = this.getScrollTop(),
+          scrollLeft = this.getScrollLeft();
+
+      switch (direction) {
+        case UP_DIRECTION: {
+          scrollTop = scrollTop + scrollDelta;
+
+          break;
+        }
+
+        case LEFT_DIRECTION: {
+          scrollLeft = scrollLeft + scrollDelta;
+
+          break;
+        }
+
+        case DOWN_DIRECTION: {
+          scrollTop = scrollTop - scrollDelta;
+
+          break;
+        }
+
+        case RIGHT_DIRECTION: {
+          scrollLeft = scrollLeft - scrollDelta;
+
+          break;
+        }
+      }
 
       then = now;  ///
 
       this.setScrollTop(scrollTop);
+
+      this.setScrollLeft(scrollLeft);
 
       const animationFrame = requestAnimationFrame(step);
 
@@ -292,6 +348,22 @@ class View extends Element {
     this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.onCustomSwipeDown(this.swipeDownCustomHandler);
     this.onCustomSwipeRight(this.swipeRightCustomHandler);
+  }
+
+  getMaximumScrollTop() {
+    const innerHeight = this.getInnerHeight(),
+          scrollHeight = this.getScrollHeight(),
+          maximumScrollTop = Math.max(0, scrollHeight - innerHeight);
+
+    return maximumScrollTop;
+  }
+
+  getMaximumScrollLeft() {
+    const innerWidth = this.getInnerWidth(),
+          scrollWidth = this.getScrollWidth(),
+          maximumScrollLeft = Math.max(0, scrollWidth - innerWidth);
+
+    return maximumScrollLeft;
   }
 
   disableGestures() {
