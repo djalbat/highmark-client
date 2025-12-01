@@ -24,9 +24,15 @@ const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgrou
 class View extends Element {
   pinchStartCustomHandler = (event, element) => {
     const zoom = getZoom(),
-          startZoom = zoom; ///
+      startZoom = zoom; ///
 
     this.setStartZoom(startZoom);
+  }
+
+  pinchStopCustomHandler = (event, element) => {
+    const noNudge = false;
+
+    this.zoom(noNudge);
   }
 
   pinchMoveCustomHandler = (event, element, ratio) => {
@@ -393,8 +399,9 @@ class View extends Element {
     this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.onCustomSwipeDown(this.swipeDownCustomHandler);
     this.onCustomPinchMove(this.pinchMoveCustomHandler);
-    this.onCustomSwipeRight(this.swipeRightCustomHandler);
+    this.onCustomPinchStop(this.pinchStopCustomHandler);
     this.onCustomPinchStart(this.pinchStartCustomHandler);
+    this.onCustomSwipeRight(this.swipeRightCustomHandler);
   }
 
   disableGestures() {
@@ -408,8 +415,9 @@ class View extends Element {
     this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
     this.offCustomSwipeDown(this.swipeDownCustomHandler);
     this.offCustomPinchMove(this.pinchMoveCustomHandler);
-    this.offCustomSwipeRight(this.swipeRightCustomHandler);
+    this.offCustomPinchStop(this.pinchStopCustomHandler);
     this.offCustomPinchStart(this.pinchStartCustomHandler);
+    this.offCustomSwipeRight(this.swipeRightCustomHandler);
   }
 
   getStartZoom() {
