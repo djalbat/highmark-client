@@ -8,8 +8,8 @@ import DivisionDiv from "../div/division";
 
 import { removeDOMElement, removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
 import { ANCHOR_HREF_SELECTOR, DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
-import { HASH, HREF, EMPTY_STRING, TRANSFORM, BLANK_TARGET, TRANSFORM_ORIGIN, TOP_LEFT_TRANSFORM_ORIGIN } from "../../constants";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
+import { HASH, HREF, EMPTY_STRING, TRANSFORM, MARGIN_RIGHT, BLANK_TARGET, MARGIN_BOTTOM, TRANSFORM_ORIGIN, TOP_LEFT_TRANSFORM_ORIGIN } from "../../constants";
 
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
@@ -49,14 +49,14 @@ class DocumentDiv extends Element {
     this.goToAnchor(anchorId);
   }
 
-  scale(documentScale, previewPaneInnerWidth, previewPaneInnerHeight) {
+  scale(documentScale, viewInnerWidth, previewPaneInnerHeight) {
     const scale = documentScale,  ///
           width = this.getWidth(),
           height = this.getHeight(),
           scaledWidth = width * scale,
           scaledHeight = height * scale,
-          translateX = (scaledWidth < previewPaneInnerWidth) ?
-                         (previewPaneInnerWidth - scaledWidth) / 2 :
+          translateX = (scaledWidth < viewInnerWidth) ?
+                         (viewInnerWidth - scaledWidth) / 2 :
                            0,
           translateY = (scaledHeight < previewPaneInnerHeight) ?
                          (previewPaneInnerHeight - scaledHeight) / 2 :
@@ -65,8 +65,16 @@ class DocumentDiv extends Element {
           transformOrigin = TOP_LEFT_TRANSFORM_ORIGIN;
 
     this.style(TRANSFORM, transform);
-
     this.style(TRANSFORM_ORIGIN, transformOrigin);
+
+    let marginRight = width * (scale - 1),
+        marginBottom = height * (scale - 1);
+
+    marginRight = `${marginRight}px`;
+    marginBottom = `${marginBottom}px`;
+
+    this.style(MARGIN_RIGHT, marginRight);
+    this.style(MARGIN_BOTTOM, marginBottom);
   }
 
   goToAnchor(anchorId) {
@@ -271,6 +279,7 @@ export default withStyle(DocumentDiv)`
   
   width: fit-content;
   display: flex;
+  flex-shrink: 0;
   align-items: flex-start;
   flex-direction: column;
   

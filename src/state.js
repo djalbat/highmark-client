@@ -7,6 +7,37 @@ const orientation = null,
         orientation
       };
 
+export function getScale() {
+  stateFromPersistentState();
+
+  const orientation = getOrientation();
+
+  let scale;
+
+  ({ scale } = state);
+
+  const orientedScale = scale[orientation]; ///
+
+  scale = orientedScale;  ///
+
+  return scale;
+}
+
+export function setScale(scale) {
+  stateFromPersistentState();
+
+  const orientation = getOrientation(),
+        orientedScale = scale;  ///
+
+  ({ scale } = state);
+
+  Object.assign(scale, {
+    [orientation]: orientedScale
+  });
+
+  stateToPersistentState();
+}
+
 export function getOrientation() {
   const { orientation } = state;
 
@@ -19,42 +50,11 @@ export function setOrientation(orientation) {
   });
 }
 
-export function getZoom() {
-  stateFromPersistentState();
-
-  const orientation = getOrientation();
-
-  let zoom;
-
-  ({ zoom } = state);
-
-  const orientedZoom = zoom[orientation]; ///
-
-  zoom = orientedZoom;  ///
-
-  return zoom;
-}
-
-export function setZoom(zoom) {
-  stateFromPersistentState();
-
-  const orientation = getOrientation(),
-        orientedZoom = zoom;  ///
-
-  ({ zoom } = state);
-
-  Object.assign(zoom, {
-    [orientation]: orientedZoom
-  });
-
-  stateToPersistentState();
-}
-
 function stateToPersistentState() {
-  const { version, zoom } = state,
+  const { version, scale } = state,
         persistentState = {
           version,
-          zoom
+          scale
         };
 
   setPersistentState(persistentState);

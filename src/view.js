@@ -9,7 +9,7 @@ import { scrollbarMixin, previewPaneScheme } from "occam-styles";
 
 import DocumentDiv from "./view/div/document";
 
-import { getZoom, setZoom } from "./state";
+import { getScale, setScale } from "./state";
 import { UP_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, RIGHT_DIRECTION, SCROLL_TOP_DELTA, SCROLL_SPEED_DELTA } from "./constants";
 
 const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgroundColour, scrollbarCornerBackgroundColour } = previewPaneScheme,
@@ -23,37 +23,35 @@ const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgrou
 
 class View extends Element {
   pinchStartCustomHandler = (event, element) => {
-    const zoom = getZoom(),
-      startZoom = zoom; ///
+    const scale = getScale(),
+          startScale = scale; ///
 
-    this.setStartZoom(startZoom);
+    this.setScale(scale);
+
+    this.setStartScale(startScale);
   }
 
   pinchStopCustomHandler = (event, element) => {
-    const noNudge = false;
+    const scale = this.getScale();
 
-    this.zoom(noNudge);
+    setScale(scale);
   }
 
   pinchMoveCustomHandler = (event, element, ratio) => {
-    const startZoom = this.getStartZoom(),
-          zoom = startZoom * Math.sqrt(ratio);  ///
+    const startScale = this.getStartScale(),
+          scale = startScale * Math.sqrt(ratio);
 
-    setZoom(zoom);
+    this.setScale(scale);
 
-    const noNudge = true;
-
-    this.zoom(noNudge);
+    this.zoom(scale);
   }
 
   doubleTapCustomHandler = (event, element, ratio) => {
-    const zoom = 1;
+    const scale = 1;
 
-    setZoom(zoom);
+    setScale(scale);
 
-    const noNudge = false;
-
-    this.zoom(noNudge);
+    this.zoom();
   }
 
   swipeRightCustomHandler = (event, element, top, left, speed) => {
@@ -68,6 +66,8 @@ class View extends Element {
       this.showLeftDivisionDiv();
 
       this.resetScrolling();
+
+      this.zoom();
 
       return;
     }
@@ -91,6 +91,8 @@ class View extends Element {
       this.showRightDivisionDiv();
 
       this.resetScrolling();
+
+      this.zoom();
 
       return;
     }
@@ -240,6 +242,8 @@ class View extends Element {
 
         this.resetScrolling();
 
+        this.zoom();
+
         break;
       }
 
@@ -247,6 +251,8 @@ class View extends Element {
         this.showLastDivisionDiv();
 
         this.resetScrolling();
+
+        this.zoom();
 
         break;
       }
@@ -257,6 +263,8 @@ class View extends Element {
 
         this.resetScrolling();
 
+        this.zoom();
+
         break;
       }
 
@@ -266,54 +274,29 @@ class View extends Element {
 
         this.resetScrolling();
 
+        this.zoom();
+
         break;
       }
     }
   }
 
   resizeHandler = (event, element) => {
-    const noNudge = true;
-
-    this.zoom(noNudge);
+    this.zoom();
   }
 
-  zoom(noNudge = false) {
-    const zoom = getZoom(),
-          innerWidth = this.getInnerWidth(),
-          innerHeight = this.getInnerHeight(),
-          documentScale = zoom, ///
-          previewPaneInnerWidth = innerWidth, ///
-          previewPaneInnerHeight = innerHeight; ///
-
-    this.scaleDocumentDiv(documentScale, previewPaneInnerWidth, previewPaneInnerHeight);
-
-    if (noNudge) {
-      return;
+  zoom(scale = null) {
+    if (scale === null) {
+      scale = getScale();
     }
 
-    this.nudge();
-  }
-
-  nudge() {
-    let scrollTop = this.getScrollTop();
-
-    const scrollLeft = this.getScrollLeft(),
+    const innerWidth = this.getInnerWidth(),
           innerHeight = this.getInnerHeight(),
-          scrollHeight = this.getScrollHeight(),
-          maximumScrollTop = scrollHeight - innerHeight,
-          delta = (scrollTop < maximumScrollTop) ?
-                    +1 :
-                      -1;
+          documentScale = scale, ///
+          viewInnerWidth = innerWidth, ///
+          viewInnerHeight = innerHeight; ///
 
-    scrollTop += delta;
-
-    this.scrollTo(scrollTop, scrollLeft);
-
-    requestAnimationFrame(() => {
-      scrollTop -= delta;
-
-      this.scrollTo(scrollTop, scrollLeft);
-    });
+    this.scaleDocumentDiv(documentScale, viewInnerWidth, viewInnerHeight);
   }
 
   scrollToTop() {
@@ -430,20 +413,20 @@ class View extends Element {
   }
 
   canScrollVertically() {
-    const zoom = getZoom(),
+    const scale = getScale(),
           innerHeight = this.getInnerHeight(),
           documentDivHeight = this.getDocumentDivHeight(),
-          scaledDocumentDivHeight = documentDivHeight * zoom,
+          scaledDocumentDivHeight = documentDivHeight * scale,
           scrollVertically = scaledDocumentDivHeight > innerHeight;
 
     return scrollVertically;
   }
 
   canScrollHorizontally() {
-    const zoom = getZoom(),
+    const scale = getScale(),
           innerWidth = this.getInnerWidth(),
           documentDivWidth = this.getDocumentDivWidth(),
-          scaledDocumentDivWidth = documentDivWidth * zoom,
+          scaledDocumentDivWidth = documentDivWidth * scale,
           scrollHorizontally = scaledDocumentDivWidth > innerWidth;
 
     return scrollHorizontally;;
@@ -481,10 +464,16 @@ class View extends Element {
     this.offCustomSwipeRight(this.swipeRightCustomHandler);
   }
 
-  getStartZoom() {
-    const { startZoom } = this.getState();
+  getScale() {
+    const { scale } = this.getState();
 
-    return startZoom;
+    return scale;
+  }
+
+  getStartScale() {
+    const { startScale } = this.getState();
+
+    return startScale;
   }
 
   getAnimationFrame() {
@@ -505,9 +494,15 @@ class View extends Element {
     return startScrollLeft;
   }
 
-  setStartZoom(startZoom) {
+  setScale(scale) {
     this.updateState({
-      startZoom
+      scale
+    });
+  }
+
+  setStartScale(startScale) {
+    this.updateState({
+      startScale
     });
   }
 
@@ -530,13 +525,15 @@ class View extends Element {
   }
 
   setInitialState() {
-    const startZoom = null,
+    const scale = null,
+          startScale = null,
           animationFrame = null,
           startScrollTop = null,
           startScrollLeft = null;
 
     this.setState({
-      startZoom,
+      scale,
+      startScale,
       animationFrame,
       startScrollTop,
       startScrollLeft
@@ -585,7 +582,6 @@ class View extends Element {
     className: "view"
   };
 }
-
 
 Object.assign(View.prototype, touchMixins);
 Object.assign(View.prototype, fullScreenMixins);
