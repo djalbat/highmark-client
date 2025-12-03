@@ -3,15 +3,16 @@
 import withStyle from "easy-with-style";  ///
 
 import { keyCodes } from "necessary";
+import { scrollbarMixin } from "occam-styles";
 import { Element, window } from "easy";
 import { touchMixins, fullScreenMixins } from "easy-mobile";
-import { scrollbarMixin, previewPaneScheme } from "occam-styles";
 
 import MenuDiv from "./view/div/menu";
 import DocumentDiv from "./view/div/document";
 
 import { getScale, setScale } from "./state";
 import { ANCHOR_HREF_SELECTOR } from "./selectors";
+import { viewBackgroundColour, viewScrollbarThumbBackgroundColour, viewScrollbarTrackBackgroundColour, viewScrollbarCornerBackgroundColour } from "./styles";
 import { HREF,
          HASH,
          EMPTY_STRING,
@@ -23,8 +24,7 @@ import { HREF,
          SCROLL_TOP_DELTA,
          SCROLL_SPEED_DELTA } from "./constants";
 
-const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgroundColour, scrollbarCornerBackgroundColour } = previewPaneScheme,
-      { ENTER_KEY_CODE,
+const { ENTER_KEY_CODE,
         ESCAPE_KEY_CODE,
         ARROW_UP_KEY_CODE,
         BACKSPACE_KEY_CODE,
@@ -647,21 +647,21 @@ export default withStyle(View)`
 
   touch-action: none;
 
-  background-color: ${backgroundColour};
+  background-color: ${viewBackgroundColour};
   
   ${scrollbarMixin}
   
   @media (pointer: fine) {
     ::-webkit-scrollbar-thumb {
-      background-color: ${scrollbarThumbBackgroundColour};
+      background-color: ${viewScrollbarThumbBackgroundColour};
     }
     
     ::-webkit-scrollbar-track {
-      background-color: ${scrollbarTrackBackgroundColour};
+      background-color: ${viewScrollbarTrackBackgroundColour};
     }
   
     ::-webkit-scrollbar-corner {
-      background-color: ${scrollbarCornerBackgroundColour};
+      background-color: ${viewScrollbarCornerBackgroundColour};
     }
   }
     

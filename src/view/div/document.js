@@ -249,6 +249,7 @@ export default withStyle(DocumentDiv)`
   
   width: fit-content;
   display: flex;
+  z-index: 0;
   flex-shrink: 0;
   align-items: flex-start;
   flex-direction: column;
