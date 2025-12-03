@@ -2,6 +2,7 @@
 
 export const HASH = "#";
 export const HREF = "href";
+export const FLEX = "flex";
 export const DISPLAY = "display";
 export const STATE_KEY = "state";
 export const TRANSFORM = "transform";

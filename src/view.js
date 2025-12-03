@@ -7,10 +7,21 @@ import { Element, window } from "easy";
 import { touchMixins, fullScreenMixins } from "easy-mobile";
 import { scrollbarMixin, previewPaneScheme } from "occam-styles";
 
+import MenuDiv from "./view/div/menu";
 import DocumentDiv from "./view/div/document";
 
 import { getScale, setScale } from "./state";
-import { UP_DIRECTION, LEFT_DIRECTION, DOWN_DIRECTION, RIGHT_DIRECTION, SCROLL_TOP_DELTA, SCROLL_SPEED_DELTA } from "./constants";
+import { ANCHOR_HREF_SELECTOR } from "./selectors";
+import { HREF,
+         HASH,
+         EMPTY_STRING,
+         BLANK_TARGET,
+         UP_DIRECTION,
+         LEFT_DIRECTION,
+         DOWN_DIRECTION,
+         RIGHT_DIRECTION,
+         SCROLL_TOP_DELTA,
+         SCROLL_SPEED_DELTA } from "./constants";
 
 const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgroundColour, scrollbarCornerBackgroundColour } = previewPaneScheme,
       { ENTER_KEY_CODE,
@@ -22,6 +33,24 @@ const { backgroundColour, scrollbarThumbBackgroundColour, scrollbarTrackBackgrou
         ARROW_RIGHT_KEY_CODE } = keyCodes;
 
 class View extends Element {
+  singleTapCustomHandler = (event, element, top, left) => {
+    const link = this.goToLink(event, element);
+
+    if (link !== null) {
+      return;
+    }
+
+    this.toggleMenuDiv();
+  }
+
+  doubleTapCustomHandler = (event, element, top, left) => {
+    const scale = 1;
+
+    setScale(scale);
+
+    this.zoom();
+  }
+
   pinchStartCustomHandler = (event, element) => {
     const scale = getScale(),
           startScale = scale; ///
@@ -44,14 +73,6 @@ class View extends Element {
     this.setScale(scale);
 
     this.zoom(scale);
-  }
-
-  doubleTapCustomHandler = (event, element, ratio) => {
-    const scale = 1;
-
-    setScale(scale);
-
-    this.zoom();
   }
 
   swipeRightCustomHandler = (event, element, top, left, speed) => {
@@ -285,6 +306,38 @@ class View extends Element {
     this.zoom();
   }
 
+  goToLink(event, element) {
+    const { target } = event,
+          link = target.closest(ANCHOR_HREF_SELECTOR);
+
+    if (link !== null) {
+      const href = link.getAttribute(HREF);
+
+      if (href === EMPTY_STRING) {
+        return;
+      }
+
+      const hrefStartsWithHash = href.startsWith(HASH),
+            linkExternal = !hrefStartsWithHash;
+
+      if (linkExternal) {
+        const target = BLANK_TARGET;
+
+        window.open(href, target);
+      } else {
+        const anchorId = href.substring(1); ///
+
+        this.goToAnchor(anchorId);
+
+        this.resetScrolling();
+
+        this.zoom();
+      }
+    }
+
+    return link;
+  }
+
   zoom(scale = null) {
     if (scale === null) {
       scale = getScale();
@@ -429,39 +482,7 @@ class View extends Element {
           scaledDocumentDivWidth = documentDivWidth * scale,
           scrollHorizontally = scaledDocumentDivWidth > innerWidth;
 
-    return scrollHorizontally;;
-  }
-
-  enableGestures() {
-    this.onCustomDragUp(this.dragUpCustomHandler);
-    this.onCustomSwipeUp(this.swipeUpCustomHandler);
-    this.onCustomDragLeft(this.dragLeftCustomHandler);
-    this.onCustomDragDown(this.dragDownCustomHandler);
-    this.onCustomDoubleTap(this.doubleTapCustomHandler);
-    this.onCustomDragRight(this.dragRightCustomHandler);
-    this.onCustomDragStart(this.dragStartCustomHandler);
-    this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
-    this.onCustomSwipeDown(this.swipeDownCustomHandler);
-    this.onCustomPinchMove(this.pinchMoveCustomHandler);
-    this.onCustomPinchStop(this.pinchStopCustomHandler);
-    this.onCustomPinchStart(this.pinchStartCustomHandler);
-    this.onCustomSwipeRight(this.swipeRightCustomHandler);
-  }
-
-  disableGestures() {
-    this.offCustomDragUp(this.dragUpCustomHandler);
-    this.offCustomSwipeUp(this.swipeUpCustomHandler);
-    this.offCustomDragLeft(this.dragLeftCustomHandler);
-    this.offCustomDragDown(this.dragDownCustomHandler);
-    this.offCustomDoubleTap(this.doubleTapCustomHandler);
-    this.offCustomDragRight(this.dragRightCustomHandler);
-    this.offCustomDragStart(this.dragStartCustomHandler);
-    this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
-    this.offCustomSwipeDown(this.swipeDownCustomHandler);
-    this.offCustomPinchMove(this.pinchMoveCustomHandler);
-    this.offCustomPinchStop(this.pinchStopCustomHandler);
-    this.offCustomPinchStart(this.pinchStartCustomHandler);
-    this.offCustomSwipeRight(this.swipeRightCustomHandler);
+    return scrollHorizontally;
   }
 
   getScale() {
@@ -543,31 +564,58 @@ class View extends Element {
   didMount() {
     this.enableTouch();
 
-    this.enableGestures();
-
-    this.onResize(this.resizeHandler, this);
+    this.onResize(this.resizeHandler);
 
     window.onKeyDown(this.keyDownHandler);
+
+    this.onCustomDragUp(this.dragUpCustomHandler);
+    this.onCustomSwipeUp(this.swipeUpCustomHandler);
+    this.onCustomDragLeft(this.dragLeftCustomHandler);
+    this.onCustomDragDown(this.dragDownCustomHandler);
+    this.onCustomSingleTap(this.singleTapCustomHandler);
+    this.onCustomDoubleTap(this.doubleTapCustomHandler);
+    this.onCustomDragRight(this.dragRightCustomHandler);
+    this.onCustomDragStart(this.dragStartCustomHandler);
+    this.onCustomSwipeLeft(this.swipeLeftCustomHandler);
+    this.onCustomSwipeDown(this.swipeDownCustomHandler);
+    this.onCustomPinchMove(this.pinchMoveCustomHandler);
+    this.onCustomPinchStop(this.pinchStopCustomHandler);
+    this.onCustomPinchStart(this.pinchStartCustomHandler);
+    this.onCustomSwipeRight(this.swipeRightCustomHandler);
   }
 
   willUnmount() {
     this.disableTouch();
 
-    this.disableGestures();
-
-    this.offResize(this.resizeHandler, this);
+    this.offResize(this.resizeHandler);
 
     window.offKeyDown(this.keyDownHandler);
+
+    this.offCustomDragUp(this.dragUpCustomHandler);
+    this.offCustomSwipeUp(this.swipeUpCustomHandler);
+    this.offCustomDragLeft(this.dragLeftCustomHandler);
+    this.offCustomDragDown(this.dragDownCustomHandler);
+    this.offCustomDoubleTap(this.doubleTapCustomHandler);
+    this.offCustomSingleTap(this.singleTapCustomHandler);
+    this.offCustomDragRight(this.dragRightCustomHandler);
+    this.offCustomDragStart(this.dragStartCustomHandler);
+    this.offCustomSwipeLeft(this.swipeLeftCustomHandler);
+    this.offCustomSwipeDown(this.swipeDownCustomHandler);
+    this.offCustomPinchMove(this.pinchMoveCustomHandler);
+    this.offCustomPinchStop(this.pinchStopCustomHandler);
+    this.offCustomPinchStart(this.pinchStartCustomHandler);
+    this.offCustomSwipeRight(this.swipeRightCustomHandler);
   }
 
   childElements() {
     const resizeHandler = this.resizeHandler.bind(this);
 
-    return (
+    return ([
 
+      <MenuDiv/>,
       <DocumentDiv resizeHandler={resizeHandler} />
 
-    );
+    ]);
   }
 
   initialise() {
@@ -621,22 +669,14 @@ export default withStyle(View)`
 
 // this.onCustomFullScreenChange(this.fullScreenChangeCustomHandler);
 //
-// this.onCustomSingleTap(this.singleTapCustomHandler);
-//
 // this.enableFullScreen();
 //
 // this.disableFullScreen();
 //
-// this.offCustomSingleTap(this.singleTapCustomHandler);
-//
 // this.offCustomFullScreenChange(this.fullScreenChangeCustomHandler);
 //
 // fullScreenChangeCustomHandler = (event, element) => {
-//   this.updateZoom();
-// }
-//
-// singleTapCustomHandler = (event, element, top, left) => {
-//   ///
+//   this.zoom();
 // }
 //
 // doubleTapCustomHandler = (event, element, top, left) => {

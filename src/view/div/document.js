@@ -6,10 +6,10 @@ import { Element } from "easy";
 
 import DivisionDiv from "../div/division";
 
+import { DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
 import { removeDOMElement, removeDOMElements, elementsFromDOMElements } from "../../utilities/element";
-import { ANCHOR_HREF_SELECTOR, DOCUMENT_DIV_SELECTOR, DIVISION_DIVS_SELECTOR } from "../../selectors";
+import { TRANSFORM, MARGIN_RIGHT, MARGIN_BOTTOM, TRANSFORM_ORIGIN, TOP_LEFT_TRANSFORM_ORIGIN } from "../../constants";
 import { scrollToAnchor, findDivisionDivByAnchorId, isAnchorIdIndexAnchorId, pageNumberFromIndexAnchorId } from "../../utilities/anchor";
-import { HASH, HREF, EMPTY_STRING, TRANSFORM, MARGIN_RIGHT, BLANK_TARGET, MARGIN_BOTTOM, TRANSFORM_ORIGIN, TOP_LEFT_TRANSFORM_ORIGIN } from "../../constants";
 
 const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
       divisionDivs = elementsFromDOMElements(divisionDivDOMElements, DivisionDiv);
@@ -17,38 +17,6 @@ const divisionDivDOMElements = removeDOMElements(DIVISION_DIVS_SELECTOR),
 removeDOMElement(DOCUMENT_DIV_SELECTOR);
 
 class DocumentDiv extends Element {
-  clickHandler = (event, element) => {
-    const { target } = event,
-          link = target.closest(ANCHOR_HREF_SELECTOR);
-
-    if (link === null) {
-      return;
-    }
-
-    const href = link.getAttribute(HREF);
-
-    if (href === EMPTY_STRING) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const hrefStartsWithHash = href.startsWith(HASH),
-          linkExternal = !hrefStartsWithHash;
-
-    if (linkExternal) {
-      const target = BLANK_TARGET;
-
-      window.open(href, target);
-
-      return;
-    }
-
-    const anchorId = href.substring(1); ///
-
-    this.goToAnchor(anchorId);
-  }
-
   scale(documentScale, viewInnerWidth, previewPaneInnerHeight) {
     const scale = documentScale,  ///
           width = this.getWidth(),
@@ -227,13 +195,11 @@ class DocumentDiv extends Element {
   }
 
   didMount() {
-    this.onClick(this.clickHandler);
-
     this.showFirstDivisionDiv();
   }
 
   willUnmount() {
-    this.offClick(this.clickHandler);
+    ///
   }
 
   childElements() {
@@ -243,7 +209,8 @@ class DocumentDiv extends Element {
   }
 
   parentContext() {
-    const scaleDocumentDiv = this.scale.bind(this), ///
+    const goToAnchor = this.goToAnchor.bind(this),
+          scaleDocumentDiv = this.scale.bind(this), ///
           getDocumentDivWidth = this.getWidth.bind(this), ///
           getDocumentDivHeight = this.getHeight.bind(this), ///
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
@@ -252,6 +219,7 @@ class DocumentDiv extends Element {
           showRightDivisionDiv = this.showRightDivisionDiv.bind(this);
 
     return ({
+      goToAnchor,
       scaleDocumentDiv,
       getDocumentDivWidth,
       getDocumentDivHeight,
@@ -268,7 +236,9 @@ class DocumentDiv extends Element {
 
   static tagName = "div";
 
-  static ignoredProperties = [];
+  static ignoredProperties = [
+    "resizeHandler"
+  ];
 
   static defaultProperties = {
     className: "document"
