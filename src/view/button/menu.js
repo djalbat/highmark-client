@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Button } from "easy";
 
-import { menuButtonFill, menuButtonWidth, menuButtonPadding, menuButtonDisabledColour } from "../../styles";
+import { menuButtonFill, menuButtonWidth, menuButtonDisabledFill, menuButtonDisabledColour } from "../../styles";
 
 class MenuButton extends Button {
   didMount() {
@@ -47,12 +47,12 @@ export default withStyle(MenuButton)`
   height: auto;
   cursor: pointer;
   display: flex;
-  padding: ${menuButtonPadding};
   background: transparent;
   align-items: center;
   justify-content: center;
   
   :disabled {
+  fill: ${menuButtonDisabledFill};
     cursor: default;
     filter: drop-shadow(0 0 3px ${menuButtonDisabledColour});  
   }
