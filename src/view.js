@@ -21,6 +21,7 @@ import { HREF,
          LEFT_DIRECTION,
          DOWN_DIRECTION,
          RIGHT_DIRECTION,
+         EMBEDDING_DELAY,
          SCROLL_TOP_DELTA,
          SCROLL_SPEED_DELTA } from "./constants";
 
@@ -244,6 +245,32 @@ class View extends Element {
     this.setStartScrollLeft(startScrollLeft);
   }
 
+  fullScreenChangeHandler = (event, element) => {
+    const fullScreen = this.isFullScreen();
+
+    if (fullScreen) {
+      this.resetScrolling();
+
+      this.zoom();
+
+      return;
+    }
+
+    let embedding;
+
+    embedding = true;
+
+    this.setEmbedding(embedding);
+
+    const delay = EMBEDDING_DELAY;
+
+    setTimeout(() => {
+      embedding = false;
+
+      this.setEmbedding(embedding);
+    }, delay);
+  }
+
   keyDownHandler = (event, element) => {
     const { keyCode } = event;
 
@@ -303,7 +330,37 @@ class View extends Element {
   }
 
   resizeHandler = (event, element) => {
+    const embedding = this.isEmbedding();
+
+    if (!embedding) {
+      return;
+    }
+
     this.zoom();
+  }
+
+  fullScreenNode() {
+    const fullScreen = this.isFullScreen();
+
+    if (fullScreen) {
+      return;
+    }
+
+    this.requestFullScreen((error) => {
+      ///
+    });
+  }
+
+  embeddedMode() {
+    const fullScreen = this.isFullScreen();
+
+    if (!fullScreen) {
+      return;
+    }
+
+    this.exitFullScreen((error) => {
+      ///
+    });
   }
 
   goToLink(event, element) {
@@ -491,6 +548,12 @@ class View extends Element {
     return scale;
   }
 
+  isEmbedding() {
+    const { embedding } = this.getState();
+
+    return embedding;
+  }
+
   getStartScale() {
     const { startScale } = this.getState();
 
@@ -521,6 +584,12 @@ class View extends Element {
     });
   }
 
+  setEmbedding(embedding) {
+    this.updateState({
+      embedding
+    });
+  }
+
   setStartScale(startScale) {
     this.updateState({
       startScale
@@ -547,6 +616,7 @@ class View extends Element {
 
   setInitialState() {
     const scale = null,
+          embedding = false,
           startScale = null,
           animationFrame = null,
           startScrollTop = null,
@@ -554,6 +624,7 @@ class View extends Element {
 
     this.setState({
       scale,
+      embedding,
       startScale,
       animationFrame,
       startScrollTop,
@@ -564,9 +635,13 @@ class View extends Element {
   didMount() {
     this.enableTouch();
 
+    this.enableFullScreen();
+
     this.onResize(this.resizeHandler);
 
     window.onKeyDown(this.keyDownHandler);
+
+    this.onFullScreenChange(this.fullScreenChangeHandler);
 
     this.onCustomDragUp(this.dragUpCustomHandler);
     this.onCustomSwipeUp(this.swipeUpCustomHandler);
@@ -587,9 +662,13 @@ class View extends Element {
   willUnmount() {
     this.disableTouch();
 
+    this.disableFullScreen();
+
     this.offResize(this.resizeHandler);
 
     window.offKeyDown(this.keyDownHandler);
+
+    this.offFullScreenChange(this.fullScreenChangeHandler);
 
     this.offCustomDragUp(this.dragUpCustomHandler);
     this.offCustomSwipeUp(this.swipeUpCustomHandler);
@@ -666,29 +745,3 @@ export default withStyle(View)`
   }
     
 `;
-
-// this.onCustomFullScreenChange(this.fullScreenChangeCustomHandler);
-//
-// this.enableFullScreen();
-//
-// this.disableFullScreen();
-//
-// this.offCustomFullScreenChange(this.fullScreenChangeCustomHandler);
-//
-// fullScreenChangeCustomHandler = (event, element) => {
-//   this.zoom();
-// }
-//
-// doubleTapCustomHandler = (event, element, top, left) => {
-//   const fullScreen = this.isFullScreen();
-//
-//   if (fullScreen) {
-//     controller.exitFullScreen();
-//
-//     return;
-//   }
-// }
-//
-// enterFullScreen() {
-//   this.requestFullScreen();
-// }

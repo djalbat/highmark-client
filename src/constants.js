@@ -14,6 +14,7 @@ export const MARGIN_BOTTOM = "marginBottom";
 export const INDEX_PREPEND = "index";
 export const LEFT_DIRECTION = "left";
 export const DOWN_DIRECTION = "down";
+export const EMBEDDING_DELAY = 1500;;
 export const RIGHT_DIRECTION = "right";
 export const TRANSFORM_ORIGIN = "transformOrigin";
 export const CLIENT_FILE_NAME = "client.js";

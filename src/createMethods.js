@@ -1,16 +1,16 @@
 "use strict";
 
 export default function createMethods(scheduler, model, view) {
-  function exitFullScreen() {
-    view.exitFullScreen();
+  function embeddedMode() {
+    view.embeddedMode();
   }
 
-  function enterFullScreen() {
-    view.enterFullScreen();
+  function fullScreenMode() {
+    view.fullScreenMode();
   }
 
   return ({
-    exitFullScreen,
-    enterFullScreen
+    embeddedMode,
+    fullScreenMode
   });
 }

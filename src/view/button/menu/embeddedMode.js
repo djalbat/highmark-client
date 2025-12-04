@@ -6,7 +6,9 @@ import MenuButton from "../../button/menu";
 
 export default class EmbeddedModeMenuButton extends MenuButton {
   clickHandler = (event, element) => {
-    debugger
+    controller.embeddedMode();
+
+    event.preventDefault();
   }
 
   static MenuSVG = EmbeddedModeMenuSVG;
