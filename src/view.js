@@ -249,6 +249,8 @@ class View extends Element {
     const fullScreen = this.isFullScreen();
 
     if (fullScreen) {
+      this.hideFullScreenModeMenuButton();
+      this.showEmbe
       this.resetScrolling();
 
       this.zoom();
@@ -346,6 +348,8 @@ class View extends Element {
       return;
     }
 
+    this.disableFullScreenModeMenuButton();
+
     this.requestFullScreen((error) => {
       ///
     });
@@ -357,6 +361,8 @@ class View extends Element {
     if (!fullScreen) {
       return;
     }
+
+    this.disableEmbeddedModeMenuButton();
 
     this.exitFullScreen((error) => {
       ///

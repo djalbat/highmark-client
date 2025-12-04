@@ -12,6 +12,20 @@ export default class FullScreenModeMenuButton extends MenuButton {
     event.preventDefault();
   }
 
+  parentContext() {
+    const showFullScreenModeMenuButton = this.show.bind(this),  ///
+          hideFullScreenModeMenuButton = this.hide.bind(this),  ///
+          enableFullScreenModeMenuButton = this.enable.bind(this),  ///
+          disableFullScreenModeMenuButton = this.disable.bind(this);  ///
+
+    return ({
+      showFullScreenModeMenuButton,
+      hideFullScreenModeMenuButton,
+      enableFullScreenModeMenuButton,
+      disableFullScreenModeMenuButton
+    });
+  }
+
   static MenuSVG = FullScreenModeMenuSVG;
 
   static defaultProperties = {
