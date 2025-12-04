@@ -6,8 +6,8 @@ import { PORTRAIT_ORIENTATION, LANDSCAPE_ORIENTATION } from "../constants";
 export function createState() {
   const version = VERSION_5,
         scale = {
-          [PORTRAIT_ORIENTATION]: 1,
-          [LANDSCAPE_ORIENTATION]: 1
+          [PORTRAIT_ORIENTATION]: 0.33333333,
+          [LANDSCAPE_ORIENTATION]: 0.33333333
         },
         state = {
           version,
