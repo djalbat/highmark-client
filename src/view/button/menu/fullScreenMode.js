@@ -14,15 +14,11 @@ export default class FullScreenModeMenuButton extends MenuButton {
 
   parentContext() {
     const showFullScreenModeMenuButton = this.show.bind(this),  ///
-          hideFullScreenModeMenuButton = this.hide.bind(this),  ///
-          enableFullScreenModeMenuButton = this.enable.bind(this),  ///
-          disableFullScreenModeMenuButton = this.disable.bind(this);  ///
+          hideFullScreenModeMenuButton = this.hide.bind(this);  ///
 
     return ({
       showFullScreenModeMenuButton,
-      hideFullScreenModeMenuButton,
-      enableFullScreenModeMenuButton,
-      disableFullScreenModeMenuButton
+      hideFullScreenModeMenuButton
     });
   }
 

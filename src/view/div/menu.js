@@ -49,9 +49,11 @@ class MenuDiv extends Element {
   }
 
   parentContext() {
-    const toggleMenuDiv = this.toggle.bind(this);
+    const context = this.getContext(),
+          toggleMenuDiv = this.toggle.bind(this);
 
     return ({
+      ...context,
       toggleMenuDiv
     });
   }

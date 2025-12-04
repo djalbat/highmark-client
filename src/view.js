@@ -11,7 +11,7 @@ import MenuDiv from "./view/div/menu";
 import DocumentDiv from "./view/div/document";
 
 import { getScale, setScale } from "./state";
-import { ANCHOR_HREF_SELECTOR } from "./selectors";
+import { ANCHOR_HREF_SELECTOR, MENU_DIV_SELECTOR } from "./selectors";
 import { viewBackgroundColour, viewScrollbarThumbBackgroundColour, viewScrollbarTrackBackgroundColour, viewScrollbarCornerBackgroundColour } from "./styles";
 import { HREF,
          HASH,
@@ -21,7 +21,6 @@ import { HREF,
          LEFT_DIRECTION,
          DOWN_DIRECTION,
          RIGHT_DIRECTION,
-         EMBEDDING_DELAY,
          SCROLL_TOP_DELTA,
          SCROLL_SPEED_DELTA } from "./constants";
 
@@ -35,9 +34,16 @@ const { ENTER_KEY_CODE,
 
 class View extends Element {
   singleTapCustomHandler = (event, element, top, left) => {
-    const link = this.goToLink(event, element);
+    const { target } = event,
+          link = this.goToLink(target);
 
     if (link !== null) {
+      return;
+    }
+
+    const menuDiv = target.closest(MENU_DIV_SELECTOR);
+
+    if (menuDiv !== null) {
       return;
     }
 
@@ -249,28 +255,14 @@ class View extends Element {
     const fullScreen = this.isFullScreen();
 
     if (fullScreen) {
+      this.showEmbeddedModeMenuButton();
       this.hideFullScreenModeMenuButton();
-      this.showEmbe
-      this.resetScrolling();
-
-      this.zoom();
-
-      return;
+    } else {
+      this.hideEmbeddedModeMenuButton();
+      this.showFullScreenModeMenuButton();
     }
 
-    let embedding;
-
-    embedding = true;
-
-    this.setEmbedding(embedding);
-
-    const delay = EMBEDDING_DELAY;
-
-    setTimeout(() => {
-      embedding = false;
-
-      this.setEmbedding(embedding);
-    }, delay);
+    this.zoom();
   }
 
   keyDownHandler = (event, element) => {
@@ -332,23 +324,15 @@ class View extends Element {
   }
 
   resizeHandler = (event, element) => {
-    const embedding = this.isEmbedding();
-
-    if (!embedding) {
-      return;
-    }
-
     this.zoom();
   }
 
-  fullScreenNode() {
+  fullScreenMode() {
     const fullScreen = this.isFullScreen();
 
     if (fullScreen) {
       return;
     }
-
-    this.disableFullScreenModeMenuButton();
 
     this.requestFullScreen((error) => {
       ///
@@ -362,16 +346,13 @@ class View extends Element {
       return;
     }
 
-    this.disableEmbeddedModeMenuButton();
-
     this.exitFullScreen((error) => {
       ///
     });
   }
 
-  goToLink(event, element) {
-    const { target } = event,
-          link = target.closest(ANCHOR_HREF_SELECTOR);
+  goToLink(target) {
+    const link = target.closest(ANCHOR_HREF_SELECTOR);
 
     if (link !== null) {
       const href = link.getAttribute(HREF);
@@ -554,12 +535,6 @@ class View extends Element {
     return scale;
   }
 
-  isEmbedding() {
-    const { embedding } = this.getState();
-
-    return embedding;
-  }
-
   getStartScale() {
     const { startScale } = this.getState();
 
@@ -590,12 +565,6 @@ class View extends Element {
     });
   }
 
-  setEmbedding(embedding) {
-    this.updateState({
-      embedding
-    });
-  }
-
   setStartScale(startScale) {
     this.updateState({
       startScale
@@ -622,7 +591,6 @@ class View extends Element {
 
   setInitialState() {
     const scale = null,
-          embedding = false,
           startScale = null,
           animationFrame = null,
           startScrollTop = null,
@@ -630,7 +598,6 @@ class View extends Element {
 
     this.setState({
       scale,
-      embedding,
       startScale,
       animationFrame,
       startScrollTop,
@@ -640,8 +607,6 @@ class View extends Element {
 
   didMount() {
     this.enableTouch();
-
-    this.enableFullScreen();
 
     this.onResize(this.resizeHandler);
 
@@ -667,8 +632,6 @@ class View extends Element {
 
   willUnmount() {
     this.disableTouch();
-
-    this.disableFullScreen();
 
     this.offResize(this.resizeHandler);
 
