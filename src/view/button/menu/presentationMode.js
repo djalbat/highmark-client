@@ -6,7 +6,19 @@ import MenuButton from "../../button/menu";
 
 export default class PresentationModeMenuButton extends MenuButton {
   clickHandler = (event, element) => {
-    debugger
+    controller.presentationMode();
+
+    event.preventDefault();
+  }
+
+  parentContext() {
+    const activatePresentationModeMenuButton = this.activate.bind(this),  ///
+          deactivatePresentationModeMenuButton = this.deactivate.bind(this);  ///
+
+    return ({
+      activatePresentationModeMenuButton,
+      deactivatePresentationModeMenuButton
+    });
   }
 
   static MenuSVG = PresentationModeMenuSVG;

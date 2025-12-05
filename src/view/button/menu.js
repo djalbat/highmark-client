@@ -8,13 +8,31 @@ import { menuButtonFill, menuButtonWidth, menuButtonDisabledFill, menuButtonDisa
 
 class MenuButton extends Button {
   didMount() {
-    const { hidden = false } = this.properties;
+    const { active = false, hidden = false } = this.properties;
 
     if (hidden) {
       this.hide();
     }
 
+    if (active) {
+      this.activate();
+    }
+
     this.onClick(this.clickHandler);
+  }
+
+  isActive() {
+    const active = this.hasClass("active");
+
+    return active;
+  }
+
+  activate() {
+    this.addClass("active");
+  }
+
+  deactivate() {
+    this.removeClass("active");
   }
 
   willUnmount() {
@@ -32,7 +50,8 @@ class MenuButton extends Button {
   }
 
   static ignoredProperties = [
-    "hidden"
+    "hidden",
+    "active"
   ];
 
   static defaultProperties = {
@@ -51,8 +70,8 @@ export default withStyle(MenuButton)`
   align-items: center;
   justify-content: center;
   
-  :disabled {
-  fill: ${menuButtonDisabledFill};
+  .active {
+    fill: ${menuButtonDisabledFill};
     cursor: default;
     filter: drop-shadow(0 0 3px ${menuButtonDisabledColour});  
   }

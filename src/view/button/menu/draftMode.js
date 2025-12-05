@@ -6,7 +6,19 @@ import MenuButton from "../../button/menu";
 
 export default class DraftModeMenuButton extends MenuButton {
   clickHandler = (event, element) => {
-    debugger
+    controller.draftMode();
+
+    event.preventDefault();
+  }
+
+  parentContext() {
+    const activateDraftModeMenuButton = this.activate.bind(this), ///
+          deactivateDraftModeMenuButton = this.deactivate.bind(this); ///
+
+    return ({
+      activateDraftModeMenuButton,
+      deactivateDraftModeMenuButton
+    });
   }
 
   static MenuSVG = DraftModeMenuSVG;

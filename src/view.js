@@ -327,6 +327,15 @@ class View extends Element {
     this.zoom();
   }
 
+  presentationMode() {
+    this.activatePresentationModeMenuButton();
+    this.deactivateDraftModeMenuButton();
+
+    this.documentDivPresentationMode();
+
+    this.zoom();
+  }
+
   fullScreenMode() {
     const fullScreen = this.isFullScreen();
 
@@ -349,6 +358,15 @@ class View extends Element {
     this.exitFullScreen((error) => {
       ///
     });
+  }
+
+  draftMode() {
+    this.deactivatePresentationModeMenuButton();
+    this.activateDraftModeMenuButton();
+
+    this.documentDivDraftMode();
+
+    this.zoom();
   }
 
   goToLink(target) {

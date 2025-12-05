@@ -59,6 +59,22 @@ class DocumentDiv extends Element {
     this.showDivisionDivByAnchorId(anchorId);
   }
 
+  draftMode() {
+    this.removeClass("presentation");
+  }
+
+  invertColours() {
+    this.addClass("inverted-colours")
+  }
+
+  revertColours() {
+    this.removeClass("inverted-colours")
+  }
+
+  presentationMode() {
+    this.addClass("presentation");
+  }
+
   showLeftDivisionDiv() {
     const showingDivisionDiv = this.findShowingDivisionDiv(),
           divisionDivs = this.getDivisionDivs(),
@@ -209,20 +225,28 @@ class DocumentDiv extends Element {
   }
 
   parentContext() {
-    const goToAnchor = this.goToAnchor.bind(this),
-          scaleDocumentDiv = this.scale.bind(this), ///
+    const scaleDocumentDiv = this.scale.bind(this), ///
           getDocumentDivWidth = this.getWidth.bind(this), ///
           getDocumentDivHeight = this.getHeight.bind(this), ///
+          documentDivDraftMode = this.draftMode.bind(this), ///
+          documentDivPresentationMode = this.presentationMode.bind(this), ///
+          goToAnchor = this.goToAnchor.bind(this),
+          invertColours = this.invertColours.bind(this),
+          revertColours = this.revertColours.bind(this),
           showLeftDivisionDiv = this.showLeftDivisionDiv.bind(this),
           showLastDivisionDiv = this.showLastDivisionDiv.bind(this),
           showFirstDivisionDiv = this.showFirstDivisionDiv.bind(this),
           showRightDivisionDiv = this.showRightDivisionDiv.bind(this);
 
     return ({
-      goToAnchor,
       scaleDocumentDiv,
       getDocumentDivWidth,
       getDocumentDivHeight,
+      documentDivDraftMode,
+      documentDivPresentationMode,
+      goToAnchor,
+      invertColours,
+      revertColours,
       showLeftDivisionDiv,
       showLastDivisionDiv,
       showFirstDivisionDiv,
@@ -258,6 +282,10 @@ export default withStyle(DocumentDiv)`
     width: 100%;
     height: 100%;
     align-items: stretch;
+  }
+  
+  .inverted-colours {
+    filter: invert(1);
   }
   
 `;
