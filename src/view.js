@@ -5,7 +5,7 @@ import withStyle from "easy-with-style";  ///
 import { keyCodes } from "necessary";
 import { scrollbarMixin } from "occam-styles";
 import { Element, window } from "easy";
-import { touchMixins, fullScreenMixins } from "easy-mobile";
+import { touchMixins, fullScreenMixins } from "easy-gestures";
 
 import MenuDiv from "./view/div/menu";
 import DocumentDiv from "./view/div/document";
