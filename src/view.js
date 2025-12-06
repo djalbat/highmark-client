@@ -703,17 +703,17 @@ Object.assign(View.prototype, fullScreenMixins);
 
 export default withStyle(View)`
 
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: scroll;
   position: absolute;
+  overflow: scroll;
   align-items: flex-start;
+  touch-action: none;
   flex-direction: column;
   justify-content: flex-start;
-
-  touch-action: none;
-
   background-color: ${viewBackgroundColour};
   
   ${scrollbarMixin}
