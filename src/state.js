@@ -1,15 +1,17 @@
 "use strict";
 
-import { getPersistentState, setPersistentState } from "./localStorage";
+import { getOrientation } from "./utilities/orientation";
+import { INITIAL_SCALE, PORTRAIT_ORIENTATION, LANDSCAPE_ORIENTATION } from "./constants";
 
-const orientation = null,
+const scale = {
+        [PORTRAIT_ORIENTATION]: INITIAL_SCALE,
+        [LANDSCAPE_ORIENTATION]: INITIAL_SCALE,
+      },
       state = {
-        orientation
+        scale
       };
 
 export function getScale() {
-  stateFromPersistentState();
-
   const orientation = getOrientation();
 
   let scale;
@@ -24,8 +26,6 @@ export function getScale() {
 }
 
 export function setScale(scale) {
-  stateFromPersistentState();
-
   const orientation = getOrientation(),
         orientedScale = scale;  ///
 
@@ -34,34 +34,4 @@ export function setScale(scale) {
   Object.assign(scale, {
     [orientation]: orientedScale
   });
-
-  stateToPersistentState();
-}
-
-export function getOrientation() {
-  const { orientation } = state;
-
-  return orientation;
-}
-
-export function setOrientation(orientation) {
-  Object.assign(state, {
-    orientation
-  });
-}
-
-function stateToPersistentState() {
-  const { version, scale } = state,
-        persistentState = {
-          version,
-          scale
-        };
-
-  setPersistentState(persistentState);
-}
-
-function stateFromPersistentState() {
-  const persistentState = getPersistentState();
-
-  Object.assign(state, persistentState);
 }

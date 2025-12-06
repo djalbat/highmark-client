@@ -11,15 +11,11 @@ import View from "./view";
 import loadingDiv from "./view/div/loading";
 import createMethods from "./createMethods";
 
-import { setOrientation } from "./state";
-import { migratePersistentState } from "./localStorage";
-import { getOrientation, onOrientationChange } from "./utilities/orientation";
+import { onOrientationChange } from "./utilities/orientation";
 
 const { renderStyles } = withStyle;
 
 renderStyles();
-
-migratePersistentState();
 
 const scheduler = null,
       model = null,
@@ -33,14 +29,8 @@ const scheduler = null,
 controller.assignMethods(createMethods, scheduler, model, view);
 
 onOrientationChange((orientation) => {
-  setOrientation(orientation);
-
   view.zoom();
 });
-
-const orientation = getOrientation();
-
-setOrientation(orientation);
 
 loadingDiv.hide();
 
