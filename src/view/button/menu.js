@@ -8,14 +8,10 @@ import { menuButtonFill, menuButtonWidth, menuButtonDisabledFill, menuButtonDisa
 
 class MenuButton extends Button {
   didMount() {
-    const { active = false, hidden = false } = this.properties;
+    const { hidden = false } = this.properties;
 
     if (hidden) {
       this.hide();
-    }
-
-    if (active) {
-      this.activate();
     }
 
     this.onClick(this.clickHandler);
@@ -50,8 +46,7 @@ class MenuButton extends Button {
   }
 
   static ignoredProperties = [
-    "hidden",
-    "active"
+    "hidden"
   ];
 
   static defaultProperties = {

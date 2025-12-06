@@ -11,6 +11,7 @@ import View from "./view";
 import loadingDiv from "./view/div/loading";
 import createMethods from "./createMethods";
 
+import { DRAFT_VIEW_MODE } from "./constants";
 import { onOrientationChange } from "./utilities/orientation";
 
 const { renderStyles } = withStyle;
@@ -36,4 +37,8 @@ loadingDiv.hide();
 
 body.mount(view);
 
-view.zoom();
+const { viewMode } = globalThis;
+
+(viewMode === DRAFT_VIEW_MODE) ?
+  view.draftMode() :
+    view.presentationMode();

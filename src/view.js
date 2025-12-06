@@ -18,6 +18,7 @@ import { HREF,
          EMPTY_STRING,
          BLANK_TARGET,
          UP_DIRECTION,
+         INITIAL_SCALE,
          LEFT_DIRECTION,
          DOWN_DIRECTION,
          RIGHT_DIRECTION,
@@ -51,7 +52,7 @@ class View extends Element {
   }
 
   doubleTapCustomHandler = (event, element, top, left) => {
-    const scale = 1;
+    const scale = INITIAL_SCALE;
 
     setScale(scale);
 

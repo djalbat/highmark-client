@@ -41,7 +41,7 @@ class MenuDiv extends Element {
 
       <InvertColoursMenuButton/>,
       <PresentationModeMenuButton/>,
-      <DraftModeMenuButton active />,
+      <DraftModeMenuButton/>,
       <EmbeddedModeMenuButton hidden />,
       <FullScreenModeMenuButton/>
 
