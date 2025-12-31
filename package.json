@@ -1,7 +1,7 @@
 {
   "name": "highmark-client",
   "author": "James Smith",
-  "version": "1.0.192",
+  "version": "1.0.193",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-client",
   "description": "Highmark's bundled client for viewing HTML.",
@@ -12,14 +12,14 @@
   "devDependencies": {
     "@swc/core": "1.13.20",
     "easy": "^24.0.6",
-    "easy-gestures": "^2.0.16",
+    "easy-gestures": "^2.0.18",
     "easy-mobile": "^2.0.4",
     "easy-with-style": "^3.0.534",
     "esbuild": "0.11.14",
     "juxtapose": "^4.0.128",
-    "necessary": "^17.0.3",
+    "necessary": "^17.0.7",
     "occam-styles": "^5.0.405",
-    "sufficient": "^2.0.83",
+    "sufficient": "^2.0.85",
     "watchful-cli": "^1.7.67"
   },
   "scripts": {
