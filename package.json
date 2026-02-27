@@ -1,7 +1,7 @@
 {
   "name": "highmark-client",
   "author": "James Smith",
-  "version": "1.0.210",
+  "version": "1.0.211",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/highmark-client",
   "description": "Highmark's bundled client for viewing HTML.",
@@ -33,5 +33,9 @@
     "watch": "npm run clean && npm run batch && npm run incremental",
     "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
   },
+  "files": [
+    "src",
+    "lib"
+  ],
   "main": "./lib/index.js"
 }
