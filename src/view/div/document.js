@@ -271,17 +271,18 @@ class DocumentDiv extends Element {
 
 export default withStyle(DocumentDiv)`
   
-  width: fit-content;
-  display: flex;
   z-index: 0;
-  flex-shrink: 0;
-  align-items: flex-start;
-  flex-direction: column;
-  
+
   .presentation {
     width: 100%;
     height: 100%;
-    align-items: stretch;
+    display: grid;
+  }
+
+  :not(.presentation) {
+    width: fit-content;
+    height: auto;
+    display: block;
   }
   
   .inverted-colours {
