@@ -35,8 +35,8 @@ class DocumentDiv extends Element {
     this.style(TRANSFORM, transform);
     this.style(TRANSFORM_ORIGIN, transformOrigin);
 
-    let marginRight = width * (scale - 1),
-        marginBottom = height * (scale - 1);
+    let marginRight = Math.max(0, width * (scale - 1)),
+        marginBottom = Math.max(0, height * (scale - 1));
 
     marginRight = `${marginRight}px`;
     marginBottom = `${marginBottom}px`;
